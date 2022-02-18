@@ -11,7 +11,9 @@ public class CharController : MonoBehaviour
     float maxCamDist = 1f;
     public Rigidbody rb;
     bool canJump = false;
-    Vector3 camOffset = new Vector3(-10f, 10f, -10f);
+    public GameObject attack;
+    public GameObject flash;
+    Vector3 camOffset = new Vector3(-15f, 12f, -15f);
 
     Vector3 forward, right;
     // Start is called before the first frame update
@@ -37,7 +39,12 @@ public class CharController : MonoBehaviour
         {
             Move();
         }
-        MoveCamera();
+        if (Input.GetButtonDown("Fire1")) {
+            Attack();
+        }
+        if (moveSpeed != 0) {
+            MoveCamera();
+        }
     }
 
     void Move()
@@ -67,6 +74,12 @@ public class CharController : MonoBehaviour
             canJump = true;
         }
     }
+    
+    void OnTriggerEnter(Collider collider) {
+        if (collider.tag == "Attack") {
+            Spark();
+        }
+    }
 
     void OnCollisionExit(Collision collision) {
         if (collision.collider.tag == "Ground") {
@@ -83,5 +96,14 @@ public class CharController : MonoBehaviour
         float step = (dist / maxCamDist) * camSpeed;
 
         Camera.main.transform.position -= dir.normalized * step * Time.deltaTime;
+    }
+    
+    void Attack() {
+        attack.SetActive(true);
+    }
+
+    void Spark() {
+        flash.SetActive(true);
+        Debug.Log(gameObject.activeSelf);
     }
 }
