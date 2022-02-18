@@ -11,12 +11,14 @@ public class PickUpDown : MonoBehaviour
     {
         if (isPickedUp && ((fromP1 && p1) || !(fromP1 || p1))) {
             GetComponent<Rigidbody>().isKinematic = false;
+            GetComponent<Rigidbody>().detectCollisions = true;
             this.transform.parent = null;
             isPickedUp = false;
         }
         else if (!isPickedUp) {
             p1 = fromP1;
             GetComponent<Rigidbody>().isKinematic = true;
+            GetComponent<Rigidbody>().detectCollisions = false;
             this.transform.position = GameObject.Find(dest).transform.position;
             this.transform.parent = GameObject.Find(dest).transform;
             isPickedUp = true;

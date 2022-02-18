@@ -6,7 +6,7 @@ public class LightUp : MonoBehaviour
 {
     public Material M1;
     public Material M2;
-    bool isLitUp = false;
+    public bool isLitUp = false;
     void OnTriggerEnter(Collider collider) {
         if (collider.tag == "Attack") {
             if (isLitUp) {
@@ -18,5 +18,6 @@ public class LightUp : MonoBehaviour
                 isLitUp = true;
             }
         }
+        Debug.LogFormat("is lit up: {0}", isLitUp);
     }
 }
