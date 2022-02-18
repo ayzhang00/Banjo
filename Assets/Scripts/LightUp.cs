@@ -18,6 +18,5 @@ public class LightUp : MonoBehaviour
                 isLitUp = true;
             }
         }
-        Debug.LogFormat("is lit up: {0}", isLitUp);
     }
 }

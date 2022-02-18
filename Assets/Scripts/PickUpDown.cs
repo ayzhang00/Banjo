@@ -9,6 +9,7 @@ public class PickUpDown : MonoBehaviour
     bool p1 = false;
     void PickUp(string dest, bool fromP1)
     {
+        // can only drop if holding
         if (isPickedUp && ((fromP1 && p1) || !(fromP1 || p1))) {
             GetComponent<Rigidbody>().isKinematic = false;
             GetComponent<Rigidbody>().detectCollisions = true;
