@@ -13,6 +13,9 @@ public class CharController : MonoBehaviour
     bool canJump = false;
     public GameObject attack;
     public GameObject flash;
+    public GameObject deathEffect;
+    public float health = 5f;
+    bool playing = true;
     Vector3 camOffset = new Vector3(-15f, 12f, -15f);
 
     Vector3 forward, right;
@@ -32,18 +35,20 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Jump")) {
-            Jump();
-        }
-        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
-        {
-            Move();
-        }
-        if (Input.GetButtonDown("Fire1")) {
-            Attack();
-        }
-        if (moveSpeed != 0) {
-            MoveCamera();
+        if (playing) {
+            if (Input.GetButtonDown("Jump")) {
+                Jump();
+            }
+            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+            {
+                Move();
+            }
+            if (Input.GetButtonDown("Fire1")) {
+                Attack();
+            }
+            if (moveSpeed != 0) {
+                MoveCamera();
+            }
         }
     }
 
@@ -78,6 +83,10 @@ public class CharController : MonoBehaviour
     void OnTriggerEnter(Collider collider) {
         if (collider.tag == "Attack") {
             Spark();
+            health--;
+            if (health <= 0) {
+                StartCoroutine(Death());
+            }
         }
     }
 
@@ -104,6 +113,13 @@ public class CharController : MonoBehaviour
 
     void Spark() {
         flash.SetActive(true);
-        Debug.Log(gameObject.activeSelf);
+    }
+
+    IEnumerator Death() {
+        playing = false;
+        deathEffect.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        // gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }
