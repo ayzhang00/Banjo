@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharController : MonoBehaviour
+public class CharController2 : MonoBehaviour
 {
     [SerializeField]
     float moveSpeed = 6f;
@@ -36,14 +36,14 @@ public class CharController : MonoBehaviour
     void Update()
     {
         if (playing) {
-            if (Input.GetButtonDown("Jump")) {
+            if (Input.GetButtonDown("Jump2")) {
                 Jump();
             }
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
             {
                 Move();
             }
-            if (Input.GetButtonDown("FirePlayer1")) {
+            if (Input.GetButtonDown("FirePlayer2")) {
                 Attack();
             }
             if (moveSpeed != 0) {
@@ -55,7 +55,7 @@ public class CharController : MonoBehaviour
     void Move()
     {
         //Was previously only normalizing the forward transform and not the actual movement
-        Vector3 direction = Vector3.Normalize(new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey")));
+        Vector3 direction = Vector3.Normalize(new Vector3(Input.GetAxis("HorizontalKey2"), 0, Input.GetAxis("VerticalKey2")));
         Vector3 rightMovement = right * moveSpeed * Time.deltaTime * direction.x;
         Vector3 upMovement = forward * moveSpeed * Time.deltaTime * direction.z;
         // Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxis("HorizontalKey");
