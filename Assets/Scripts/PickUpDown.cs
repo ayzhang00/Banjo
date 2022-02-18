@@ -4,21 +4,32 @@ using UnityEngine;
 
 public class PickUpDown : MonoBehaviour
 {
-    public Transform dest;
+    // public Transform dest;
     bool isPickedUp = false;
-    void OnMouseDown()
+    bool p1 = false;
+    void PickUp(string dest, bool fromP1)
     {
-        if (isPickedUp) {
-            GetComponent<Rigidbody>().useGravity = true;
+        if (isPickedUp && ((fromP1 && p1) || !(fromP1 || p1))) {
+            GetComponent<Rigidbody>().isKinematic = false;
             this.transform.parent = null;
             isPickedUp = false;
         }
-        else {
-            GetComponent<Rigidbody>().useGravity = false;
-            this.transform.position = dest.position;
-            this.transform.parent = GameObject.Find("Destination").transform;
+        else if (!isPickedUp) {
+            p1 = fromP1;
+            GetComponent<Rigidbody>().isKinematic = true;
+            this.transform.position = GameObject.Find(dest).transform.position;
+            this.transform.parent = GameObject.Find(dest).transform;
             isPickedUp = true;
         }
         
+    }
+    void Update() 
+    {
+        if (Input.GetButtonDown("PickUp1")) {
+            PickUp("Destination1", true);
+        }
+        else if (Input.GetButtonDown("PickUp2")) {
+            PickUp("Destination2", false);
+        }
     }
 }
