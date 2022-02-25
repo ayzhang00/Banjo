@@ -15,13 +15,30 @@ public class CharController : MonoBehaviour
     public GameObject flash;
     public GameObject deathEffect;
     public float health = 5f;
+    public bool isPlayer1 = true;
     bool playing = true;
     Vector3 camOffset = new Vector3(-15f, 12f, -15f);
+
+    string attack_btn;
+    string vertical;
+    string horizontal;
+    string jump;
 
     Vector3 forward, right;
     // Start is called before the first frame update
     void Start()
     {
+        if (isPlayer1) {
+            attack_btn = "FirePlayer1";
+            horizontal = "HorizontalKey";
+            vertical = "VerticalKey";
+            jump = "Jump";
+        } else {
+            attack_btn = "FirePlayer2";
+            horizontal = "HorizontalKey2";
+            vertical = "VerticalKey2";
+            jump = "Jump2";
+        }
         //Changed this because the camera's forward is pointing slightly down
         // forward = Camera.main.transform.forward;
         // forward.y = 0f;
@@ -35,31 +52,26 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playing) {
-            if (Input.GetButtonDown("Jump")) {
-                Jump();
-            }
-            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
-            {
-                Move();
-            }
-            if (Input.GetButtonDown("FirePlayer1")) {
-                Attack();
-            }
-            if (moveSpeed != 0) {
-                MoveCamera();
-            }
+        if (Input.GetButtonDown(jump)) {
+            Jump();
+        }
+        if (Input.GetAxisRaw(horizontal) != 0 || Input.GetAxisRaw(vertical) != 0)
+        {
+            Move();
+        }
+        if (Input.GetButtonDown(attack_btn)) {
+            Attack();
+        }
+        if (moveSpeed != 0) {
+            MoveCamera();
         }
     }
 
     void Move()
     {
-        //Was previously only normalizing the forward transform and not the actual movement
-        Vector3 direction = Vector3.Normalize(new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey")));
+        Vector3 direction = Vector3.Normalize(new Vector3(Input.GetAxis(horizontal), 0, Input.GetAxis(vertical)));
         Vector3 rightMovement = right * moveSpeed * Time.deltaTime * direction.x;
         Vector3 upMovement = forward * moveSpeed * Time.deltaTime * direction.z;
-        // Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxis("HorizontalKey");
-        // Vector3 upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxis("VerticalKey");
 
         // movement heading
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
