@@ -16,7 +16,7 @@ public class CharController : MonoBehaviour
     public GameObject deathEffect;
     public float health = 5f;
     public bool isPlayer1 = true;
-    bool playing = true;
+    bool iframes;
     Vector3 camOffset = new Vector3(-15f, 12f, -15f);
 
     string attack_btn;
@@ -93,12 +93,13 @@ public class CharController : MonoBehaviour
     }
     
     void OnTriggerEnter(Collider collider) {
-        if (collider.tag == "Attack") {
+        if (collider.tag == "Attack" && !iframes) {
             Spark();
             health--;
             if (health <= 0) {
                 StartCoroutine(Death());
             }
+            StartCoroutine(InvincibilityFrames());
         }
     }
 
@@ -128,10 +129,15 @@ public class CharController : MonoBehaviour
     }
 
     IEnumerator Death() {
-        playing = false;
         deathEffect.SetActive(true);
         yield return new WaitForSeconds(1f);
         // gameObject.SetActive(false);
         Destroy(gameObject);
+    }
+
+    IEnumerator InvincibilityFrames() {
+        iframes = true;
+        yield return new WaitForSeconds(0.25f);
+        iframes = false;
     }
 }
