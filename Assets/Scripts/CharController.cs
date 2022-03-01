@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class CharController : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class CharController : MonoBehaviour
     Vector3 camOffset = new Vector3(-15f, 12f, -15f);
 
     Vector3 forward, right;
+
+    PhotonView view;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,12 +33,14 @@ public class CharController : MonoBehaviour
         forward = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.forward;
         right = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.right;
         Camera.main.transform.position = transform.position + camOffset;
+
+        view = GetComponent<PhotonView>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playing) {
+        if (playing && view.IsMine) {
             if (Input.GetButtonDown("Jump")) {
                 Jump();
             }
