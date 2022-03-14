@@ -31,8 +31,5 @@ public class PickUpDown : MonoBehaviour
         if (Input.GetButtonDown("PickUp1")) {
             PickUp("Destination1", true);
         }
-        else if (Input.GetButtonDown("PickUp2")) {
-            PickUp("Destination2", false);
-        }
     }
 }
