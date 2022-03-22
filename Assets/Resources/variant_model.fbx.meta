@@ -2,7 +2,16 @@ fileFormatVersion: 2
 guid: 8dc31ca898b68e046b55cbd17d864c3b
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -3013675094287250903
+    second: Robo_Armature|attack
+  - first:
+      74: -8917078088929075202
+    second: Robo_Armature|solder
+  - first:
+      74: -6620145196300283009
+    second: Robo_Armature|walk
   externalObjects: {}
   materials:
     materialImportMode: 2
