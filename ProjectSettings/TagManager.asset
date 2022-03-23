@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - Light
   - Attack
+  - Bullet
+  - EnemyView
   layers:
   - Default
   - TransparentFX

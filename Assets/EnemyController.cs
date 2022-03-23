@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class CharController : MonoBehaviourPun
+public class EnemyController : MonoBehaviourPun
 {
     [SerializeField]
-    float moveSpeed = 6f;
+    float moveSpeed = 5f;
     float jumpSpeed = 10f;
-    float camSpeed = 3f;
-    float maxCamDist = 1f;
-    public Rigidbody rb;
     bool canJump = false;
+    public Rigidbody rb;
     public GameObject attack;
     public GameObject flash;
     public GameObject deathEffect;
     public float health = 5f;
     bool playing = true;
+    float attackInterval = 0.7f;
+    bool canAttack = true;
+    public GameObject player;
     Vector3 camOffset = new Vector3(-15f, 12f, -15f);
 
     Vector3 forward, right;
@@ -40,26 +41,25 @@ public class CharController : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        // if (playing && pv.IsMine) {
-        if (playing) {
-            if (Input.GetButtonDown("Jump")) Jump();
-            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) Move();
-            if (Input.GetButtonDown("Fire")) Attack();
-            if (moveSpeed != 0) MoveCamera();
+        if (playing && pv.IsMine) {
+            Move();
         }
     }
 
     void Move()
     {
-        Vector3 direction = Vector3.Normalize(new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey")));
-        Vector3 rightMovement = right * moveSpeed * Time.deltaTime * direction.x;
-        Vector3 upMovement = forward * moveSpeed * Time.deltaTime * direction.z;
-
-        // movement heading
-        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
-        transform.forward = heading;
-        transform.position += rightMovement;
-        transform.position += upMovement;
+        if (player) {
+            Vector3 dir = player.transform.position - transform.position;
+            Vector3 heading = Vector3.Normalize(dir);
+            transform.forward = heading;
+            transform.position += heading * moveSpeed * Time.deltaTime;
+            
+            if (dir.magnitude < 5 && canAttack) {
+                Attack();
+                canAttack = false;
+                StartCoroutine(AttackOnInterval());
+            }
+        }
     }
 
     void Jump() {
@@ -73,6 +73,12 @@ public class CharController : MonoBehaviourPun
             canJump = true;
         }
     }
+
+    void OnCollisionExit(Collision collision) {
+        if (collision.collider.tag == "Ground") {
+            canJump = false;
+        }
+    }
     
     void OnTriggerEnter(Collider collider) {
         if (collider.tag == "Attack") {
@@ -84,29 +90,18 @@ public class CharController : MonoBehaviourPun
         }
     }
 
-    void OnCollisionExit(Collision collision) {
-        if (collision.collider.tag == "Ground") {
-            canJump = false;
-        }
-    }
 
-    void MoveCamera() {
-        Vector3 start = Camera.main.transform.position;
-        Vector3 dest = transform.position + camOffset;
-        Vector3 dir = start - dest;
-
-        float dist = dir.magnitude;
-        float step = (dist / maxCamDist) * camSpeed;
-
-        Camera.main.transform.position -= dir.normalized * step * Time.deltaTime;
-    }
-    
     void Attack() {
         pv.RPC("SwitchActiveObject", RpcTarget.All, "Attack", true);
     }
 
     void Spark() {
         pv.RPC("SwitchActiveObject", RpcTarget.All, "Flash", true);
+    }
+
+    IEnumerator AttackOnInterval() {
+        yield return new WaitForSeconds(0.7f);
+        canAttack = true;
     }
 
     IEnumerator Death() {
