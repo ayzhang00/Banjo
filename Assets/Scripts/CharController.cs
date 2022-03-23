@@ -40,8 +40,7 @@ public class CharController : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        // if (playing && pv.IsMine) {
-        if (playing) {
+        if (playing && pv.IsMine) {
             if (Input.GetButtonDown("Jump")) Jump();
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) Move();
             if (Input.GetButtonDown("Fire")) Attack();

@@ -5442,24 +5442,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-6907314694898098044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5788595955779866459}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b1ca259c7d15b64cae6a5b6b8c49021, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 6
-  rb: {fileID: -623381354787633397}
-  attack: {fileID: 912274062}
-  flash: {fileID: 1968527233389298404}
-  deathEffect: {fileID: 4926003118170905407}
-  health: 5
 --- !u!114 &-3982297318914402057
 MonoBehaviour:
   m_ObjectHideFlags: 0
