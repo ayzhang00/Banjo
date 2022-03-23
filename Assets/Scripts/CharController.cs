@@ -67,7 +67,7 @@ public class CharController : MonoBehaviourPun
         }
     }
 
-    void OnCollisionEnter(Collision collision) {
+    void OnCollisionStay(Collision collision) {
         if (collision.collider.tag == "Ground") {
             canJump = true;
         }
