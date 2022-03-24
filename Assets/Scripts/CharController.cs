@@ -7,7 +7,7 @@ public class CharController : MonoBehaviourPun
 {
     [SerializeField]
     float moveSpeed = 6f;
-    float jumpSpeed = 10f;
+    float jumpSpeed = 4f;
     float camSpeed = 3f;
     float maxCamDist = 1f;
     public Rigidbody rb;
@@ -78,6 +78,7 @@ public class CharController : MonoBehaviourPun
     }
 
     void OnCollisionEnter(Collision collision) {
+        Debug.Log("Here");
         if (collision.collider.tag == "Ground") {
             canJump = true;
         }

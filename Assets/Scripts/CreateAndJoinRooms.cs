@@ -11,7 +11,10 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     public void CreateRoom()
     {
-        PhotonNetwork.CreateRoom(createInput.text);
+        if (createInput.text.Length >= 1) {
+            PhotonNetwork.CreateRoom(createInput.text, new Photon.Realtime.RoomOptions(){MaxPlayers = 3});
+        }
+        
     }
 
     public void JoinRoom()

@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Main.unity
     guid: 29425faae36ffba4f80043073d653433
   - enabled: 1
-    path: Assets/Scenes/Lobby.unity
+    path: Assets/Scenes/CreateJoin.unity
     guid: 1d600a073e3bca342ac84a1da329f209
   - enabled: 1
     path: Assets/Scenes/Loading.unity
