@@ -14,9 +14,11 @@ public class CharController : MonoBehaviourPun
     bool canJump = false;
     public GameObject attack;
     public GameObject flash;
+    public GameObject solder;
     public GameObject deathEffect;
     public float health = 5f;
     bool playing = true;
+    public  bool canSolder = false;
     Vector3 camOffset = new Vector3(-15f, 12f, -15f);
 
     Vector3 forward, right;
@@ -44,6 +46,8 @@ public class CharController : MonoBehaviourPun
             if (Input.GetButtonDown("Jump")) Jump();
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) Move();
             if (Input.GetButtonDown("Fire")) Attack();
+            if (Input.GetButtonDown("Fire2") && canSolder) Solder(true);
+            if (Input.GetButtonUp("Fire2")) Solder(false);
             if (moveSpeed != 0) MoveCamera();
         }
     }
@@ -99,6 +103,10 @@ public class CharController : MonoBehaviourPun
 
         Camera.main.transform.position -= dir.normalized * step * Time.deltaTime;
     }
+
+    void Solder(bool isActive) {
+        pv.RPC("SwitchActiveObject", RpcTarget.All, "Solder", isActive);
+    }
     
     void Attack() {
         pv.RPC("SwitchActiveObject", RpcTarget.All, "Attack", true);
@@ -125,6 +133,9 @@ public class CharController : MonoBehaviourPun
         }
         else if (obj == "Flash") {
             flash.SetActive(isActive);
+        }
+        else if (obj == "Solder") {
+            solder.SetActive(isActive);
         }
     }
 }

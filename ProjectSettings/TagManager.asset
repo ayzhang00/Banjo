@@ -9,6 +9,7 @@ TagManager:
   - Attack
   - Bullet
   - EnemyView
+  - Switch
   layers:
   - Default
   - TransparentFX
