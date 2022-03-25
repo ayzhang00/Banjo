@@ -6,6 +6,7 @@ public class SpawnPlayers : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject playerPrefab;
+    public GameObject creatorPrefab;
     public GameObject lobbyRoom;
     public GameObject mainRoom;
     public GameObject cameraIso;
@@ -26,5 +27,6 @@ public class SpawnPlayers : MonoBehaviour
         mainRoom.SetActive(true);
         cameraIso.SetActive(false);
         cameraTop.SetActive(true);
+        PhotonNetwork.Instantiate(creatorPrefab.name, new Vector3(0f, 0f, 0f), Quaternion.identity);
     }
 }
