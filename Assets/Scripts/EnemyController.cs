@@ -40,7 +40,7 @@ public class EnemyController : MonoBehaviourPun
     void Update()
     {
         if (playing && pv.IsMine) {
-            // Move();
+            Move();
         }
     }
 
@@ -48,7 +48,7 @@ public class EnemyController : MonoBehaviourPun
     {
         if (player) {
             Vector3 dir = player.transform.position - transform.position;
-            Vector3 heading = -1*Vector3.Normalize(dir);
+            Vector3 heading = Vector3.Normalize(dir);
             transform.forward = heading;
             transform.position += heading * moveSpeed * Time.deltaTime;
             

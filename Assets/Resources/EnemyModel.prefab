@@ -600,7 +600,7 @@ MonoBehaviour:
   flash: {fileID: 1177148631708498451}
   deathEffect: {fileID: 5718202479913690056}
   health: 5
-  player: {fileID: 2273336230252223792, guid: bbbe82dc130427c49b8a988e5cb12efb, type: 3}
+  player: {fileID: 155533117428757206, guid: 6426f2786f41811449e93158fd6b9950, type: 3}
 --- !u!1 &3994401722413776064
 GameObject:
   m_ObjectHideFlags: 0
