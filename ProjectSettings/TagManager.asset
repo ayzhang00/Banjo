@@ -12,6 +12,7 @@ TagManager:
   - Switch
   - Creator
   - SolderArea
+  - Wire
   layers:
   - Default
   - TransparentFX
