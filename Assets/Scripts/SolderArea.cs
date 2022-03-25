@@ -12,8 +12,8 @@ public class SolderArea : MonoBehaviour
         c = GetComponentInParent<CharController>(); 
     }
 
-    // private void OnTriggerStay(Collider other) {
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerStay(Collider other) {
+    // private void OnTriggerEnter(Collider other) {
         if (other.tag == "Switch") {
             c.canSolder = true;
         }

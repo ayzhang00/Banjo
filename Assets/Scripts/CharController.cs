@@ -19,7 +19,11 @@ public class CharController : MonoBehaviourPun
     public float health = 5f;
     public bool isMoving = false;
     bool playing = true;
-    public  bool canSolder = false;
+    public bool canSolder = false;
+    bool isSoldering = false;
+    public float timeToCompleteSolder = 2f;
+    float timeSoldered = 0f;
+    public bool solderComplete;
     Vector3 camOffset = new Vector3(-15f, 12f, -15f);
 
     Vector3 forward, right;
@@ -53,9 +57,16 @@ public class CharController : MonoBehaviourPun
                 isMoving = false;
             }
             if (Input.GetButtonDown("Fire")) Attack();
+            //I mapped Fire2 to q, but default is rmb and left alt
             if (Input.GetButtonDown("Fire2") && canSolder) Solder(true);
             if (Input.GetButtonUp("Fire2")) Solder(false);
             if (moveSpeed != 0) MoveCamera();
+            if (isSoldering) {
+                timeSoldered += Time.deltaTime;
+                if (timeSoldered >= timeToCompleteSolder) {
+                    solderComplete = true;
+                }
+            }
         }
     }
 
@@ -143,6 +154,11 @@ public class CharController : MonoBehaviourPun
         }
         else if (obj == "Solder") {
             solder.SetActive(isActive);
+            isSoldering = isActive;
+            if (!isActive) {
+                timeSoldered = 0f;
+                solderComplete = false;
+            }
         }
     }
 }

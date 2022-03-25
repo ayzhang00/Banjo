@@ -10394,7 +10394,10 @@ MonoBehaviour:
   solder: {fileID: 5889378574349691310}
   deathEffect: {fileID: 4926003118170905407}
   health: 5
+  isMoving: 0
   canSolder: 0
+  timeToCompleteSolder: 2
+  solderComplete: 0
 --- !u!114 &-3982297318914402057
 MonoBehaviour:
   m_ObjectHideFlags: 0
