@@ -16,6 +16,7 @@ public class CharController : MonoBehaviourPun
     public GameObject flash;
     public GameObject deathEffect;
     public float health = 5f;
+    public bool isMoving = false;
     bool playing = true;
     Vector3 camOffset = new Vector3(-15f, 12f, -15f);
 
@@ -40,12 +41,14 @@ public class CharController : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
+        isMoving = false;
         if (playing && pv.IsMine) {
             if (Input.GetButtonDown("Jump")) {
                 Jump();
             }
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
             {
+                isMoving = true;
                 Move();
             }
             if (Input.GetButtonDown("Fire")) {

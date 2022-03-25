@@ -18,7 +18,6 @@ public class EnemyController : MonoBehaviourPun
     float attackInterval = 0.7f;
     bool canAttack = true;
     public GameObject player;
-    Vector3 camOffset = new Vector3(-15f, 12f, -15f);
 
     Vector3 forward, right;
 
@@ -33,7 +32,6 @@ public class EnemyController : MonoBehaviourPun
         // forward = Vector3.Normalize(forward);
         forward = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.forward;
         right = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.right;
-        Camera.main.transform.position = transform.position + camOffset;
 
         pv = GetComponent<PhotonView>();
     }
@@ -42,7 +40,7 @@ public class EnemyController : MonoBehaviourPun
     void Update()
     {
         if (playing && pv.IsMine) {
-            Move();
+            // Move();
         }
     }
 
@@ -50,7 +48,7 @@ public class EnemyController : MonoBehaviourPun
     {
         if (player) {
             Vector3 dir = player.transform.position - transform.position;
-            Vector3 heading = Vector3.Normalize(dir);
+            Vector3 heading = -1*Vector3.Normalize(dir);
             transform.forward = heading;
             transform.position += heading * moveSpeed * Time.deltaTime;
             

@@ -110,6 +110,8 @@ GameObject:
   - component: {fileID: 1391025765721088101}
   - component: {fileID: 1391025765721088123}
   - component: {fileID: 1391025765721088120}
+  - component: {fileID: 1270885198}
+  - component: {fileID: 1270885199}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -198,6 +200,7 @@ MonoBehaviour:
   flash: {fileID: 4078619589139432233}
   deathEffect: {fileID: 7464463779255425778}
   health: 5
+  isMoving: 0
 --- !u!114 &1391025765721088123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,6 +257,37 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!95 &1270885198
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2273336230252223792}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b4ac66e9e2923e84b81ddc1fbb0cccd4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1270885199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2273336230252223792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473514b7294388440b78ecb51c8b6bdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2378834773636252599
 GameObject:
   m_ObjectHideFlags: 0
