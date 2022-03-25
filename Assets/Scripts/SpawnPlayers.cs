@@ -11,22 +11,52 @@ public class SpawnPlayers : MonoBehaviour
     public GameObject mainRoom;
     public GameObject cameraIso;
     public GameObject cameraTop;
-    public float x;
-    public float y;
-    public float z;
+    public GameObject errorMsg;
+    public GameObject errorButton;
+
+    private int playerCount;
+    private int creatorCount;
+
+    private Vector3 player1 =  new Vector3(39f, 6f, 40f);
+    private Vector3 player2 =  new Vector3(-35f, 6f, 40f);
+    private Vector3 player3 =  new Vector3(43f, 6f, -9f);
+
+    void Start() {
+        playerCount = 0;
+        creatorCount = 0;
+    }
 
     public void CreatePlayer() {
         lobbyRoom.SetActive(false);
         mainRoom.SetActive(true);
-        Vector3 pos = new Vector3(x, y, z);
-        PhotonNetwork.Instantiate(playerPrefab.name, pos, Quaternion.identity);
+        if (playerCount == 0) {
+            PhotonNetwork.Instantiate(playerPrefab.name, player1, Quaternion.identity);
+        }
+        else if (playerCount == 1) {
+            PhotonNetwork.Instantiate(playerPrefab.name, player2, Quaternion.identity);
+        }
+        else {
+            PhotonNetwork.Instantiate(playerPrefab.name, player3, Quaternion.identity);
+        }
+        playerCount++;
     }
 
     public void CreateCreator() {
-        lobbyRoom.SetActive(false);
-        mainRoom.SetActive(true);
-        cameraIso.SetActive(false);
-        cameraTop.SetActive(true);
-        PhotonNetwork.Instantiate(creatorPrefab.name, new Vector3(0f, 0f, 0f), Quaternion.identity);
+        if (creatorCount == 0) {
+            lobbyRoom.SetActive(false);
+            mainRoom.SetActive(true);
+            cameraIso.SetActive(false);
+            cameraTop.SetActive(true);
+            PhotonNetwork.Instantiate(creatorPrefab.name, new Vector3(0f, 0f, 0f), Quaternion.identity);
+            creatorCount++;
+        }
+        else{
+            errorMsg.SetActive(true);
+            errorButton.SetActive(true);
+        }
+    }
+    public void ClearError(){
+        errorMsg.SetActive(false);
+        errorButton.SetActive(false);
     }
 }
