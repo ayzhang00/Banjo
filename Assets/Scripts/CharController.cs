@@ -14,10 +14,12 @@ public class CharController : MonoBehaviourPun
     bool canJump = false;
     public GameObject attack;
     public GameObject flash;
+    public GameObject solder;
     public GameObject deathEffect;
     public float health = 5f;
     public bool isMoving = false;
     bool playing = true;
+    public  bool canSolder = false;
     Vector3 camOffset = new Vector3(-15f, 12f, -15f);
 
     Vector3 forward, right;
@@ -43,26 +45,17 @@ public class CharController : MonoBehaviourPun
     {
         isMoving = false;
         if (playing && pv.IsMine) {
-            if (Input.GetButtonDown("Jump")) {
-                Jump();
-            }
-            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
-            {
-                isMoving = true;
-                Move();
-            }
-            if (Input.GetButtonDown("Fire")) {
-                Attack();
-            }
-            if (moveSpeed != 0) {
-                MoveCamera();
-            }
+            if (Input.GetButtonDown("Jump")) Jump();
+            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) Move();
+            if (Input.GetButtonDown("Fire")) Attack();
+            if (Input.GetButtonDown("Fire2") && canSolder) Solder(true);
+            if (Input.GetButtonUp("Fire2")) Solder(false);
+            if (moveSpeed != 0) MoveCamera();
         }
     }
 
     void Move()
     {
-        //Was previously only normalizing the forward transform and not the actual movement
         Vector3 direction = Vector3.Normalize(new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey")));
         Vector3 rightMovement = right * moveSpeed * Time.deltaTime * direction.x;
         Vector3 upMovement = forward * moveSpeed * Time.deltaTime * direction.z;
@@ -80,8 +73,7 @@ public class CharController : MonoBehaviourPun
         }
     }
 
-    void OnCollisionEnter(Collision collision) {
-        Debug.Log("Here");
+    void OnCollisionStay(Collision collision) {
         if (collision.collider.tag == "Ground") {
             canJump = true;
         }
@@ -113,6 +105,10 @@ public class CharController : MonoBehaviourPun
 
         Camera.main.transform.position -= dir.normalized * step * Time.deltaTime;
     }
+
+    void Solder(bool isActive) {
+        pv.RPC("SwitchActiveObject", RpcTarget.All, "Solder", isActive);
+    }
     
     void Attack() {
         pv.RPC("SwitchActiveObject", RpcTarget.All, "Attack", true);
@@ -139,6 +135,9 @@ public class CharController : MonoBehaviourPun
         }
         else if (obj == "Flash") {
             flash.SetActive(isActive);
+        }
+        else if (obj == "Solder") {
+            solder.SetActive(isActive);
         }
     }
 }
