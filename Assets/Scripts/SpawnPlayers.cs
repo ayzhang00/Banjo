@@ -21,8 +21,8 @@ public class SpawnPlayers : MonoBehaviour
     // public GameObject errorMsg;
     // public GameObject errorButton;
 
-    private int playerCount = 0;
-    private int creatorCount = 0;
+    public int playerCount = 0;
+    public int creatorCount = 0;
 
     private Vector3 player1 =  new Vector3(39f, 6f, 40f);
     private Vector3 player2 =  new Vector3(-35f, 6f, 40f);
@@ -40,12 +40,13 @@ public class SpawnPlayers : MonoBehaviour
         //If there is no creator, that means this is the first person in the lobby, so make them the creator
         // GameObject creator = GameObject.Find("Creator(Clone)");
         // if (creators == null) {
-        creators = GameObject.FindGameObjectsWithTag("Creator");
+        // creators = GameObject.FindGameObjectsWithTag("Creator");
+        // creators = PhotonView.Find("Creator");
         // }
-        Debug.Log(creators);
-        foreach (GameObject creator in creators) {
-            creatorCount++;
-        }
+        // Debug.Log(creators);
+        // foreach (GameObject creator in creators) {
+        //     creatorCount++;
+        // }
         if (creatorCount == 0) {
             CreateCreator();
             // topcam.enabled = true;
@@ -55,11 +56,11 @@ public class SpawnPlayers : MonoBehaviour
         } else {
             //Get number of players
             // if (players == null) {
-            players = GameObject.FindGameObjectsWithTag("Player");
+            // players = PhotonView.Find("Player");
             // }
-            foreach (GameObject player in players) {
-                playerCount++;
-            }
+            // foreach (GameObject player in players) {
+            //     playerCount++;
+            // }
             CreatePlayer();
             // topcam.enabled = false;
             // isocam.enabled = true;
@@ -86,18 +87,18 @@ public class SpawnPlayers : MonoBehaviour
         else {
             PhotonNetwork.Instantiate(playerPrefab.name, player3, Quaternion.identity);
         }
-        // playerCount++;
+        playerCount++;
     }
 
     public void CreateCreator() {
-        if (creatorCount == 0) {
+        // if (creatorCount == 0) {
             // lobbyRoom.SetActive(false);
             // mainRoom.SetActive(true);
             // cameraIso.SetActive(false);
             // cameraTop.SetActive(true);
             PhotonNetwork.Instantiate(creatorPrefab.name, new Vector3(0f, 0f, 0f), Quaternion.identity);
             creatorCount++;
-        }
+        // }
         // else{
         //     errorMsg.SetActive(true);
         //     errorButton.SetActive(true);

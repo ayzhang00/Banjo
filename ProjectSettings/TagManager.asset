@@ -10,6 +10,7 @@ TagManager:
   - Bullet
   - EnemyView
   - Switch
+  - Creator
   layers:
   - Default
   - TransparentFX
