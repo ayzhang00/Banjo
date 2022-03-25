@@ -12,11 +12,13 @@ public class SpawnObjectAtClick : MonoBehaviour
     void Start()
     {
         pv = GetComponent<PhotonView>();
+        cam = GameObject.Find("TopCamera").GetComponent<Camera>();
     }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && pv.IsMine) {
+        // if (Input.GetMouseButtonDown(0) && pv.IsMine) {
+        if (Input.GetMouseButtonDown(0)) {
             RaycastHit hit;
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             

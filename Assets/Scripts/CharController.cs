@@ -43,10 +43,15 @@ public class CharController : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        isMoving = false;
+        // isMoving = false;
         if (playing && pv.IsMine) {
             if (Input.GetButtonDown("Jump")) Jump();
-            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) Move();
+            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
+                isMoving = true;
+                Move();
+            } else {
+                isMoving = false;
+            }
             if (Input.GetButtonDown("Fire")) Attack();
             if (Input.GetButtonDown("Fire2") && canSolder) Solder(true);
             if (Input.GetButtonUp("Fire2")) Solder(false);
