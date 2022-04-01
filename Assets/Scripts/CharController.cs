@@ -41,7 +41,7 @@ public class CharController : MonoBehaviourPun
         right = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.right;
         Camera.main.transform.position = transform.position + camOffset;
 
-        pv = GetComponent<PhotonView>();
+        pv = gameObject.GetComponent<PhotonView>();
     }
 
     // Update is called once per frame

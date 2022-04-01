@@ -8,6 +8,8 @@ public class SpawnObjectAtClick : MonoBehaviour
     public GameObject objectToSpawn;
     public Camera cam;
     PhotonView pv; 
+    public int maxSpawned = 5;
+    int spawned = 0;
 
     void Start()
     {
@@ -17,8 +19,9 @@ public class SpawnObjectAtClick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        spawned = GameObject.FindGameObjectsWithTag("Enemy").Length;
         // if (Input.GetMouseButtonDown(0) && pv.IsMine) {
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0) && spawned < maxSpawned) {
             RaycastHit hit;
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             
@@ -28,6 +31,7 @@ public class SpawnObjectAtClick : MonoBehaviour
                 if (objectHit.tag == "Ground") {
                     // Instantiate(objectToSpawn, hit.point, Quaternion.identity);
                     PhotonNetwork.Instantiate(objectToSpawn.name, hit.point, Quaternion.identity, 0);
+                    spawned++;
                     // PhotonNetwork.Instantiate("Chest", new Vector3(24f, 2f, 20f), Quaternion.identity, 0);
                 }
             }
