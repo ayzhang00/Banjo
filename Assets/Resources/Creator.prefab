@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e18e6b2b790a444a223a724cd9cc3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 3981388607175582730, guid: 09cc1a07851ddbb4dbc365744c0dc1d2, type: 3}
+  objectToSpawn: {fileID: 1156942509271025372, guid: 5173488ae9fedc64dbe1efe5651c9c06, type: 3}
   cam: {fileID: 3101252572447338111, guid: 68eb84d742e66bd41a476e191b3115a7, type: 3}
 --- !u!114 &-2829903042729702864
 MonoBehaviour:

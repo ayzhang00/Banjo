@@ -8,13 +8,10 @@ public class SpawnPlayers : MonoBehaviour
     // Start is called before the first frame update
     public GameObject playerPrefab;
     public GameObject creatorPrefab;
-    GameObject cams;
     // Camera topcam;
     // Camera isocam;
-    GameObject topcam;
-    GameObject isocam;
-    GameObject[] players;
-    GameObject[] creators;
+    // GameObject[] players;
+    // GameObject[] creators;
     public GameObject lobbyRoom;
     public GameObject mainRoom;
     public GameObject cameraIso;
@@ -29,11 +26,11 @@ public class SpawnPlayers : MonoBehaviour
     private Vector3 player2 =  new Vector3(-35f, 6f, 40f);
     private Vector3 player3 =  new Vector3(43f, 6f, -9f);
 
-    void Start() {
-        // cams = GameObject.Find("CameraTarget");
-        // topcam = cams.transform.Find("TopCamera").gameObject;
-        // isocam = cams.transform.Find("Camera").gameObject;
+    int readyCount = 0;
 
+    PhotonView pv;
+
+    void Start() {
         // //If there is no creator, that means this is the first person in the lobby, so make them the creator
         // if (PhotonNetwork.PlayerList.Length == 1) {
         //     CreateCreator();
@@ -57,6 +54,14 @@ public class SpawnPlayers : MonoBehaviour
         mainRoom.SetActive(false);
         playerCount = 0;
         creatorCount = 0;
+        pv = GetComponent<PhotonView>();
+    }
+
+    void Update() {
+        // if (readyCount == PhotonNetwork.CountOfPlayersInRooms) {
+            
+        // }
+        Debug.Log(readyCount);
     }
 
     public void CreatePlayer() {
@@ -93,5 +98,13 @@ public class SpawnPlayers : MonoBehaviour
     public void ClearError(){
         errorMsg.SetActive(false);
         errorButton.SetActive(false);
+    }
+
+    public void ClickReady() {
+        pv.RPC("IncReady", RpcTarget.All);
+    }
+    [PunRPC]
+    void IncReady() {
+        readyCount++;
     }
 }

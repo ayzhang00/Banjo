@@ -6,29 +6,35 @@ using Photon.Pun;
 public class CharController : MonoBehaviourPun
 {
     [SerializeField]
-    float moveSpeed = 6f;
-    float jumpSpeed = 4f;
+    // basic set up
     float camSpeed = 3f;
     float maxCamDist = 1f;
     public Rigidbody rb;
+    bool playing = true;
+    Vector3 camOffset = new Vector3(-15f, 12f, -15f);
+    Vector3 forward, right;
+    PhotonView pv;
+    // movement
+    float moveSpeed = 6f;
+    float jumpSpeed = 4f;
     bool canJump = false;
+    public bool isMoving = false;
+    // attack
     public GameObject attack;
     public GameObject flash;
-    public GameObject solder;
     public GameObject deathEffect;
     public float health = 5f;
-    public bool isMoving = false;
-    bool playing = true;
+    public bool isAttacking = false;
+    float timeToAttack = 0.3f;
+    float timeAttacked = 0f;
+    // solder
+    public GameObject solder;
     public bool canSolder = false;
-    bool isSoldering = false;
+    public bool isSoldering = false;
     public float timeToCompleteSolder = 2f;
     float timeSoldered = 0f;
     public bool solderComplete;
-    Vector3 camOffset = new Vector3(-15f, 12f, -15f);
-
-    Vector3 forward, right;
-
-    PhotonView pv;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -49,22 +55,40 @@ public class CharController : MonoBehaviourPun
     {
         // isMoving = false;
         if (playing && pv.IsMine) {
-            if (Input.GetButtonDown("Jump")) Jump();
+            if (Input.GetButtonDown("Jump")){
+                Solder(false);
+                Jump();
+            } 
+            // move
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
                 isMoving = true;
                 Move();
+                Solder(false);
             } else {
                 isMoving = false;
             }
-            if (Input.GetButtonDown("Fire")) Attack();
-            //I mapped Fire2 to q, but default is rmb and left alt
-            if (Input.GetButtonDown("Fire2") && canSolder) Solder(true);
-            if (Input.GetButtonUp("Fire2")) Solder(false);
+            // attack
+            if (!isAttacking && Input.GetButtonDown("Fire")) {
+                isAttacking = true;
+                Attack();
+                Solder(false);
+            } 
+            if (isAttacking) {
+                timeAttacked += Time.deltaTime;
+                if (timeAttacked >= timeToAttack) {
+                    isAttacking = false;
+                    timeAttacked = 0f;
+                }
+            }
+            // Q is solder
+            if (Input.GetButtonDown("Solder") && canSolder) Solder(true);
+            if (Input.GetButtonUp("Solder")) Solder(false);
             if (moveSpeed != 0) MoveCamera();
             if (isSoldering) {
                 timeSoldered += Time.deltaTime;
                 if (timeSoldered >= timeToCompleteSolder) {
                     solderComplete = true;
+                    Solder(false);
                 }
             }
         }
@@ -124,6 +148,10 @@ public class CharController : MonoBehaviourPun
 
     void Solder(bool isActive) {
         pv.RPC("SwitchActiveObject", RpcTarget.All, "Solder", isActive);
+        isSoldering = isActive;
+        if (!isActive) {
+            timeSoldered = 0f;
+        }
     }
     
     void Attack() {
@@ -154,11 +182,7 @@ public class CharController : MonoBehaviourPun
         }
         else if (obj == "Solder") {
             solder.SetActive(isActive);
-            isSoldering = isActive;
-            if (!isActive) {
-                timeSoldered = 0f;
-                solderComplete = false;
-            }
+            
         }
     }
 }
