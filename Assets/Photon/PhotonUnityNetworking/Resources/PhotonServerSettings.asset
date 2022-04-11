@@ -43,6 +43,7 @@ MonoBehaviour:
   - SwitchActiveObject
   - SwitchColors
   - IncReady
+  - SwitchSolder
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -61,7 +61,7 @@ public class SpawnPlayers : MonoBehaviour
         // if (readyCount == PhotonNetwork.CountOfPlayersInRooms) {
             
         // }
-        Debug.Log(readyCount);
+        // Debug.Log(readyCount);
     }
 
     public void CreatePlayer() {

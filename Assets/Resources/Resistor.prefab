@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9212202161641456375}
   - component: {fileID: 6484766949934808847}
+  - component: {fileID: 3089575086805573647}
+  - component: {fileID: 918511113771029094}
   m_Layer: 0
   m_Name: SolderLeg1
   m_TagString: ResistorSolder
@@ -44,6 +46,41 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.7954746, z: 1.3035735}
   m_Center: {x: -0.0000000011038033, y: 0.39773673, z: -0.15178655}
+--- !u!114 &3089575086805573647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5425187102368755440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ce32b5b4122b94fb628da29d74afa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSoldered: 0
+--- !u!114 &918511113771029094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5425187102368755440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6585338947524779328
 GameObject:
   m_ObjectHideFlags: 0
@@ -54,6 +91,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8734842542628883436}
   - component: {fileID: 3417221238261680236}
+  - component: {fileID: 8924701904696708980}
+  - component: {fileID: 1611962263380293292}
   m_Layer: 0
   m_Name: SolderLeg2
   m_TagString: ResistorSolder
@@ -88,6 +127,41 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.7954746, z: 1.3035735}
   m_Center: {x: -0.0000000011038033, y: 0.39773673, z: -0.15178655}
+--- !u!114 &8924701904696708980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6585338947524779328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ce32b5b4122b94fb628da29d74afa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSoldered: 0
+--- !u!114 &1611962263380293292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6585338947524779328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6784182559589276211
 GameObject:
   m_ObjectHideFlags: 0

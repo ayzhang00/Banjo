@@ -14,13 +14,19 @@ public class SolderArea : MonoBehaviour
 
     private void OnTriggerStay(Collider other) {
     // private void OnTriggerEnter(Collider other) {
-        if (other.tag == "Switch") {
-            c.canSolder = true;
+        if (other.tag == "ResistorSolder") {
+            // cannot solder again once soldered
+            if (!other.GetComponent<SolderLeg>().isSoldered){
+                c.canSolder = true;
+            }
+            else {
+                c.canSolder = false;
+            }
         }
     }
 
     private void OnTriggerExit(Collider other) {
-        if (other.tag == "Switch") {
+        if (other.tag == "ResistorSolder") {
             c.canSolder = false;
         }
     }

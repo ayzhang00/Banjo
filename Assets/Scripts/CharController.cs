@@ -64,6 +64,7 @@ public class CharController : MonoBehaviourPun
                 isMoving = true;
                 Move();
                 Solder(false);
+                solderComplete = false;
             } else {
                 isMoving = false;
             }
@@ -72,6 +73,7 @@ public class CharController : MonoBehaviourPun
                 isAttacking = true;
                 Attack();
                 Solder(false);
+                solderComplete = false;
             } 
             if (isAttacking) {
                 timeAttacked += Time.deltaTime;
@@ -81,7 +83,10 @@ public class CharController : MonoBehaviourPun
                 }
             }
             // Q is solder
-            if (Input.GetButtonDown("Solder") && canSolder) Solder(true);
+            if (Input.GetButtonDown("Solder") && canSolder) {
+                Solder(true);
+                solderComplete = false;
+            }
             if (Input.GetButtonUp("Solder")) Solder(false);
             if (moveSpeed != 0) MoveCamera();
             if (isSoldering) {
@@ -148,10 +153,6 @@ public class CharController : MonoBehaviourPun
 
     void Solder(bool isActive) {
         pv.RPC("SwitchActiveObject", RpcTarget.All, "Solder", isActive);
-        isSoldering = isActive;
-        if (!isActive) {
-            timeSoldered = 0f;
-        }
     }
     
     void Attack() {
@@ -182,7 +183,10 @@ public class CharController : MonoBehaviourPun
         }
         else if (obj == "Solder") {
             solder.SetActive(isActive);
-            
+            isSoldering = isActive;
+            if (!isActive) {
+                timeSoldered = 0f;
+            }
         }
     }
 }

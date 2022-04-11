@@ -4,14 +4,10 @@ using UnityEngine;
 using Photon.Pun;
 
 
-public class SwitchChangeColors : MonoBehaviour
+public class SolderLeg : MonoBehaviour
 {
-    
     CharController c;
-    // public Material notSoldered;
-    public Material Soldered;
-    // public GameObject ColoredCircle;
-    public GameObject light;
+    public bool isSoldered = false;
 
     PhotonView pv;
     // Start is called before the first frame update
@@ -42,17 +38,15 @@ public class SwitchChangeColors : MonoBehaviour
                 // gameObject.SetActive(true);
                 // Debug.Log("yuh");
                 // ColoredCircle.GetComponent<MeshRenderer>().material = Soldered;
-                pv.RPC("SwitchColors", RpcTarget.All);
+                pv.RPC("SwitchSolder", RpcTarget.All, true);
             }
         }
-        
     }
     
     [PunRPC]
-    void SwitchColors() {
-        // ColoredCircle.GetComponent<MeshRenderer>().material = Soldered;
-        gameObject.GetComponent<MeshRenderer>().material = Soldered;
-        light.SetActive(true);
-        Debug.Log("done");
+    void SwitchSolder(bool soldered) {
+        isSoldered = soldered;
+        // Debug.Log(isSoldered);
+        // Debug.Log("done");
     }
 }
