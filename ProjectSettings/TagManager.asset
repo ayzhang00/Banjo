@@ -13,6 +13,7 @@ TagManager:
   - Creator
   - SolderArea
   - Wire
+  - resistor-points
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - UI
   - Player
   - Symbols
-  - 
+  - Glow
   - 
   - 
   - 
