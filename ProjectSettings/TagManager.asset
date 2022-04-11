@@ -14,6 +14,7 @@ TagManager:
   - SolderArea
   - Wire
   - resistor-points
+  - ResistorSolder
   layers:
   - Default
   - TransparentFX
