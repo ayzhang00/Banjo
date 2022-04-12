@@ -26,10 +26,6 @@ public class EnemyController : MonoBehaviourPun
     void Start()
     {
         //Changed this because the camera's forward is pointing slightly down
-        // forward = Camera.main.transform.forward;
-        // forward.y = 0f;
-        // // make sure length is one
-        // forward = Vector3.Normalize(forward);
         forward = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.forward;
         right = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.right;
 

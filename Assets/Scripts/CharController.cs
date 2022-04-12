@@ -15,7 +15,7 @@ public class CharController : MonoBehaviourPun
     Vector3 forward, right;
     PhotonView pv;
     // movement
-    float moveSpeed = 6f;
+    public float moveSpeed = 3f;
     float jumpSpeed = 4f;
     bool canJump = false;
     public bool isMoving = false;
