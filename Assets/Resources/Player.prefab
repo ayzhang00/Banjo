@@ -148,7 +148,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &1074664151905423233
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -160,8 +160,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.4255047, y: 0.47678328, z: 1.0810484}
-  m_Center: {x: -0.010131121, y: 0.26160836, z: 0.14183491}
+  m_Size: {x: 1.4255047, y: 0.43798548, z: 1.0810484}
+  m_Center: {x: -0.010131121, y: 0.24220899, z: 0.14183491}
 --- !u!136 &1074664151905423260
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -194,6 +194,7 @@ MonoBehaviour:
   attack: {fileID: 4498995099202673829}
   flash: {fileID: 2683645247300889807}
   deathEffect: {fileID: 8805392176920524052}
+  sphere: {fileID: 1542685583696750075}
   health: 5
   isAttacking: 0
   solder: {fileID: 1653493895652349661}
@@ -201,6 +202,7 @@ MonoBehaviour:
   isSoldering: 0
   timeToCompleteSolder: 2
   solderComplete: 0
+  obscured: 0
 --- !u!114 &1074664151905423261
 MonoBehaviour:
   m_ObjectHideFlags: 0

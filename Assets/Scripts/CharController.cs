@@ -23,6 +23,7 @@ public class CharController : MonoBehaviourPun
     public GameObject attack;
     public GameObject flash;
     public GameObject deathEffect;
+    public GameObject sphere;
     public float health = 5f;
     public bool isAttacking = false;
     float timeToAttack = 0.3f;
@@ -34,7 +35,13 @@ public class CharController : MonoBehaviourPun
     public float timeToCompleteSolder = 2f;
     float timeSoldered = 0f;
     public bool solderComplete;
-    
+    Vector3 camOffset = new Vector3(-15f, 12f, -15f);
+    GameObject[] LEDs;
+    public bool obscured = false;
+
+    Vector3 forward, right;
+
+    PhotonView pv;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +54,9 @@ public class CharController : MonoBehaviourPun
         right = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.right;
         Camera.main.transform.position = transform.position + camOffset;
 
-        pv = GetComponent<PhotonView>();
+        LEDs = GameObject.FindGameObjectsWithTag("LED");
+
+        pv = gameObject.GetComponent<PhotonView>();
     }
 
     // Update is called once per frame
@@ -55,6 +64,7 @@ public class CharController : MonoBehaviourPun
     {
         // isMoving = false;
         if (playing && pv.IsMine) {
+            obscured = false;
             if (Input.GetButtonDown("Jump")){
                 Solder(false);
                 Jump();
@@ -96,6 +106,15 @@ public class CharController : MonoBehaviourPun
                     Solder(false);
                 }
             }
+            foreach(GameObject LED in LEDs) {
+                // if (Vector3.Distance(transform.position, LED.transform.position) < 20) {
+                Light l = LED.GetComponent<Light>();
+                if (Vector3.Distance(transform.position, LED.transform.position) < 20 && 
+                        !l.enabled) {
+                    obscured = true;
+                }
+            }
+            Obscure(obscured);
         }
     }
 
@@ -163,6 +182,10 @@ public class CharController : MonoBehaviourPun
         pv.RPC("SwitchActiveObject", RpcTarget.All, "Flash", true);
     }
 
+    void Obscure(bool isActive) {
+        pv.RPC("SwitchActiveObject", RpcTarget.All, "Sphere", isActive);
+    }
+
     IEnumerator Death() {
         playing = false;
         deathEffect.SetActive(true);
@@ -187,6 +210,9 @@ public class CharController : MonoBehaviourPun
             if (!isActive) {
                 timeSoldered = 0f;
             }
+        }
+        else if (obj == "Sphere") {
+            sphere.SetActive(!isActive);
         }
     }
 }

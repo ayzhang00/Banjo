@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToSpawn: {fileID: 1156942509271025372, guid: 5173488ae9fedc64dbe1efe5651c9c06, type: 3}
   cam: {fileID: 3101252572447338111, guid: 68eb84d742e66bd41a476e191b3115a7, type: 3}
+  maxSpawned: 5
 --- !u!114 &-2829903042729702864
 MonoBehaviour:
   m_ObjectHideFlags: 0
