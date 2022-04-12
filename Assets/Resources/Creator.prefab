@@ -135,8 +135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToSpawn: {fileID: 1156942509271025372, guid: 5173488ae9fedc64dbe1efe5651c9c06, type: 3}
-  Inventory: {fileID: 8768360361421422182}
-  cam: {fileID: 3101252572447338111, guid: 68eb84d742e66bd41a476e191b3115a7, type: 3}
+  Inventory: {fileID: 613682901028984198, guid: 8e0177f5d89d6824dbe1c1283ffa665a, type: 3}
+  cam: {fileID: 7533722982174213325, guid: 68eb84d742e66bd41a476e191b3115a7, type: 3}
 --- !u!114 &2145540920585457228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,7 +176,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6557485520498420567
 Transform:
   m_ObjectHideFlags: 0
@@ -243,7 +243,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7829060687508959170
 RectTransform:
   m_ObjectHideFlags: 0
@@ -275,7 +275,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 3101252572447338111, guid: 68eb84d742e66bd41a476e191b3115a7, type: 3}
+  m_Camera: {fileID: 7533722982174213325, guid: 68eb84d742e66bd41a476e191b3115a7, type: 3}
   m_PlaneDistance: 50
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -344,7 +344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &586226912578058620
 RectTransform:
   m_ObjectHideFlags: 0
@@ -414,10 +414,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5428787586170b41b33bdf06daa6406, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 3101252572447338111, guid: 68eb84d742e66bd41a476e191b3115a7, type: 3}
+  cam: {fileID: 7533722982174213325, guid: 68eb84d742e66bd41a476e191b3115a7, type: 3}
   offset: {x: -25, y: -50, z: 0}
   clonesPlaced: 0
-  placed: 0
   cloneArray:
   - {fileID: -4601166020570974904, guid: df01c74424c7c664986f384b9156e60e, type: 3}
   - {fileID: 6186627163035635000, guid: df01c74424c7c664986f384b9156e60e, type: 3}
@@ -427,3 +426,4 @@ MonoBehaviour:
   - {fileID: -8766327379931938444, guid: df01c74424c7c664986f384b9156e60e, type: 3}
   - {fileID: -1356829697090860096, guid: df01c74424c7c664986f384b9156e60e, type: 3}
   DraggedClone: {fileID: 586226910976800053}
+  pickedUp: 0

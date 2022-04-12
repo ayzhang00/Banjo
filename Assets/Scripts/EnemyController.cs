@@ -40,7 +40,7 @@ public class EnemyController : MonoBehaviourPun
     void Update()
     {
         if (playing && pv.IsMine) {
-            Move();
+            // Move();
         }
     }
 

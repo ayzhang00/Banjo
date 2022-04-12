@@ -19,7 +19,7 @@ public class SpawnObjectAtClick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if (Input.GetMouseButtonDown(0) && pv.IsMine) {
+        
         if (Input.GetMouseButtonDown(0)) {
             RaycastHit hit;
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -27,16 +27,20 @@ public class SpawnObjectAtClick : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
                 Transform objectHit = hit.transform;
 
-                if (objectHit.tag == "Ground") {
+                if (objectHit.tag == "Ground" && Inventory.GetComponent<CloneCount>().pickedUp) {
                     // Instantiate(objectToSpawn, hit.point, Quaternion.identity);
                     PhotonNetwork.Instantiate(objectToSpawn.name, hit.point, Quaternion.identity, 0);
                     // PhotonNetwork.Instantiate("Chest", new Vector3(24f, 2f, 20f), Quaternion.identity, 0);
-                    Inventory.GetComponent<CloneCount>().placed = true;
                 }
-                // else {
-                //     Inventory.GetComponent<CloneCount>().clonesPlaced--;
-                // }
+                Inventory.GetComponent<CloneCount>().pickedUp = false;
             }
         }
+        GetCount();
+    }
+    
+    void GetCount() {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        int count = enemies.Length;
+        Inventory.GetComponent<CloneCount>().clonesPlaced = count;
     }
 }

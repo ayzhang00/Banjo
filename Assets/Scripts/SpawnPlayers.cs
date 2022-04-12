@@ -16,6 +16,7 @@ public class SpawnPlayers : MonoBehaviour
     public GameObject errorButton;
     public GameObject readyButton;
     public GameObject startButton;
+    public GameObject Inventory;
     // count each player as they come in, inc in rpc
     public int playerCount = 0;
     public int creatorCount = 0;
@@ -127,6 +128,8 @@ public class SpawnPlayers : MonoBehaviour
             loaded = true;
             lobbyRoom.SetActive(false);
             mainRoom.SetActive(true);
+            cameraIso.SetActive(true);
+            cameraTop.SetActive(false);
             if (playerID == 0) {
             // if (PhotonNetwork.PlayerList.Length == 2) {
                 PhotonNetwork.Instantiate(playerPrefab.name, player1, Quaternion.identity);
@@ -148,7 +151,8 @@ public class SpawnPlayers : MonoBehaviour
             mainRoom.SetActive(true);
             cameraIso.SetActive(false);
             cameraTop.SetActive(true);
-            PhotonNetwork.Instantiate(creatorPrefab.name, new Vector3(0f, 0f, 0f), Quaternion.identity);
+            GameObject creator = PhotonNetwork.Instantiate(creatorPrefab.name, new Vector3(0f, 0f, 0f), Quaternion.identity);
+            creator.GetComponent<SpawnObjectAtClick>().Inventory = Inventory;
         }
     }
 }

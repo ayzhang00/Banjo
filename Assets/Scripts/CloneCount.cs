@@ -9,12 +9,12 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField] private Camera cam;
     public Vector3 offset;
     public int clonesPlaced = 0;
-    public bool placed = false;
     public Sprite[] cloneArray;
     public GameObject DraggedClone;
+    public bool pickedUp = false;
     Image sourceImage;
     private RectTransform dragTransform;
-    bool pickedUp = false;
+    
     bool clickedOutside = false;
 
     void Start()
@@ -38,8 +38,6 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             DraggedClone.SetActive(true);
             pickedUp = true;
             clickedOutside = false;
-            clonesPlaced++;
-            SwitchSprite();
         }
     }
     // Start is called before the first frame update
@@ -47,23 +45,13 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // Update is called once per frame
     void Update()
     {
-        if (pickedUp) {
-            if (Input.GetMouseButtonDown(0)) {
-                pickedUp = false;
-                DraggedClone.SetActive(false);
-                if (!placed) {
-                    clonesPlaced--;
-                    SwitchSprite();
-                }
-                
-            }
-            else {
-                MoveClone();
-            }
+        if (!pickedUp) {
+            DraggedClone.SetActive(false);
         }
-        if (placed) {
-            placed = false;
+        if (DraggedClone.activeSelf) {
+            MoveClone();
         }
+        SwitchSprite();
     }
 
     void MoveClone() {

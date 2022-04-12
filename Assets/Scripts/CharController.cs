@@ -70,14 +70,16 @@ public class CharController : MonoBehaviourPun
             }
             // attack
             if (!isAttacking && Input.GetButtonDown("Fire")) {
+                Debug.Log("isattack");
                 isAttacking = true;
-                Attack();
+                Attack(true);
                 Solder(false);
                 solderComplete = false;
             } 
             if (isAttacking) {
                 timeAttacked += Time.deltaTime;
                 if (timeAttacked >= timeToAttack) {
+                    Attack(false);
                     isAttacking = false;
                     timeAttacked = 0f;
                 }
@@ -155,8 +157,8 @@ public class CharController : MonoBehaviourPun
         pv.RPC("SwitchActiveObject", RpcTarget.All, "Solder", isActive);
     }
     
-    void Attack() {
-        pv.RPC("SwitchActiveObject", RpcTarget.All, "Attack", true);
+    void Attack(bool isActive) {
+        pv.RPC("SwitchActiveObject", RpcTarget.All, "Attack", isActive);
     }
 
     void Spark() {

@@ -15,6 +15,7 @@ TagManager:
   - Wire
   - resistor-points
   - ResistorSolder
+  - Enemy
   layers:
   - Default
   - TransparentFX
