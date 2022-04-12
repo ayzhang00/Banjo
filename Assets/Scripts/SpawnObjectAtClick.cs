@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class SpawnObjectAtClick : MonoBehaviour
 {
     public GameObject objectToSpawn;
+    public GameObject Inventory;
     public Camera cam;
     PhotonView pv; 
 
@@ -29,7 +31,11 @@ public class SpawnObjectAtClick : MonoBehaviour
                     // Instantiate(objectToSpawn, hit.point, Quaternion.identity);
                     PhotonNetwork.Instantiate(objectToSpawn.name, hit.point, Quaternion.identity, 0);
                     // PhotonNetwork.Instantiate("Chest", new Vector3(24f, 2f, 20f), Quaternion.identity, 0);
+                    Inventory.GetComponent<CloneCount>().placed = true;
                 }
+                // else {
+                //     Inventory.GetComponent<CloneCount>().clonesPlaced--;
+                // }
             }
         }
     }

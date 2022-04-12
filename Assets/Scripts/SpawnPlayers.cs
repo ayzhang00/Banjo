@@ -23,6 +23,7 @@ public class SpawnPlayers : MonoBehaviour
     private Vector3 player1 =  new Vector3(39f, 6f, 40f);
     private Vector3 player2 =  new Vector3(-35f, 6f, 40f);
     private Vector3 player3 =  new Vector3(43f, 6f, -9f);
+    private Vector3 player4 =  new Vector3(43f, 6f, -9f);
     // how many people ahve pressed the ready button, have to prevent later
     int readyCount = 0;
     // keep track of which player selected id
@@ -53,8 +54,8 @@ public class SpawnPlayers : MonoBehaviour
         if (started && !loaded) {
             LoadWorld();
         }
-        Debug.Log(readyCount);
-        Debug.Log("players:"+PhotonNetwork.CurrentRoom.PlayerCount);
+        // Debug.Log(readyCount);
+        // Debug.Log("players:"+PhotonNetwork.CurrentRoom.PlayerCount);
     }
 
     public void CreatePlayer() {
@@ -134,8 +135,11 @@ public class SpawnPlayers : MonoBehaviour
             // else if (PhotonNetwork.PlayerList.Length == 3) {
                 PhotonNetwork.Instantiate(playerPrefab.name, player2, Quaternion.identity);
             }
-            else {
+            else if (playerID == 2) {
                 PhotonNetwork.Instantiate(playerPrefab.name, player3, Quaternion.identity);
+            }
+            else {
+                PhotonNetwork.Instantiate(playerPrefab.name, player4, Quaternion.identity);
             }
         }
         else if (isCreator) {

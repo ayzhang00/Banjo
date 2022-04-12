@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5f6f740a193ac5246bae80f5df3095c7
+guid: 0b3bd8d91c8301b41a9584758819078a
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
@@ -9,6 +9,18 @@ ModelImporter:
   - first:
       74: -7141117674074387034
     second: Robo_Armature|attack2
+  - first:
+      74: -7877372773722592028
+    second: Robo_Armature|fallen
+  - first:
+      74: 7173087331779931163
+    second: Robo_Armature|idle
+  - first:
+      74: -5185592363195346478
+    second: Robo_Armature|rebound
+  - first:
+      74: -8315884811659861451
+    second: Robo_Armature|revive
   - first:
       74: -8917078088929075202
     second: Robo_Armature|solder
