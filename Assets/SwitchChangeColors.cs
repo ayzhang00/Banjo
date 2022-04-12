@@ -52,7 +52,9 @@ public class SwitchChangeColors : MonoBehaviour
     void SwitchColors() {
         // ColoredCircle.GetComponent<MeshRenderer>().material = Soldered;
         gameObject.GetComponent<MeshRenderer>().material = Soldered;
-        light.SetActive(true);
+        // light.SetActive(true);
+        Light l = light.GetComponent<Light>();
+        l.enabled = true;
         Debug.Log("done");
     }
 }

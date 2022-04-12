@@ -16,6 +16,7 @@ public class CharController : MonoBehaviourPun
     public GameObject flash;
     public GameObject solder;
     public GameObject deathEffect;
+    public GameObject sphere;
     public float health = 5f;
     public bool isMoving = false;
     bool playing = true;
@@ -25,6 +26,8 @@ public class CharController : MonoBehaviourPun
     float timeSoldered = 0f;
     public bool solderComplete;
     Vector3 camOffset = new Vector3(-15f, 12f, -15f);
+    GameObject[] LEDs;
+    public bool obscured = false;
 
     Vector3 forward, right;
 
@@ -41,6 +44,8 @@ public class CharController : MonoBehaviourPun
         right = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.right;
         Camera.main.transform.position = transform.position + camOffset;
 
+        LEDs = GameObject.FindGameObjectsWithTag("LED");
+
         pv = gameObject.GetComponent<PhotonView>();
     }
 
@@ -49,6 +54,7 @@ public class CharController : MonoBehaviourPun
     {
         // isMoving = false;
         if (playing && pv.IsMine) {
+            obscured = false;
             if (Input.GetButtonDown("Jump")) Jump();
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
                 isMoving = true;
@@ -67,6 +73,15 @@ public class CharController : MonoBehaviourPun
                     solderComplete = true;
                 }
             }
+            foreach(GameObject LED in LEDs) {
+                // if (Vector3.Distance(transform.position, LED.transform.position) < 20) {
+                Light l = LED.GetComponent<Light>();
+                if (Vector3.Distance(transform.position, LED.transform.position) < 20 && 
+                        !l.enabled) {
+                    obscured = true;
+                }
+            }
+            Obscure(obscured);
         }
     }
 
@@ -134,6 +149,10 @@ public class CharController : MonoBehaviourPun
         pv.RPC("SwitchActiveObject", RpcTarget.All, "Flash", true);
     }
 
+    void Obscure(bool isActive) {
+        pv.RPC("SwitchActiveObject", RpcTarget.All, "Sphere", isActive);
+    }
+
     IEnumerator Death() {
         playing = false;
         deathEffect.SetActive(true);
@@ -159,6 +178,9 @@ public class CharController : MonoBehaviourPun
                 timeSoldered = 0f;
                 solderComplete = false;
             }
+        }
+        else if (obj == "Sphere") {
+            sphere.SetActive(!isActive);
         }
     }
 }

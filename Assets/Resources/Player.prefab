@@ -98,7 +98,6 @@ GameObject:
   - component: {fileID: 1074664151905423262}
   - component: {fileID: 2135853882252969128}
   - component: {fileID: 2135853882252969129}
-  - component: {fileID: 3059188771396003279}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -160,8 +159,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.4255047, y: 0.47678328, z: 1.0810484}
-  m_Center: {x: -0.010131121, y: 0.26160836, z: 0.14183491}
+  m_Size: {x: 1.4255047, y: 0.43798548, z: 1.0810484}
+  m_Center: {x: -0.010131121, y: 0.24220899, z: 0.14183491}
 --- !u!136 &1074664151905423260
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -194,11 +193,13 @@ MonoBehaviour:
   flash: {fileID: 2683645247300889807}
   solder: {fileID: 1653493895652349661}
   deathEffect: {fileID: 8805392176920524052}
+  sphere: {fileID: 1542685583696750075}
   health: 5
   isMoving: 0
   canSolder: 0
   timeToCompleteSolder: 2
   solderComplete: 0
+  obscured: 0
 --- !u!114 &1074664151905423261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,19 +287,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473514b7294388440b78ecb51c8b6bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3059188771396003279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 155533117428757206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d44dd2c42b975444a8fc52873fe8677d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sphere: {fileID: 1542685583696750075}
 --- !u!1 &366152503395843106
 GameObject:
   m_ObjectHideFlags: 0
