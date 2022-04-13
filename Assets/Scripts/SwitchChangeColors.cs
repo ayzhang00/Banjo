@@ -34,43 +34,27 @@ public class SwitchChangeColors : MonoBehaviour
             isOn = !isOn;
             if (r1.isSoldered && r2.isSoldered) {
                 pv.RPC("SwitchColors", RpcTarget.All);
+                pv.RPC("PrintTest", RpcTarget.All);
             }
             // c = other.gameObject.GetComponent<CharController>();
         }
     }
     
-    // private void OnTriggerExit(Collider other) {
-    //     if (other.tag == "Player") {
-    //         c = null;
-    //     }
-    // }
-
-    // Update is called once per frame
-    // void Update()
-    // {
-    //     // if (c != null && pv.IsMine) {
-    //     if (isOn)
-    //     if (c != null) {
-    //         if (c.solderComplete) {
-    //             // gameObject.SetActive(true);
-    //             // Debug.Log("yuh");
-    //             // ColoredCircle.GetComponent<MeshRenderer>().material = Soldered;
-    //             pv.RPC("SwitchColors", RpcTarget.All);
-    //         }
-    //     }
-    // }
-    
     [PunRPC]
     void SwitchColors() {
         // ColoredCircle.GetComponent<MeshRenderer>().material = Soldered;
         if (isOn) {
-            gameObject.GetComponent<MeshRenderer>().material = On;
+            GetComponent<MeshRenderer>().material = On;
             led.SetActive(false);
         }
         else {
-            gameObject.GetComponent<MeshRenderer>().material = Off;
+            GetComponent<MeshRenderer>().material = Off;
             led.SetActive(true);
-        }
-        
+        }        
+    }
+
+    [PunRPC]
+    void PrintTest() {
+        Debug.Log("pressed");
     }
 }
