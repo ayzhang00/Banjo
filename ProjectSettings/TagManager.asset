@@ -16,6 +16,7 @@ TagManager:
   - resistor-points
   - ResistorSolder
   - Enemy
+  - Recharge
   layers:
   - Default
   - TransparentFX

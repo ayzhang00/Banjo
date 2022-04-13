@@ -27,6 +27,7 @@ public class CharController : MonoBehaviourPun
     public bool isAttacking = false;
     float timeToAttack = 0.3f;
     float timeAttacked = 0f;
+    int attackCount = 0;
     // solder
     public GameObject solder;
     public bool canSolder = false;
@@ -34,6 +35,9 @@ public class CharController : MonoBehaviourPun
     public float timeToCompleteSolder = 2f;
     float timeSoldered = 0f;
     public bool solderComplete;
+    int solderCount = 0;
+    // energy
+    CharEnergy e;
     
     // Start is called before the first frame update
     void Start()
@@ -47,6 +51,7 @@ public class CharController : MonoBehaviourPun
         right = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.right;
         Camera.main.transform.position = transform.position + camOffset;
 
+        e = GetComponent<CharEnergy>();
         pv = GetComponent<PhotonView>();
     }
 
@@ -68,36 +73,51 @@ public class CharController : MonoBehaviourPun
             } else {
                 isMoving = false;
             }
-            // attack
-            if (!isAttacking && Input.GetButtonDown("Fire")) {
-                Debug.Log("isattack");
-                isAttacking = true;
-                Attack(true);
-                Solder(false);
-                solderComplete = false;
-            } 
-            if (isAttacking) {
-                timeAttacked += Time.deltaTime;
-                if (timeAttacked >= timeToAttack) {
-                    Attack(false);
-                    isAttacking = false;
-                    timeAttacked = 0f;
-                }
-            }
-            // Q is solder
-            if (Input.GetButtonDown("Solder") && canSolder) {
-                Solder(true);
-                solderComplete = false;
-            }
-            if (Input.GetButtonUp("Solder")) Solder(false);
             if (moveSpeed != 0) MoveCamera();
-            if (isSoldering) {
-                timeSoldered += Time.deltaTime;
-                if (timeSoldered >= timeToCompleteSolder) {
-                    solderComplete = true;
+            
+            // can only attack and solder when have energy
+            if (e.energy > 0) {
+                // attack
+                if (!isAttacking && Input.GetButtonDown("Fire")) {
+                    isAttacking = true;
+                    Attack(true);
                     Solder(false);
+                    solderComplete = false;
+                }
+                // stop attacking after some time
+                if (isAttacking) {
+                    timeAttacked += Time.deltaTime;
+                    if (timeAttacked >= timeToAttack) {
+                        Attack(false);
+                        isAttacking = false;
+                        timeAttacked = 0f;
+                        attackCount++;
+                        if (attackCount == 5) {
+                            e.DecEnergy();
+                            attackCount = 0;
+                        }
+                    }
+                }
+                // Q is solder
+                if (Input.GetButtonDown("Solder") && canSolder) {
+                    Solder(true);
+                    solderComplete = false;
+                }
+                if (Input.GetButtonUp("Solder")) Solder(false);
+                if (isSoldering) {
+                    timeSoldered += Time.deltaTime;
+                    if (timeSoldered >= timeToCompleteSolder) {
+                        solderComplete = true;
+                        Solder(false);
+                        solderCount++;
+                        if (solderCount == 2) {
+                            e.DecEnergy();
+                            solderCount = 0;
+                        }
+                    }
                 }
             }
+            
         }
     }
 

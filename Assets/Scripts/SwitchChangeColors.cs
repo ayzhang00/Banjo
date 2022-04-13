@@ -16,7 +16,8 @@ public class SwitchChangeColors : MonoBehaviour
     // public GameObject ColoredCircle;
     public GameObject led;
 
-    private bool isOn = false;
+    public bool isOn = false;
+    bool changed = false;
     SolderLeg r1;
     SolderLeg r2;
 
@@ -29,32 +30,37 @@ public class SwitchChangeColors : MonoBehaviour
         r2 = ResistorLeg2.GetComponent<SolderLeg>();
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if (other.tag == "Player") {
-            isOn = !isOn;
-            if (r1.isSoldered && r2.isSoldered) {
+    private void OnTriggerStay(Collider other) {
+        if (other.tag == "Player" && other.GetComponent<PhotonView>().IsMine) {
+            if (r1.isSoldered && r2.isSoldered && !changed) {
                 pv.RPC("SwitchColors", RpcTarget.All);
-                pv.RPC("PrintTest", RpcTarget.All);
+                pv.RPC("SwitchChanged", RpcTarget.All, true);
             }
             // c = other.gameObject.GetComponent<CharController>();
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if (other.tag == "Player") {
+            pv.RPC("SwitchChanged", RpcTarget.All, false);
         }
     }
     
     [PunRPC]
     void SwitchColors() {
-        // ColoredCircle.GetComponent<MeshRenderer>().material = Soldered;
-        if (isOn) {
+        if (!isOn) {
             GetComponent<MeshRenderer>().material = On;
             led.SetActive(false);
+            isOn = true;
         }
         else {
             GetComponent<MeshRenderer>().material = Off;
             led.SetActive(true);
+            isOn = false;
         }        
     }
-
     [PunRPC]
-    void PrintTest() {
-        Debug.Log("pressed");
+    void SwitchChanged(bool isChanged) {
+        changed = isChanged;
     }
 }
