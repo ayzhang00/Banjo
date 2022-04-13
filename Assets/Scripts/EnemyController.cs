@@ -15,9 +15,13 @@ public class EnemyController : MonoBehaviourPun
     public GameObject deathEffect;
     public float health = 5f;
     bool playing = true;
-    float attackInterval = 0.7f;
+    float attackInterval = 1.5f;
     bool canAttack = true;
     public GameObject player;
+    // sounds
+    public AudioSource swing;
+    public AudioSource hit;
+    public AudioSource walk;
 
     Vector3 forward, right;
 
@@ -81,6 +85,7 @@ public class EnemyController : MonoBehaviourPun
     void OnTriggerEnter(Collider collider) {
         if (collider.tag == "Attack") {
             Spark();
+            hit.Play();
             health--;
             if (health <= 0) {
                 StartCoroutine(Death());
@@ -97,8 +102,16 @@ public class EnemyController : MonoBehaviourPun
         pv.RPC("SwitchActiveObject", RpcTarget.All, "Flash", true);
     }
 
+    void PlayWalkSound() {
+        walk.Play();
+    }
+
+    void PlaySwingSound() {
+        swing.Play();
+    }
+
     IEnumerator AttackOnInterval() {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(attackInterval);
         canAttack = true;
     }
 

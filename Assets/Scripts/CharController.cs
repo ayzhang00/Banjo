@@ -11,11 +11,23 @@ public class CharController : MonoBehaviourPun
     float maxCamDist = 1f;
     public Rigidbody rb;
     bool playing = true;
+    public bool obscured = false;
+    GameObject[] LEDs;
     Vector3 camOffset = new Vector3(-15f, 12f, -15f);
     Vector3 forward, right;
     PhotonView pv;
+    // sounds
+    public AudioSource swing;
+    public AudioSource hit;
+    public AudioSource walk;
+    public AudioSource solderSound;
+    public AudioSource bg;
+    public AudioClip bgtrack1;
+    public AudioClip bgtrack2;
+    public AudioClip coreTrack1;
+    public AudioClip coreTrack2;
     // movement
-    float moveSpeed = 6f;
+    public float moveSpeed = 6f;
     float jumpSpeed = 4f;
     bool canJump = false;
     public bool isMoving = false;
@@ -35,13 +47,11 @@ public class CharController : MonoBehaviourPun
     public float timeToCompleteSolder = 2f;
     float timeSoldered = 0f;
     public bool solderComplete;
-    Vector3 camOffset = new Vector3(-15f, 12f, -15f);
-    GameObject[] LEDs;
-    public bool obscured = false;
 
-    Vector3 forward, right;
+    // public bool runToTheCoreMusic = false;
+    bool isPlayingCoreMusic = false;
 
-    PhotonView pv;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +67,7 @@ public class CharController : MonoBehaviourPun
         LEDs = GameObject.FindGameObjectsWithTag("LED");
 
         pv = gameObject.GetComponent<PhotonView>();
+        StartCoroutine("PlayBackgroundMusic");
     }
 
     // Update is called once per frame
@@ -67,6 +78,7 @@ public class CharController : MonoBehaviourPun
             obscured = false;
             if (Input.GetButtonDown("Jump")){
                 Solder(false);
+                solderSound.Stop();
                 Jump();
             } 
             // move
@@ -96,25 +108,48 @@ public class CharController : MonoBehaviourPun
             if (Input.GetButtonDown("Solder") && canSolder) {
                 Solder(true);
                 solderComplete = false;
+                solderSound.Play();
             }
-            if (Input.GetButtonUp("Solder")) Solder(false);
+            if (Input.GetButtonUp("Solder")) {
+                Solder(false);
+                solderSound.Stop();
+            }
+
+            if (Input.GetButtonDown("Fire3")) {
+                if (!isPlayingCoreMusic) {
+                    bg.Stop();
+                    StopCoroutine("PlayBackgroundMusic");
+                    StartCoroutine("PlayRunToTheCoreMusic");
+                    isPlayingCoreMusic = true;
+                } else {
+                    bg.Stop();
+                    StopCoroutine("PlayRunToTheCoreMusic");
+                    StartCoroutine("PlayBackgroundMusic");
+                    isPlayingCoreMusic = false;
+
+                }
+            }
+
             if (moveSpeed != 0) MoveCamera();
             if (isSoldering) {
                 timeSoldered += Time.deltaTime;
                 if (timeSoldered >= timeToCompleteSolder) {
                     solderComplete = true;
                     Solder(false);
+                    // solderSound.Stop();
                 }
             }
             foreach(GameObject LED in LEDs) {
                 // if (Vector3.Distance(transform.position, LED.transform.position) < 20) {
                 Light l = LED.GetComponent<Light>();
                 if (Vector3.Distance(transform.position, LED.transform.position) < 20 && 
-                        !l.enabled) {
+                        // !l.enabled) {
+                        !LED.activeSelf) {
                     obscured = true;
                 }
             }
             Obscure(obscured);
+
         }
     }
 
@@ -146,6 +181,7 @@ public class CharController : MonoBehaviourPun
     void OnTriggerEnter(Collider collider) {
         if (collider.tag == "Attack") {
             Spark();
+            hit.Play();
             health--;
             if (health <= 0) {
                 StartCoroutine(Death());
@@ -184,6 +220,30 @@ public class CharController : MonoBehaviourPun
 
     void Obscure(bool isActive) {
         pv.RPC("SwitchActiveObject", RpcTarget.All, "Sphere", isActive);
+    }
+
+    void PlayWalkSound() {
+        walk.Play();
+    }
+
+    void PlaySwingSound() {
+        swing.Play();
+    }
+
+    IEnumerator PlayBackgroundMusic() {
+        bg.clip = bgtrack1;
+        bg.Play();
+        yield return new WaitForSeconds(bg.clip.length);
+        bg.clip = bgtrack2;
+        bg.Play();
+    }
+
+    IEnumerator PlayRunToTheCoreMusic() {
+        bg.clip = coreTrack1;
+        bg.Play();
+        yield return new WaitForSeconds(bg.clip.length);
+        bg.clip = coreTrack2;
+        bg.Play();
     }
 
     IEnumerator Death() {
