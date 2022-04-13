@@ -8,6 +8,7 @@ public class LEDSymbol : MonoBehaviour
     public Sprite On;
     public Sprite Off;
     public GameObject LED;
+    public GameObject Button;
     Image self;
     // Start is called before the first frame update
     void Start()
@@ -20,9 +21,11 @@ public class LEDSymbol : MonoBehaviour
     {
         if (LED.activeSelf) {
             self.sprite = On;
+            Button.SetActive(false);
         }
         else {
             self.sprite = Off;
+            Button.SetActive(true);
         }
     }
 }

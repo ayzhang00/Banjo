@@ -30,6 +30,7 @@ public class CharController : MonoBehaviourPun
     int attackCount = 0;
     // solder
     public GameObject solder;
+    public GameObject SolderUI; 
     public bool canSolder = false;
     public bool isSoldering = false;
     public float timeToCompleteSolder = 2f;
@@ -38,6 +39,8 @@ public class CharController : MonoBehaviourPun
     int solderCount = 0;
     // energy
     CharEnergy e;
+    // ui
+    GameObject ui;
     
     // Start is called before the first frame update
     void Start()
@@ -53,13 +56,16 @@ public class CharController : MonoBehaviourPun
 
         e = GetComponent<CharEnergy>();
         pv = GetComponent<PhotonView>();
+        ui = transform.Find("PlayerUI").gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
+        HandleSolderUI();
         // isMoving = false;
         if (playing && pv.IsMine) {
+            ui.SetActive(true);
             if (Input.GetButtonDown("Jump")){
                 Solder(false);
                 Jump();
@@ -137,6 +143,15 @@ public class CharController : MonoBehaviourPun
     void Jump() {
         if (canJump) {
             rb.velocity = new Vector3(rb.velocity.x, jumpSpeed, rb.velocity.z);
+        }
+    }
+
+    void HandleSolderUI() {
+        if (canSolder) {
+            SolderUI.SetActive(true);
+        }
+        else {
+            SolderUI.SetActive(false);
         }
     }
 
