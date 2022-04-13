@@ -15,8 +15,9 @@ TagManager:
   - Wire
   - resistor-points
   - ResistorSolder
-  - Enemy
   - Recharge
+  - LED
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -27,6 +28,7 @@ TagManager:
   - Player
   - Symbols
   - Glow
+  - Trees
   - 
   - 
   - 

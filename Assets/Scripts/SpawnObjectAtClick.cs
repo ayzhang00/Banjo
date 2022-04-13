@@ -10,6 +10,8 @@ public class SpawnObjectAtClick : MonoBehaviour
     public GameObject Inventory;
     public Camera cam;
     PhotonView pv; 
+    public int maxSpawned = 5;
+    int spawned = 0;
 
     void Start()
     {
@@ -30,6 +32,7 @@ public class SpawnObjectAtClick : MonoBehaviour
                 if (objectHit.tag == "Ground" && Inventory.GetComponent<CloneCount>().pickedUp) {
                     // Instantiate(objectToSpawn, hit.point, Quaternion.identity);
                     PhotonNetwork.Instantiate(objectToSpawn.name, hit.point, Quaternion.identity, 0);
+                    spawned++;
                     // PhotonNetwork.Instantiate("Chest", new Vector3(24f, 2f, 20f), Quaternion.identity, 0);
                 }
                 Inventory.GetComponent<CloneCount>().pickedUp = false;

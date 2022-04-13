@@ -11,9 +11,21 @@ public class CharController : MonoBehaviourPun
     float maxCamDist = 1f;
     public Rigidbody rb;
     bool playing = true;
+    public bool obscured = false;
+    GameObject[] LEDs;
     Vector3 camOffset = new Vector3(-15f, 12f, -15f);
     Vector3 forward, right;
     PhotonView pv;
+    // sounds
+    public AudioSource swing;
+    public AudioSource hit;
+    public AudioSource walk;
+    public AudioSource solderSound;
+    public AudioSource bg;
+    public AudioClip bgtrack1;
+    public AudioClip bgtrack2;
+    public AudioClip coreTrack1;
+    public AudioClip coreTrack2;
     // movement
     public float moveSpeed = 3f;
     float jumpSpeed = 4f;
@@ -23,6 +35,7 @@ public class CharController : MonoBehaviourPun
     public GameObject attack;
     public GameObject flash;
     public GameObject deathEffect;
+    public GameObject sphere;
     public float health = 5f;
     public bool isAttacking = false;
     float timeToAttack = 0.3f;
@@ -42,6 +55,11 @@ public class CharController : MonoBehaviourPun
     // ui
     GameObject ui;
     
+
+    // public bool runToTheCoreMusic = false;
+    bool isPlayingCoreMusic = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +75,8 @@ public class CharController : MonoBehaviourPun
         e = GetComponent<CharEnergy>();
         pv = GetComponent<PhotonView>();
         ui = transform.Find("PlayerUI").gameObject;
+        LEDs = GameObject.FindGameObjectsWithTag("LED");
+        StartCoroutine("PlayBackgroundMusic");
     }
 
     // Update is called once per frame
@@ -66,8 +86,10 @@ public class CharController : MonoBehaviourPun
         // isMoving = false;
         if (playing && pv.IsMine) {
             ui.SetActive(true);
+            obscured = false;
             if (Input.GetButtonDown("Jump")){
                 Solder(false);
+                solderSound.Stop();
                 Jump();
             } 
             // move
@@ -79,6 +101,22 @@ public class CharController : MonoBehaviourPun
             } else {
                 isMoving = false;
             }
+
+            if (Input.GetButtonDown("Fire3")) {
+                if (!isPlayingCoreMusic) {
+                    bg.Stop();
+                    StopCoroutine("PlayBackgroundMusic");
+                    StartCoroutine("PlayRunToTheCoreMusic");
+                    isPlayingCoreMusic = true;
+                } else {
+                    bg.Stop();
+                    StopCoroutine("PlayRunToTheCoreMusic");
+                    StartCoroutine("PlayBackgroundMusic");
+                    isPlayingCoreMusic = false;
+
+                }
+            }
+
             if (moveSpeed != 0) MoveCamera();
             
             // can only attack and solder when have energy
@@ -108,8 +146,12 @@ public class CharController : MonoBehaviourPun
                 if (Input.GetButtonDown("Solder") && canSolder) {
                     Solder(true);
                     solderComplete = false;
+                    solderSound.Play();
                 }
-                if (Input.GetButtonUp("Solder")) Solder(false);
+                if (Input.GetButtonUp("Solder")){ 
+                    Solder(false);
+                    solderSound.Stop();
+                }
                 if (isSoldering) {
                     timeSoldered += Time.deltaTime;
                     if (timeSoldered >= timeToCompleteSolder) {
@@ -124,6 +166,17 @@ public class CharController : MonoBehaviourPun
                 }
             }
             
+            foreach(GameObject LED in LEDs) {
+                // if (Vector3.Distance(transform.position, LED.transform.position) < 20) {
+                Light l = LED.GetComponent<Light>();
+                if (Vector3.Distance(transform.position, LED.transform.position) < 20 && 
+                        // !l.enabled) {
+                        !LED.activeSelf) {
+                    obscured = true;
+                }
+            }
+            Obscure(obscured);
+
         }
     }
 
@@ -164,6 +217,7 @@ public class CharController : MonoBehaviourPun
     void OnTriggerEnter(Collider collider) {
         if (collider.tag == "Attack") {
             Spark();
+            hit.Play();
             health--;
             if (health <= 0) {
                 StartCoroutine(Death());
@@ -200,6 +254,34 @@ public class CharController : MonoBehaviourPun
         pv.RPC("SwitchActiveObject", RpcTarget.All, "Flash", true);
     }
 
+    void Obscure(bool isActive) {
+        pv.RPC("SwitchActiveObject", RpcTarget.All, "Sphere", isActive);
+    }
+
+    void PlayWalkSound() {
+        walk.Play();
+    }
+
+    void PlaySwingSound() {
+        swing.Play();
+    }
+
+    IEnumerator PlayBackgroundMusic() {
+        bg.clip = bgtrack1;
+        bg.Play();
+        yield return new WaitForSeconds(bg.clip.length);
+        bg.clip = bgtrack2;
+        bg.Play();
+    }
+
+    IEnumerator PlayRunToTheCoreMusic() {
+        bg.clip = coreTrack1;
+        bg.Play();
+        yield return new WaitForSeconds(bg.clip.length);
+        bg.clip = coreTrack2;
+        bg.Play();
+    }
+
     IEnumerator Death() {
         playing = false;
         deathEffect.SetActive(true);
@@ -224,6 +306,9 @@ public class CharController : MonoBehaviourPun
             if (!isActive) {
                 timeSoldered = 0f;
             }
+        }
+        else if (obj == "Sphere") {
+            sphere.SetActive(!isActive);
         }
     }
 }
