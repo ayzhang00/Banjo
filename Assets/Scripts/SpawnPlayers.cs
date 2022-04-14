@@ -54,18 +54,12 @@ public class SpawnPlayers : MonoBehaviour
         if (readyCount >= PhotonNetwork.CurrentRoom.PlayerCount && PhotonNetwork.IsMasterClient) {
             startButton.SetActive(true);
         }
-
-        // if (readyCount >= PhotonNetwork.CurrentRoom.PlayerCount && PhotonNetwork.IsMasterClient && creatorCount > 0) {
-        //     startButton.SetActive(true);
-        // }
         else {
             startButton.SetActive(false);
         }
         if (started && !loaded) {
             LoadWorld();
         }
-        // Debug.Log(readyCount);
-        // Debug.Log("players:"+PhotonNetwork.CurrentRoom.PlayerCount);
     }
 
     public void CreatePlayer() {
