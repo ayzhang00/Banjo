@@ -5054,7 +5054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b1ca259c7d15b64cae6a5b6b8c49021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camSpeed: 1.5
+  camSpeed: 2.5
   rb: {fileID: 112036423091608184}
   obscured: 0
   swing: {fileID: 8160334862458981176}
@@ -5066,7 +5066,7 @@ MonoBehaviour:
   bgtrack2: {fileID: 8300000, guid: 9612ad80fd8a54842a63c08c99149a96, type: 3}
   coreTrack1: {fileID: 8300000, guid: 5d87e0ecae2ef0f488951b020bba80c7, type: 3}
   coreTrack2: {fileID: 8300000, guid: 842e91fa4710f0a4fab074f610fa1457, type: 3}
-  moveSpeed: 3
+  moveSpeed: 5
   isMoving: 0
   attack: {fileID: 3533168354227276127}
   flash: {fileID: 3051691159796873525}

@@ -26,7 +26,7 @@ public class ObscureNearLED : MonoBehaviour
         if (pv.IsMine) {
             obscured = false;
             foreach(GameObject LED in LEDs) {
-                if (Vector3.Distance(transform.position, LED.transform.position) < 20 && !LED.active) {
+                if (Vector3.Distance(transform.position, LED.transform.position) < 20 && !LED.activeSelf) {
                     obscured = true;
                 }
             }

@@ -389,7 +389,7 @@ MonoBehaviour:
   flash: {fileID: 3970170171884607685}
   deathEffect: {fileID: 7500129551135637790}
   health: 5
-  player: {fileID: 0}
+  player: {fileID: 959092282215819052, guid: 6426f2786f41811449e93158fd6b9950, type: 3}
   swing: {fileID: 6958150619312618633}
   hit: {fileID: 5956370056426121}
   walk: {fileID: 5906809596626495930}

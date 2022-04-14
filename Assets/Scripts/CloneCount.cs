@@ -14,8 +14,6 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public bool pickedUp = false;
     Image sourceImage;
     private RectTransform dragTransform;
-    
-    bool clickedOutside = false;
 
     void Start()
     {
@@ -37,7 +35,6 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (clonesPlaced < 6 && !pickedUp) {
             DraggedClone.SetActive(true);
             pickedUp = true;
-            clickedOutside = false;
         }
     }
     // Start is called before the first frame update

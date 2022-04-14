@@ -137,6 +137,7 @@ MonoBehaviour:
   objectToSpawn: {fileID: 1156942509271025372, guid: 5173488ae9fedc64dbe1efe5651c9c06, type: 3}
   Inventory: {fileID: 613682901028984198, guid: 8e0177f5d89d6824dbe1c1283ffa665a, type: 3}
   cam: {fileID: 7533722982174213325, guid: 68eb84d742e66bd41a476e191b3115a7, type: 3}
+  maxSpawned: 5
 --- !u!114 &2145540920585457228
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 public class SpawnPlayers : MonoBehaviour
@@ -17,6 +18,7 @@ public class SpawnPlayers : MonoBehaviour
     public GameObject readyButton;
     public GameObject startButton;
     public GameObject Inventory;
+    public GameObject playerText;
     // count each player as they come in, inc in rpc
     public int playerCount = 0;
     public int creatorCount = 0;
@@ -34,7 +36,8 @@ public class SpawnPlayers : MonoBehaviour
     bool isCreator = false;
     bool started = false;
     bool loaded = false;
-
+    bool isReady = false;
+    Text players;
     PhotonView pv;
 
     void Start() {
@@ -43,9 +46,11 @@ public class SpawnPlayers : MonoBehaviour
         playerCount = 0;
         creatorCount = 0;
         pv = GetComponent<PhotonView>();
+        players = playerText.GetComponent<Text>();
     }
 
     void Update() {
+        NumPlayer();
         if (readyCount >= PhotonNetwork.CurrentRoom.PlayerCount && PhotonNetwork.IsMasterClient) {
             startButton.SetActive(true);
         }
@@ -101,7 +106,18 @@ public class SpawnPlayers : MonoBehaviour
     }
 
     public void ClickReady() {
-        pv.RPC("IncReady", RpcTarget.All, true);
+        if (isReady) {
+            isReady = false;
+            pv.RPC("IncReady", RpcTarget.All, false);
+        }
+        else {
+            isReady = true;
+            pv.RPC("IncReady", RpcTarget.All, true);
+        }
+    }
+
+    public void NumPlayer() {
+        players.text = readyCount + "/" + PhotonNetwork.CurrentRoom.PlayerCount;
     }
     [PunRPC]
     void IncReady(bool up) {
