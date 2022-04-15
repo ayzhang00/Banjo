@@ -5,26 +5,25 @@ using UnityEngine;
 public class AnimatorController : MonoBehaviour
 {
     Animator animator;
-    bool isMoving;
-    bool isAttacking;
-    bool isSoldering;
+    CharController c;
+
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+        c = GetComponent<CharController>();
+    }
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
-        isMoving = GetComponent<CharController>().isMoving;
-        isAttacking = GetComponent<CharController>().isAttacking;
-        isSoldering = GetComponent<CharController>().isSoldering;
     }
 
     // Update is called once per frame
     void Update()
     {
-        isMoving = GetComponent<CharController>().isMoving;
-        isAttacking = GetComponent<CharController>().isAttacking;
-        isSoldering = GetComponent<CharController>().isSoldering;
-        animator.SetBool("isWalking", isMoving);
-        animator.SetBool("isAttacking", isAttacking);
-        animator.SetBool("isSoldering", isSoldering);
+        animator.SetBool("isWalking", c.isMoving);
+        animator.SetBool("isAttacking", c.isAttacking);
+        animator.SetBool("isSoldering", c.isSoldering);
+        animator.SetBool("isHit", c.isHit);
+        animator.SetBool("isDead", !c.playing);
     }
 }

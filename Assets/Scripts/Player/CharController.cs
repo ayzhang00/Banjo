@@ -10,7 +10,7 @@ public class CharController : MonoBehaviourPun
     float camSpeed = 3f;
     float maxCamDist = 1f;
     public Rigidbody rb;
-    bool playing = true;
+    public bool playing = true;
     public bool obscured = false;
     GameObject[] LEDs;
     Vector3 camOffset = new Vector3(-15f, 12f, -15f);
@@ -38,6 +38,7 @@ public class CharController : MonoBehaviourPun
     public GameObject sphere;
     public float health = 5f;
     public bool isAttacking = false;
+    public bool isHit = false;
     float timeToAttack = 0.3f;
     float timeAttacked = 0f;
     int attackCount = 0;
@@ -117,7 +118,7 @@ public class CharController : MonoBehaviourPun
             // can only attack and solder when have energy
             if (e.energy > 0) {
                 // attack
-                if (!isAttacking && Input.GetButtonDown("Fire")) {
+                if (!isAttacking && Input.GetButtonDown("Fire") && !isHit) {
                     isAttacking = true;
                     Attack(true);
                     Solder(false);
@@ -210,12 +211,20 @@ public class CharController : MonoBehaviourPun
     
     void OnTriggerEnter(Collider collider) {
         if (collider.tag == "Attack") {
+            isHit = true;
             Spark();
             hit.Play();
             health--;
             if (health <= 0) {
-                StartCoroutine(Death());
+                playing = false;
+                // StartCoroutine(Death());
             }
+        }
+    }
+
+    void OnTriggerExit(Collider collider) {
+        if (collider.tag == "Attack") {
+            isHit = false;
         }
     }
 

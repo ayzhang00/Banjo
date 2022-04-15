@@ -59,6 +59,8 @@ public class SpawnPlayers : MonoBehaviour
         }
         if (started && !loaded) {
             LoadWorld();
+            // Don't allow people from joining
+            PhotonNetwork.CurrentRoom.IsOpen = false;
         }
     }
 

@@ -5589,6 +5589,7 @@ MonoBehaviour:
   flash: {fileID: 7578470914872694867}
   deathEffect: {fileID: 3900420258997780872}
   health: 5
+  playing: 1
   player: {fileID: 959092282215819052, guid: 6426f2786f41811449e93158fd6b9950, type: 3}
   swing: {fileID: 4513893834402282527}
   hit: {fileID: 6782960696994329119}

@@ -14,10 +14,12 @@ public class EnemyController : MonoBehaviourPun
     public GameObject flash;
     public GameObject deathEffect;
     public float health = 5f;
-    bool playing = true;
+    public bool playing = true;
     float attackInterval = 1.5f;
     bool canAttack = true;
     public GameObject player;
+    bool isHit = false;
+    bool canMove = true;
     // sounds
     public AudioSource swing;
     public AudioSource hit;
@@ -29,6 +31,7 @@ public class EnemyController : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
+        player = null;
         //Changed this because the camera's forward is pointing slightly down
         forward = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.forward;
         right = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.right;
@@ -40,22 +43,34 @@ public class EnemyController : MonoBehaviourPun
     void Update()
     {
         if (playing && pv.IsMine) {
-            // Move();
+            Move();
         }
     }
 
     void Move()
     {
         if (player) {
-            Vector3 dir = player.transform.position - transform.position;
-            Vector3 heading = Vector3.Normalize(dir);
-            transform.forward = heading;
-            transform.position += heading * moveSpeed * Time.deltaTime;
-            
-            if (dir.magnitude < 5 && canAttack) {
-                Attack();
-                canAttack = false;
-                StartCoroutine(AttackOnInterval());
+            if (player.GetComponent<CharController>().playing) {
+                Vector3 dir = player.transform.position - transform.position;
+                Vector3 heading = Vector3.Normalize(dir);
+                if (canMove) {
+                    transform.forward = heading;
+                    transform.position += heading * moveSpeed * Time.deltaTime;
+                }
+                
+                if (dir.magnitude < 1 && !isHit) {
+                    Debug.Log("playing");
+                    canMove = false;
+                    if (canAttack) {
+                        Debug.Log("attack");
+                        Attack();
+                        canAttack = false;
+                        StartCoroutine(AttackOnInterval());
+                    }
+                }
+                else {
+                    canMove = true;
+                }
             }
         }
     }
@@ -79,13 +94,21 @@ public class EnemyController : MonoBehaviourPun
     }
     
     void OnTriggerEnter(Collider collider) {
-        if (collider.tag == "Attack") {
+        if (collider.tag == "PlayerAttack") {
             Spark();
             hit.Play();
             health--;
+            isHit = true;
             if (health <= 0) {
+                playing = false;
                 StartCoroutine(Death());
             }
+        }
+    }
+
+    void OnTriggerExit(Collider collider) {
+        if (collider.tag == "PlayerAttack") {
+            isHit = false;
         }
     }
 
@@ -112,8 +135,7 @@ public class EnemyController : MonoBehaviourPun
     }
 
     IEnumerator Death() {
-        playing = false;
-        deathEffect.SetActive(true);
+        // deathEffect.SetActive(true);
         yield return new WaitForSeconds(1f);
         // gameObject.SetActive(false);
         if (pv.IsMine) {

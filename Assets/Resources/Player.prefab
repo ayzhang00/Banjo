@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 1988993335499974673}
   m_Layer: 6
   m_Name: Attack
-  m_TagString: Attack
+  m_TagString: PlayerAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5439,6 +5439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camSpeed: 2.5
   rb: {fileID: 3106374919936670504}
+  playing: 1
   obscured: 0
   swing: {fileID: 6606026744847444584}
   hit: {fileID: 6005510397937716748}
@@ -5457,6 +5458,7 @@ MonoBehaviour:
   sphere: {fileID: 5488736879973930117}
   health: 5
   isAttacking: 0
+  isHit: 0
   solder: {fileID: 3677071594997949047}
   SolderUI: {fileID: 3067521996489321832}
   canSolder: 0
@@ -6119,7 +6121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4063393665355128285}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DEF_HEAD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6151,7 +6153,7 @@ GameObject:
   - component: {fileID: 4063393665573214913}
   - component: {fileID: 4063393665573214915}
   - component: {fileID: 4063393665573214914}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6230,7 +6232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4063393665746927881}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MASTER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6269,7 +6271,7 @@ GameObject:
   - component: {fileID: 4063393665971584769}
   - component: {fileID: 4063393665971584771}
   - component: {fileID: 4063393665971584770}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6348,7 +6350,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4063393666112735598}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DEF_FOOT.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6380,7 +6382,7 @@ GameObject:
   - component: {fileID: 4063393666149034001}
   - component: {fileID: 4063393666149034003}
   - component: {fileID: 4063393666149034002}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6460,7 +6462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4063393666285073505}
   - component: {fileID: 4063393666285073506}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Robo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6553,7 +6555,7 @@ GameObject:
   - component: {fileID: 4063393666375481071}
   - component: {fileID: 4063393666375481041}
   - component: {fileID: 4063393666375481040}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6632,7 +6634,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4063393666420069276}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DEF_STICK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6662,7 +6664,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4063393666576817195}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DEF_HAND.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6692,7 +6694,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4063393666665385778}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DEF_BODY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6723,7 +6725,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4063393666791430991}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DEF_BAG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6755,7 +6757,7 @@ GameObject:
   - component: {fileID: 4063393666810689891}
   - component: {fileID: 4063393666810689893}
   - component: {fileID: 4063393666810689892}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6834,7 +6836,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4063393666962759681}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Robo_Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6865,7 +6867,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4063393667099520064}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DEF_FOOT.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6895,7 +6897,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4063393667206579091}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DEF_HAND.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}

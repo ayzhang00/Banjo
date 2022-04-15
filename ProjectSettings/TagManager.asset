@@ -18,6 +18,7 @@ TagManager:
   - Recharge
   - LED
   - Enemy
+  - PlayerAttack
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,6 @@ TagManager:
   - Symbols
   - Glow
   - Trees
-  - 
   - 
   - 
   - 
