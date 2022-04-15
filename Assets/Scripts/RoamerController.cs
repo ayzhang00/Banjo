@@ -13,19 +13,31 @@ public class RoamerController : MonoBehaviour
     public Vector3[] points;
     public int curPoint = 0;
     bool canMove = true;
+    bool obscured = false;
     Vector3 forward, right;
+    GameObject[] LEDs;
+    public GameObject sphere;
 
     void Start()
     {
         forward = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.forward;
         right = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.right;
         pv = GetComponent<PhotonView>();
+        LEDs = GameObject.FindGameObjectsWithTag("LED");
     }
 
     // Update is called once per frame
     void Update()
     {
         Move();
+        foreach(GameObject LED in LEDs) {
+            // if (Vector3.Distance(transform.position, LED.transform.position) < 20) {
+            if (Vector3.Distance(transform.position, LED.transform.position) < 20 && 
+                !LED.activeSelf) {
+                obscured = true;
+            }
+        }
+        Obscure(obscured);
     }
 
     void Move()
@@ -33,21 +45,24 @@ public class RoamerController : MonoBehaviour
         Vector3 dir = points[curPoint] - transform.position;
         Vector3 heading = Vector3.Normalize(dir);
         if (canMove) {
-            transform.forward = heading;
+            transform.forward = new Vector3(heading.x, 0.0f, heading.z);
             transform.position += heading * moveSpeed * Time.deltaTime;
-        }
-        if (dir.magnitude < 0.1f) {
-            curPoint++;
-            if (curPoint >= points.Length) {
-                curPoint = 0;
+            if (dir.magnitude < 0.2f) {
+                StartCoroutine(Pause());
+                curPoint++;
+                if (curPoint >= points.Length) {
+                    curPoint = 0;
+                }
             }
         }
-
-        StartCoroutine("Travel");
-
+        // StartCoroutine("Travel");
     }
 
-    IEnumerator Travel()
+    void Obscure(bool isActive) {
+        pv.RPC("ActiveObject", RpcTarget.All, "Sphere", isActive);
+    }
+
+    IEnumerator Pause()
     {
         canMove = false;
         yield return new WaitForSeconds(1f);
@@ -56,5 +71,12 @@ public class RoamerController : MonoBehaviour
 
     void PlayWalkSound() {
             walk.Play();
+    }
+
+    [PunRPC]
+    void ActiveObject(string obj, bool isActive) {
+        if (obj == "Sphere") {
+            sphere.SetActive(!isActive);
+        }
     }
 }
