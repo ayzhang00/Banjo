@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e18e6b2b790a444a223a724cd9cc3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 1156942509271025372, guid: 5173488ae9fedc64dbe1efe5651c9c06, type: 3}
+  objectToSpawn: {fileID: 5636970220027594314, guid: 26b52ff2c20bfa44583fcd0480dafdc1, type: 3}
   Inventory: {fileID: 613682901028984198, guid: 8e0177f5d89d6824dbe1c1283ffa665a, type: 3}
   cam: {fileID: 7533722982174213325, guid: 68eb84d742e66bd41a476e191b3115a7, type: 3}
   maxSpawned: 5
