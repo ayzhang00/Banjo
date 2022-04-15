@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15750,13 +15750,13 @@ MonoBehaviour:
   mainRoom: {fileID: 22759147}
   cameraIso: {fileID: 4726272655109542816}
   cameraTop: {fileID: 528518563}
-  errorMsg: {fileID: 390893674}
-  errorButton: {fileID: 1412895734}
-  readyButton: {fileID: 2108074180}
-  startButton: {fileID: 624787931}
+  errorMsg: {fileID: 984642571}
+  errorButton: {fileID: 1260276294}
+  readyButton: {fileID: 1489881248}
+  startButton: {fileID: 423770990}
   Inventory: {fileID: 4495806355009098080}
-  playerText: {fileID: 211610053}
-  selectUI: {fileID: 160897980}
+  playerText: {fileID: 306644738}
+  selectUI: {fileID: 527981533}
   c: {fileID: 21300000, guid: 6d331e24d4c6f144ab9d667ee4fde38e, type: 3}
   v: {fileID: 21300000, guid: c6aff1d638b9d8445ab708a75681a2b1, type: 3}
   playerCount: 0
