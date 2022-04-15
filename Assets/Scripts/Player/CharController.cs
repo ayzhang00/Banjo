@@ -205,6 +205,7 @@ public class CharController : MonoBehaviourPun
             hit.Play();
             health--;
             if (health <= 0) {
+                healthBarFill.fillAmount = 0;
                 isDead = true;
                 if (isRevived) {
                     StartCoroutine(Death());
