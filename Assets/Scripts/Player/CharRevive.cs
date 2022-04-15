@@ -86,5 +86,6 @@ public class CharRevive : MonoBehaviourPun
         cOther.isRevived = true;
         cOther.isDead = false;
         cOther.isHit = false;
+        cOther.health = 10f;
     }
 }
