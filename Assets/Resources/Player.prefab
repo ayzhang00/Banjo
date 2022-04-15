@@ -4952,10 +4952,10 @@ GameObject:
   - component: {fileID: 112036423091608184}
   - component: {fileID: 112036423091608187}
   - component: {fileID: 112036423091608166}
-  - component: {fileID: 112036423091608185}
+  - component: {fileID: 1352172908343939410}
   - component: {fileID: 112036423091608167}
   - component: {fileID: 112036423091608164}
-  - component: {fileID: 1352172908343939410}
+  - component: {fileID: 112036423091608185}
   - component: {fileID: 1352172908343939411}
   - component: {fileID: 8887449155397724900}
   - component: {fileID: 6609649878078923932}
@@ -5042,44 +5042,25 @@ CapsuleCollider:
   m_Height: 4.44462
   m_Direction: 1
   m_Center: {x: 0, y: 2.1596246, z: 0.061268866}
---- !u!114 &112036423091608185
-MonoBehaviour:
+--- !u!95 &1352172908343939410
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 959092282215819052}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b1ca259c7d15b64cae6a5b6b8c49021, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camSpeed: 2.5
-  rb: {fileID: 112036423091608184}
-  obscured: 0
-  swing: {fileID: 8160334862458981176}
-  hit: {fileID: 8774662320303910748}
-  walk: {fileID: 6783049663297873999}
-  solderSound: {fileID: 3819618783082005176}
-  bg: {fileID: 6296899993180998173}
-  bgtrack1: {fileID: 8300000, guid: 41e5ee250808ae247807a572e73d7469, type: 3}
-  bgtrack2: {fileID: 8300000, guid: 9612ad80fd8a54842a63c08c99149a96, type: 3}
-  coreTrack1: {fileID: 8300000, guid: 5d87e0ecae2ef0f488951b020bba80c7, type: 3}
-  coreTrack2: {fileID: 8300000, guid: 842e91fa4710f0a4fab074f610fa1457, type: 3}
-  moveSpeed: 5
-  isMoving: 0
-  attack: {fileID: 3533168354227276127}
-  flash: {fileID: 3051691159796873525}
-  deathEffect: {fileID: 8454655468566307054}
-  sphere: {fileID: 7402209266958382549}
-  health: 5
-  isAttacking: 0
-  solder: {fileID: 1843540300221252391}
-  SolderUI: {fileID: 1463241784}
-  canSolder: 0
-  isSoldering: 0
-  timeToCompleteSolder: 3
-  solderComplete: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b4ac66e9e2923e84b81ddc1fbb0cccd4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &112036423091608167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5137,25 +5118,44 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
---- !u!95 &1352172908343939410
-Animator:
-  serializedVersion: 3
+--- !u!114 &112036423091608185
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 959092282215819052}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b4ac66e9e2923e84b81ddc1fbb0cccd4, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1ca259c7d15b64cae6a5b6b8c49021, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camSpeed: 2.5
+  rb: {fileID: 112036423091608184}
+  obscured: 0
+  swing: {fileID: 8160334862458981176}
+  hit: {fileID: 8774662320303910748}
+  walk: {fileID: 6783049663297873999}
+  solderSound: {fileID: 3819618783082005176}
+  bg: {fileID: 6296899993180998173}
+  bgtrack1: {fileID: 8300000, guid: 41e5ee250808ae247807a572e73d7469, type: 3}
+  bgtrack2: {fileID: 8300000, guid: 9612ad80fd8a54842a63c08c99149a96, type: 3}
+  coreTrack1: {fileID: 8300000, guid: 5d87e0ecae2ef0f488951b020bba80c7, type: 3}
+  coreTrack2: {fileID: 8300000, guid: 842e91fa4710f0a4fab074f610fa1457, type: 3}
+  moveSpeed: 5
+  isMoving: 0
+  attack: {fileID: 3533168354227276127}
+  flash: {fileID: 3051691159796873525}
+  deathEffect: {fileID: 8454655468566307054}
+  sphere: {fileID: 7402209266958382549}
+  health: 5
+  isAttacking: 0
+  solder: {fileID: 1843540300221252391}
+  SolderUI: {fileID: 1463241784}
+  canSolder: 0
+  isSoldering: 0
+  timeToCompleteSolder: 3
+  solderComplete: 0
 --- !u!114 &1352172908343939411
 MonoBehaviour:
   m_ObjectHideFlags: 0
