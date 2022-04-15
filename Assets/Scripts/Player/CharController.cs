@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 
 public class CharController : MonoBehaviourPun
@@ -13,6 +14,7 @@ public class CharController : MonoBehaviourPun
     public bool playing = true;
     public bool isDead = false;
     public bool obscured = false;
+    bool allLEDsOff = false;
     GameObject[] LEDs;
     Vector3 camOffset = new Vector3(-15f, 12f, -15f);
     Vector3 forward, right;
@@ -22,6 +24,7 @@ public class CharController : MonoBehaviourPun
     public AudioSource hit;
     public AudioSource walk;
     public AudioSource solderSound;
+    public AudioSource chargeSound;
     public AudioSource bg;
     public AudioClip bgtrack1;
     public AudioClip bgtrack2;
@@ -38,6 +41,7 @@ public class CharController : MonoBehaviourPun
     public GameObject deathEffect;
     public GameObject sphere;
     public float health = 5f;
+    float maxHealth;
     public bool isAttacking = false;
     public bool isHit = false;
     float timeToAttack = 0.3f;
@@ -49,6 +53,7 @@ public class CharController : MonoBehaviourPun
     CharEnergy e;
     // ui
     GameObject ui;
+    public Image healthBarFill;
     
 
     // public bool runToTheCoreMusic = false;
@@ -68,6 +73,7 @@ public class CharController : MonoBehaviourPun
         ui = transform.Find("PlayerUI").gameObject;
         LEDs = GameObject.FindGameObjectsWithTag("LED");
         StartCoroutine("PlayBackgroundMusic");
+        maxHealth = health;
     }
 
     // Update is called once per frame
@@ -82,6 +88,9 @@ public class CharController : MonoBehaviourPun
         if (!isDead && playing && pv.IsMine) {
             ui.SetActive(true);
             obscured = false;
+            allLEDsOff = true;
+            healthBarFill.fillAmount = health / maxHealth;
+
             if (Input.GetButtonDown("Jump")){
                 s.Solder(false);
                 solderSound.Stop();
@@ -97,20 +106,20 @@ public class CharController : MonoBehaviourPun
                 isMoving = false;
             }
 
-            if (Input.GetButtonDown("Fire3")) {
-                if (!isPlayingCoreMusic) {
-                    bg.Stop();
-                    StopCoroutine("PlayBackgroundMusic");
-                    StartCoroutine("PlayRunToTheCoreMusic");
-                    isPlayingCoreMusic = true;
-                } else {
-                    bg.Stop();
-                    StopCoroutine("PlayRunToTheCoreMusic");
-                    StartCoroutine("PlayBackgroundMusic");
-                    isPlayingCoreMusic = false;
+            // if (Input.GetButtonDown("Fire3")) {
+            //     if (!isPlayingCoreMusic) {
+            //         bg.Stop();
+            //         StopCoroutine("PlayBackgroundMusic");
+            //         StartCoroutine("PlayRunToTheCoreMusic");
+            //         isPlayingCoreMusic = true;
+            //     } else {
+            //         bg.Stop();
+            //         StopCoroutine("PlayRunToTheCoreMusic");
+            //         StartCoroutine("PlayBackgroundMusic");
+            //         isPlayingCoreMusic = false;
 
-                }
-            }
+            //     }
+            // }
 
             if (moveSpeed != 0) MoveCamera();
             
@@ -142,14 +151,22 @@ public class CharController : MonoBehaviourPun
             
             foreach(GameObject LED in LEDs) {
                 // if (Vector3.Distance(transform.position, LED.transform.position) < 20) {
-                Light l = LED.GetComponent<Light>();
                 if (Vector3.Distance(transform.position, LED.transform.position) < 20 && 
                     !LED.activeSelf) {
                     obscured = true;
                 }
+                if (LED.activeSelf) {
+                    allLEDsOff = false;
+                }
             }
-            Obscure(obscured);
 
+            if (allLEDsOff) {
+                bg.Stop();
+                StopCoroutine("PlayBackgroundMusic");
+                StartCoroutine("PlayRunToTheCoreMusic");
+            }
+
+            Obscure(obscured);
         }
     }
 

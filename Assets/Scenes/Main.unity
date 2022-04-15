@@ -9921,6 +9921,10 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 10bdcef06dd07e0459cefa0b54d612d2, type: 3}
+    - target: {fileID: 2039368510676814945, guid: 68eb84d742e66bd41a476e191b3115a7, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7533722982174213324, guid: 68eb84d742e66bd41a476e191b3115a7, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -23592,7 +23596,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6958447467986359620, guid: b4562773c01697a47bcdda224a2839b7, type: 3}
       propertyPath: sceneViewId
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6958447467986359623, guid: b4562773c01697a47bcdda224a2839b7, type: 3}
       propertyPath: led
@@ -42675,7 +42679,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4726272654843969026}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &4726272654843969037
 Camera:
   m_ObjectHideFlags: 0
@@ -42726,7 +42730,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4726272654843969026}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 86de5215ad9d5224889e47157c2627d6, type: 3}
