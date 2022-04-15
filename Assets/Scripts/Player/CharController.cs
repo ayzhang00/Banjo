@@ -222,7 +222,9 @@ public class CharController : MonoBehaviourPun
     }
 
     void PlayWalkSound() {
-        walk.Play();
+        if (canJump) {
+            walk.Play();
+        }
     }
 
     void PlaySwingSound() {
