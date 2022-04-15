@@ -10519,7 +10519,8 @@ MonoBehaviour:
   walk: {fileID: 9075054716763810637}
   rb: {fileID: 3106374919936670504}
   moveSpeed: 3
-  points: []
+  points:
+  - {x: 0, y: 0, z: 0}
   curPoint: 0
 --- !u!1 &3067521996489321832
 GameObject:

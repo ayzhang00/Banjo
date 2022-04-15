@@ -50,7 +50,8 @@ public class RoamerController : MonoBehaviour
     IEnumerator Travel()
     {
         canMove = false;
-        yield return new WaitForSeconds(1f);
+        float wait = Random.Range(0.5f, 2f);
+        yield return new WaitForSeconds(wait);
         canMove = true;
     }
 
