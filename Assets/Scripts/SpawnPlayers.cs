@@ -171,6 +171,7 @@ public class SpawnPlayers : MonoBehaviour
             cameraTop.SetActive(true);
             GameObject creator = PhotonNetwork.Instantiate(creatorPrefab.name, new Vector3(0f, 0f, 0f), Quaternion.identity);
             creator.GetComponent<SpawnObjectAtClick>().Inventory = Inventory;
+            creator.GetComponent<SpawnObjectAtClick>().cam = cameraTop.GetComponent<Camera>();
         }
     }
 }

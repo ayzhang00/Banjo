@@ -9,7 +9,7 @@ public class SpawnObjectAtClick : MonoBehaviourPun
     public GameObject objectToSpawn;
     public GameObject Inventory;
     public Camera cam;
-    public bool playing;
+    public bool playing = true;
     PhotonView pv; 
     public int maxSpawned = 5;
     int spawned = 0;
@@ -17,7 +17,8 @@ public class SpawnObjectAtClick : MonoBehaviourPun
     void Start()
     {
         pv = GetComponent<PhotonView>();
-        cam = GameObject.Find("TopCamera").GetComponent<Camera>();
+        playing = true;
+        // cam = GameObject.Find("TopCamera").GetComponent<Camera>();
     }
     // Update is called once per frame
     void Update()

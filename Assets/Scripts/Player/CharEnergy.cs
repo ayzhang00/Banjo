@@ -24,7 +24,6 @@ public class CharEnergy : MonoBehaviour
         }
         if (canRecharge && Input.GetButtonDown("Recharge")) {
             recharging = true;
-            Recharge();
         }
         if (Input.GetButtonUp("Recharge")) {
             timeRecharged = 0;

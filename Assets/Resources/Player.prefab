@@ -5286,6 +5286,7 @@ GameObject:
   - component: {fileID: 2274322258409645032}
   - component: {fileID: 9075054716763810637}
   - component: {fileID: 8141286064627008752}
+  - component: {fileID: 5586636992274407924}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -5319,6 +5320,7 @@ Transform:
   - {fileID: 2961719589184472747}
   - {fileID: 8173146586208089121}
   - {fileID: 3601610343148726540}
+  - {fileID: 4203098044873677333}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5467,7 +5469,7 @@ MonoBehaviour:
   bgtrack2: {fileID: 8300000, guid: 9612ad80fd8a54842a63c08c99149a96, type: 3}
   coreTrack1: {fileID: 8300000, guid: 5d87e0ecae2ef0f488951b020bba80c7, type: 3}
   coreTrack2: {fileID: 8300000, guid: 842e91fa4710f0a4fab074f610fa1457, type: 3}
-  moveSpeed: 5
+  moveSpeed: 3
   isMoving: 0
   attack: {fileID: 1988993335499974671}
   flash: {fileID: 57368052079155301}
@@ -5476,6 +5478,7 @@ MonoBehaviour:
   health: 5
   isAttacking: 0
   isHit: 0
+  isRevived: 0
 --- !u!114 &5640759489408853572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5543,10 +5546,10 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: isAttacking
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: isHit
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: isDead
   m_SynchronizeLayers:
   - SynchronizeType: 1
@@ -6066,6 +6069,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PauseUI: {fileID: 3601610343148726536}
+--- !u!114 &5586636992274407924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2872564673764181628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3c36c58615bb83498b30a99efddbdd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LoadingUI: {fileID: 8605141314165929022}
+  LoadingSprites:
+  - {fileID: -2914503216214332612, guid: a956b56bd6df23440989f52eec0e8825, type: 3}
+  - {fileID: -3243969905789220278, guid: a956b56bd6df23440989f52eec0e8825, type: 3}
+  - {fileID: -2240947139059371774, guid: a956b56bd6df23440989f52eec0e8825, type: 3}
+  - {fileID: -9038400482918282348, guid: a956b56bd6df23440989f52eec0e8825, type: 3}
+  - {fileID: 3541541065571182360, guid: a956b56bd6df23440989f52eec0e8825, type: 3}
+  - {fileID: -6469537607060608100, guid: a956b56bd6df23440989f52eec0e8825, type: 3}
+  - {fileID: -6746097347225962745, guid: a956b56bd6df23440989f52eec0e8825, type: 3}
+  - {fileID: -176354558837914207, guid: a956b56bd6df23440989f52eec0e8825, type: 3}
+  - {fileID: 4675115675929687159, guid: a956b56bd6df23440989f52eec0e8825, type: 3}
+  totalTime: 5
+  loadingNum: 9
 --- !u!1 &3067521996489321832
 GameObject:
   m_ObjectHideFlags: 0
@@ -7061,6 +7089,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5967501974158592768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4203098044873677333}
+  - component: {fileID: 5610588981276888171}
+  m_Layer: 0
+  m_Name: ReviveRange
+  m_TagString: Revive
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4203098044873677333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5967501974158592768}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_Children: []
+  m_Father: {fileID: 3212956549517188294}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5610588981276888171
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5967501974158592768}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.3318219, y: 0.47135013, z: 1.8210506}
+  m_Center: {x: -0.03074646, y: 0.26432493, z: -0.06548381}
 --- !u!1 &6582724247879325851
 GameObject:
   m_ObjectHideFlags: 0

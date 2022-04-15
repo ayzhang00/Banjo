@@ -5583,7 +5583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d980ba8566900d9418ee721c0644e70c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 1.5
   rb: {fileID: 4826701416145779486}
   attack: {fileID: 8249959222946031673}
   flash: {fileID: 7578470914872694867}

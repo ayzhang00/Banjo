@@ -31,12 +31,7 @@ public class CharSolder : MonoBehaviourPun
         c = GetComponent<CharController>();
         loading = LoadingUI.GetComponent<Image>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
     public void StartSolder() {
         // F is solder
         if (Input.GetButtonDown("Solder") && canSolder) {

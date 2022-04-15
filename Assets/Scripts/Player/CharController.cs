@@ -49,6 +49,8 @@ public class CharController : MonoBehaviourPun
     CharEnergy e;
     // ui
     GameObject ui;
+    // revive
+    public bool isRevived = false;
     
 
     // public bool runToTheCoreMusic = false;
@@ -187,7 +189,9 @@ public class CharController : MonoBehaviourPun
             health--;
             if (health <= 0) {
                 isDead = true;
-                // StartCoroutine(Death());
+                if (isRevived) {
+                    StartCoroutine(Death());
+                }
             }
         }
     }

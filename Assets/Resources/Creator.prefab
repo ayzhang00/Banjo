@@ -97,9 +97,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2145540920585457230}
-  - component: {fileID: 2145540920585457231}
   - component: {fileID: 2145540920585457228}
   - component: {fileID: -1848413039038452515}
+  - component: {fileID: 397440684405847897}
   m_Layer: 0
   m_Name: Creator
   m_TagString: Creator
@@ -124,23 +124,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2145540920585457231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2145540920585457229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1e18e6b2b790a444a223a724cd9cc3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 5636970220027594314, guid: 26b52ff2c20bfa44583fcd0480dafdc1, type: 3}
-  Inventory: {fileID: 613682901028984198, guid: 8e0177f5d89d6824dbe1c1283ffa665a, type: 3}
-  cam: {fileID: 7533722982174213325, guid: 68eb84d742e66bd41a476e191b3115a7, type: 3}
-  playing: 0
-  maxSpawned: 5
 --- !u!114 &2145540920585457228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +159,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PauseUI: {fileID: 9031675289461473868}
+--- !u!114 &397440684405847897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145540920585457229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d533304d61952ff40b9c0e88e5418016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToSpawn: {fileID: 5636970220027594314, guid: 26b52ff2c20bfa44583fcd0480dafdc1, type: 3}
+  Inventory: {fileID: 613682901028984198, guid: 8e0177f5d89d6824dbe1c1283ffa665a, type: 3}
+  cam: {fileID: 7533722982174213325, guid: 68eb84d742e66bd41a476e191b3115a7, type: 3}
+  playing: 0
+  maxSpawned: 5
 --- !u!1 &5764227387198514882
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,7 +458,7 @@ PrefabInstance:
     - target: {fileID: 3962678750300342875, guid: 761ef4a451aabd749bac041c68971204, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 2145540920585457231}
+      objectReference: {fileID: 0}
     - target: {fileID: 3962678750775115205, guid: 761ef4a451aabd749bac041c68971204, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
