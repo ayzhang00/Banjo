@@ -165,8 +165,7 @@ public class CharController : MonoBehaviourPun
                 // if (Vector3.Distance(transform.position, LED.transform.position) < 20) {
                 Light l = LED.GetComponent<Light>();
                 if (Vector3.Distance(transform.position, LED.transform.position) < 20 && 
-                        // !l.enabled) {
-                        !LED.activeSelf) {
+                    !LED.activeSelf) {
                     obscured = true;
                 }
             }
