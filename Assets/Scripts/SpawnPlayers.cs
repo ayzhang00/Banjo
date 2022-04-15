@@ -19,6 +19,9 @@ public class SpawnPlayers : MonoBehaviour
     public GameObject startButton;
     public GameObject Inventory;
     public GameObject playerText;
+    public GameObject selectUI;
+    public Sprite c;
+    public Sprite v;
     // count each player as they come in, inc in rpc
     public int playerCount = 0;
     public int creatorCount = 0;
@@ -47,6 +50,7 @@ public class SpawnPlayers : MonoBehaviour
         creatorCount = 0;
         pv = GetComponent<PhotonView>();
         players = playerText.GetComponent<Text>();
+        // selectUI.GetComponent<Image>().sprite = null;
     }
 
     void Update() {
@@ -75,6 +79,7 @@ public class SpawnPlayers : MonoBehaviour
             isCreator = false;
             pv.RPC("IncCreator", RpcTarget.All, false);
         }
+        selectUI.GetComponent<Image>().sprite = v;
         readyButton.SetActive(true);
     }
 
@@ -86,7 +91,7 @@ public class SpawnPlayers : MonoBehaviour
                 isPlayer = false;
                 pv.RPC("IncPlayers", RpcTarget.All, false);
             }
-            
+            selectUI.GetComponent<Image>().sprite = c;
             readyButton.SetActive(true);
         }
         else{
