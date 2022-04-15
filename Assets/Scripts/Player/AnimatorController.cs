@@ -26,6 +26,6 @@ public class AnimatorController : MonoBehaviour
         animator.SetBool("isAttacking", c.isAttacking);
         animator.SetBool("isSoldering", s.isSoldering);
         animator.SetBool("isHit", c.isHit);
-        animator.SetBool("isDead", !c.playing);
+        animator.SetBool("isDead", c.isDead);
     }
 }

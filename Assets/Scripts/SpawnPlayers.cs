@@ -50,14 +50,16 @@ public class SpawnPlayers : MonoBehaviour
     }
 
     void Update() {
-        NumPlayer();
-        if (readyCount >= PhotonNetwork.CurrentRoom.PlayerCount && PhotonNetwork.IsMasterClient) {
-            startButton.SetActive(true);
+        if (!started) {
+            NumPlayer();
+            if (readyCount >= PhotonNetwork.CurrentRoom.PlayerCount && PhotonNetwork.IsMasterClient) {
+                startButton.SetActive(true);
+            }
+            else {
+                startButton.SetActive(false);
+            }
         }
-        else {
-            startButton.SetActive(false);
-        }
-        if (started && !loaded) {
+        else if (started && !loaded) {
             LoadWorld();
             // Don't allow people from joining
             PhotonNetwork.CurrentRoom.IsOpen = false;

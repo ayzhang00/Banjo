@@ -11,6 +11,7 @@ public class CharController : MonoBehaviourPun
     float maxCamDist = 1f;
     public Rigidbody rb;
     public bool playing = true;
+    public bool isDead = false;
     public bool obscured = false;
     GameObject[] LEDs;
     Vector3 camOffset = new Vector3(-15f, 12f, -15f);
@@ -72,9 +73,13 @@ public class CharController : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            playing = !playing;
+        }
         s.HandleSolderUI();
         // isMoving = false;
-        if (playing && pv.IsMine) {
+        if (!isDead && playing && pv.IsMine) {
             ui.SetActive(true);
             obscured = false;
             if (Input.GetButtonDown("Jump")){
@@ -167,6 +172,7 @@ public class CharController : MonoBehaviourPun
         }
     }
 
+    // collisions and triggers
     void OnCollisionStay(Collision collision) {
         if (collision.collider.tag == "Ground") {
             canJump = true;
@@ -180,7 +186,7 @@ public class CharController : MonoBehaviourPun
             hit.Play();
             health--;
             if (health <= 0) {
-                playing = false;
+                isDead = true;
                 // StartCoroutine(Death());
             }
         }
@@ -229,6 +235,10 @@ public class CharController : MonoBehaviourPun
         swing.Play();
     }
 
+    public void ContinuePressed() {
+        playing = true;
+    }
+
     IEnumerator PlayBackgroundMusic() {
         bg.clip = bgtrack1;
         bg.Play();
@@ -246,7 +256,7 @@ public class CharController : MonoBehaviourPun
     }
 
     IEnumerator Death() {
-        playing = false;
+        isDead = true;
         deathEffect.SetActive(true);
         yield return new WaitForSeconds(1f);
         // gameObject.SetActive(false);
