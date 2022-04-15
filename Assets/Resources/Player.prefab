@@ -5276,6 +5276,7 @@ GameObject:
   - component: {fileID: 3106374919936670519}
   - component: {fileID: 3106374919936670516}
   - component: {fileID: 3106374919936670505}
+  - component: {fileID: 5640759489408853572}
   - component: {fileID: 4058276630999166979}
   - component: {fileID: 5891984758637169588}
   - component: {fileID: 8153827100191557068}
@@ -5472,11 +5473,24 @@ MonoBehaviour:
   health: 5
   isAttacking: 0
   isHit: 0
+--- !u!114 &5640759489408853572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2872564673764181628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4457ca5b22006824baf5d7168f00c219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   solder: {fileID: 3677071594997949047}
   SolderUI: {fileID: 3067521996489321832}
   canSolder: 0
   isSoldering: 0
-  timeToCompleteSolder: 3
+  timeToCompleteSolder: 2
+  timeSoldered: 0
   solderComplete: 0
 --- !u!114 &4058276630999166979
 MonoBehaviour:
@@ -5514,6 +5528,12 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: isAttacking
+  - Type: 4
+    SynchronizeType: 0
+    Name: isHit
+  - Type: 4
+    SynchronizeType: 0
+    Name: isDead
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0

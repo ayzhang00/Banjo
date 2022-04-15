@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class SolderArea : MonoBehaviour
 {
-    CharController c;
+    CharSolder c;
 
     // Update is called once per frame
     void Start()
     {
-        c = GetComponentInParent<CharController>(); 
+        c = GetComponentInParent<CharSolder>(); 
     }
 
     private void OnTriggerStay(Collider other) {

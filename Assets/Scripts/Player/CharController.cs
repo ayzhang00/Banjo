@@ -43,14 +43,7 @@ public class CharController : MonoBehaviourPun
     float timeAttacked = 0f;
     int attackCount = 0;
     // solder
-    public GameObject solder;
-    public GameObject SolderUI; 
-    public bool canSolder = false;
-    public bool isSoldering = false;
-    public float timeToCompleteSolder = 2f;
-    float timeSoldered = 0f;
-    public bool solderComplete;
-    int solderCount = 0;
+    CharSolder s;
     // energy
     CharEnergy e;
     // ui
@@ -68,6 +61,7 @@ public class CharController : MonoBehaviourPun
         right = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.right;
         Camera.main.transform.position = transform.position + camOffset;
 
+        s = GetComponent<CharSolder>();
         e = GetComponent<CharEnergy>();
         pv = GetComponent<PhotonView>();
         ui = transform.Find("PlayerUI").gameObject;
@@ -78,13 +72,13 @@ public class CharController : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        HandleSolderUI();
+        s.HandleSolderUI();
         // isMoving = false;
         if (playing && pv.IsMine) {
             ui.SetActive(true);
             obscured = false;
             if (Input.GetButtonDown("Jump")){
-                Solder(false);
+                s.Solder(false);
                 solderSound.Stop();
                 Jump();
             } 
@@ -92,8 +86,8 @@ public class CharController : MonoBehaviourPun
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
                 isMoving = true;
                 Move();
-                Solder(false);
-                solderComplete = false;
+                s.Solder(false);
+                s.solderComplete = false;
             } else {
                 isMoving = false;
             }
@@ -121,8 +115,8 @@ public class CharController : MonoBehaviourPun
                 if (!isAttacking && Input.GetButtonDown("Fire") && !isHit) {
                     isAttacking = true;
                     Attack(true);
-                    Solder(false);
-                    solderComplete = false;
+                    s.Solder(false);
+                    s.solderComplete = false;
                 }
                 // stop attacking after some time
                 if (isAttacking) {
@@ -138,28 +132,7 @@ public class CharController : MonoBehaviourPun
                         }
                     }
                 }
-                // Q is solder
-                if (Input.GetButtonDown("Solder") && canSolder) {
-                    Solder(true);
-                    solderComplete = false;
-                    solderSound.Play();
-                }
-                if (Input.GetButtonUp("Solder")){ 
-                    Solder(false);
-                    solderSound.Stop();
-                }
-                if (isSoldering) {
-                    timeSoldered += Time.deltaTime;
-                    if (timeSoldered >= timeToCompleteSolder) {
-                        solderComplete = true;
-                        Solder(false);
-                        solderCount++;
-                        if (solderCount == 2) {
-                            e.DecEnergy();
-                            solderCount = 0;
-                        }
-                    }
-                }
+                s.StartSolder();
             }
             
             foreach(GameObject LED in LEDs) {
@@ -191,15 +164,6 @@ public class CharController : MonoBehaviourPun
     void Jump() {
         if (canJump) {
             rb.velocity = new Vector3(rb.velocity.x, jumpSpeed, rb.velocity.z);
-        }
-    }
-
-    void HandleSolderUI() {
-        if (canSolder) {
-            SolderUI.SetActive(true);
-        }
-        else {
-            SolderUI.SetActive(false);
         }
     }
 
@@ -243,10 +207,6 @@ public class CharController : MonoBehaviourPun
         float step = (dist / maxCamDist) * camSpeed;
 
         Camera.main.transform.position -= dir.normalized * step * Time.deltaTime;
-    }
-
-    void Solder(bool isActive) {
-        pv.RPC("SwitchActiveObject", RpcTarget.All, "Solder", isActive);
     }
     
     void Attack(bool isActive) {
@@ -304,10 +264,10 @@ public class CharController : MonoBehaviourPun
             flash.SetActive(isActive);
         }
         else if (obj == "Solder") {
-            solder.SetActive(isActive);
-            isSoldering = isActive;
+            s.solder.SetActive(isActive);
+            s.isSoldering = isActive;
             if (!isActive) {
-                timeSoldered = 0f;
+                s.timeSoldered = 0f;
             }
         }
         else if (obj == "Sphere") {

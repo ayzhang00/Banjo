@@ -6,7 +6,7 @@ using Photon.Pun;
 
 public class SolderLeg : MonoBehaviour
 {
-    CharController c;
+    CharSolder c;
     public bool isSoldered = false;
 
     PhotonView pv;
@@ -18,7 +18,7 @@ public class SolderLeg : MonoBehaviour
 
     private void OnTriggerStay(Collider other) {
         if (other.tag == "SolderArea") {
-            c = other.gameObject.GetComponentInParent<CharController>();
+            c = other.gameObject.GetComponentInParent<CharSolder>();
         }
     }
     
