@@ -5489,7 +5489,7 @@ MonoBehaviour:
   SolderUI: {fileID: 3067521996489321832}
   canSolder: 0
   isSoldering: 0
-  timeToCompleteSolder: 2
+  timeToCompleteSolder: 3.3
   timeSoldered: 0
   solderComplete: 0
 --- !u!114 &4058276630999166979

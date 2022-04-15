@@ -9,7 +9,7 @@ public class CharSolder : MonoBehaviourPun
     public GameObject SolderUI; 
     public bool canSolder = false;
     public bool isSoldering = false;
-    public float timeToCompleteSolder = 2f;
+    public float timeToCompleteSolder = 3.3f;
     public float timeSoldered = 0f;
     public bool solderComplete;
     int solderCount = 0;
