@@ -21,6 +21,8 @@ public class SwitchChangeColors : MonoBehaviour
     SolderLeg r1;
     SolderLeg r2;
 
+    public AudioSource switchSound;
+
     PhotonView pv;
     // Start is called before the first frame update
     void Start()
@@ -35,6 +37,7 @@ public class SwitchChangeColors : MonoBehaviour
             if (r1.isSoldered && r2.isSoldered && !changed) {
                 pv.RPC("SwitchColors", RpcTarget.All);
                 pv.RPC("SwitchChanged", RpcTarget.All, true);
+                switchSound.Play();
             }
             // c = other.gameObject.GetComponent<CharController>();
         }

@@ -8,6 +8,7 @@ public class SolderLeg : MonoBehaviour
 {
     CharSolder c;
     public bool isSoldered = false;
+    public AudioSource currentSound;
 
     PhotonView pv;
     // Start is called before the first frame update
@@ -39,6 +40,7 @@ public class SolderLeg : MonoBehaviour
                 // Debug.Log("yuh");
                 // ColoredCircle.GetComponent<MeshRenderer>().material = Soldered;
                 pv.RPC("SwitchSolder", RpcTarget.All, true);
+                currentSound.Play();
             }
         }
     }

@@ -13,9 +13,11 @@ public class CharEnergy : MonoBehaviour
     Image batteryImage;
     bool recharging = false;
     bool canRecharge = false;
+    CharController c;
 
     void Start(){
         batteryImage = batteryUI.GetComponent<Image>();
+        c = GetComponent<CharController>();
     }
 
     void Update() {
@@ -24,10 +26,12 @@ public class CharEnergy : MonoBehaviour
         }
         if (canRecharge && Input.GetButtonDown("Recharge")) {
             recharging = true;
+            c.chargeSound.Play();
         }
         if (Input.GetButtonUp("Recharge")) {
             timeRecharged = 0;
             recharging = false;
+            c.chargeSound.Stop();
         }
 
         if (canRecharge && !recharging && energy < 4) {
@@ -39,6 +43,9 @@ public class CharEnergy : MonoBehaviour
 
         if (recharging) {
             Recharge();
+            // c.chargeSound.Play();
+        } else {
+            // c.chargeSound.Stop();
         }
     }
 
@@ -58,9 +65,11 @@ public class CharEnergy : MonoBehaviour
 
     private void UpdateBattery(bool isRecharging) {
         if (isRecharging) {
-            batteryImage.sprite = batterySprite[0];
+            // batteryImage.sprite = batterySprite[0];
+            batteryImage.sprite = batterySprite[5];
         }
         else {
+            // batteryImage.sprite = batterySprite[5];
             batteryImage.sprite = batterySprite[energy + 1];
         }
     }
@@ -81,7 +90,7 @@ public class CharEnergy : MonoBehaviour
         timeRecharged += Time.deltaTime;
         if (timeRecharged >= 5.0f && energy < 4) {
             timeRecharged = 0;
-            energy++;
+            energy = 4;
         }
     }
 }
