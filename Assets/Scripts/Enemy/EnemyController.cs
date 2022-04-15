@@ -53,7 +53,7 @@ public class EnemyController : MonoBehaviourPun
             
         // } else if (player) {
         if (player) {
-            if (player.GetComponent<CharController>().playing) {
+            if (!player.GetComponent<CharController>().isDead) {
                 Vector3 dir = player.transform.position - transform.position;
                 Vector3 heading = Vector3.Normalize(dir);
                 if (canMove) {

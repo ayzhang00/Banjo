@@ -85,12 +85,16 @@ public class CharEnergy : MonoBehaviour
     }
 
     private void Recharge() {
+        Debug.Log(energy);
         if (energy == 0) UpdateBattery(true);
         else UpdateBattery(false);
         timeRecharged += Time.deltaTime;
         if (timeRecharged >= 5.0f && energy < 4) {
             timeRecharged = 0;
             energy = 4;
+        }
+        if (energy >= 4) {
+            canRecharge = false;
         }
     }
 }
