@@ -45,6 +45,7 @@ public class SpawnPlayers : MonoBehaviour
 
     void Start() {
         lobbyRoom.SetActive(true);
+        // mainRoom.SetActive(true);
         mainRoom.SetActive(false);
         playerCount = 0;
         creatorCount = 0;

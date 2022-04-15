@@ -35,10 +35,12 @@ public class SpawnObjectAtClick : MonoBehaviourPun
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
                     Transform objectHit = hit.transform;
 
+                    Debug.Log(objectHit.tag);
                     if (objectHit.tag == "Ground" && Inventory.GetComponent<CloneCount>().pickedUp) {
                         // Instantiate(objectToSpawn, hit.point, Quaternion.identity);
                         PhotonNetwork.Instantiate(objectToSpawn.name, hit.point, Quaternion.identity, 0);
                         spawned++;
+                        Debug.Log("spawned");
                         // PhotonNetwork.Instantiate("Chest", new Vector3(24f, 2f, 20f), Quaternion.identity, 0);
                     }
                     Inventory.GetComponent<CloneCount>().pickedUp = false;

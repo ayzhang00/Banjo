@@ -99,5 +99,5 @@ MonoBehaviour:
   - {fileID: 7208888934504903765, guid: df01c74424c7c664986f384b9156e60e, type: 3}
   - {fileID: -8766327379931938444, guid: df01c74424c7c664986f384b9156e60e, type: 3}
   - {fileID: -1356829697090860096, guid: df01c74424c7c664986f384b9156e60e, type: 3}
-  DraggedClone: {fileID: 0}
+  DraggedClone: {fileID: 5636970220027594314, guid: 26b52ff2c20bfa44583fcd0480dafdc1, type: 3}
   pickedUp: 0
