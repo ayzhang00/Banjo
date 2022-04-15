@@ -8722,7 +8722,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 718425476}
         m_TargetAssemblyTypeName: SpawnPlayers, Assembly-CSharp
         m_MethodName: Started
         m_Mode: 1
@@ -14030,7 +14030,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 718425476}
         m_TargetAssemblyTypeName: SpawnPlayers, Assembly-CSharp
         m_MethodName: CreatePlayer
         m_Mode: 1
@@ -25808,7 +25808,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 718425476}
         m_TargetAssemblyTypeName: SpawnPlayers, Assembly-CSharp
         m_MethodName: CreateCreator
         m_Mode: 1
@@ -26410,7 +26410,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 718425476}
         m_TargetAssemblyTypeName: SpawnPlayers, Assembly-CSharp
         m_MethodName: ClearError
         m_Mode: 1
@@ -33849,7 +33849,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 718425476}
         m_TargetAssemblyTypeName: SpawnPlayers, Assembly-CSharp
         m_MethodName: ClickReady
         m_Mode: 1
