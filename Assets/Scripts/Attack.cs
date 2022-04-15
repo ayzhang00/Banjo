@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    Vector3 startPosition = new Vector3(-1.5f,1.5f,3f);
-    float speed = 30;
+    float attackTime = 0f;
+    float totalTime = 1f;
     
     void Start() {
     }
 
     void OnEnable() {
-        transform.localPosition = startPosition;
     }
 
     void Update()
     {
-        transform.localPosition += Vector3.right * speed * Time.deltaTime;
-        if (transform.localPosition.x >= 1.5f) {
+        attackTime += Time.deltaTime;
+        if (attackTime >= totalTime) {
+            attackTime = 0;
             gameObject.SetActive(false);
         }
     }

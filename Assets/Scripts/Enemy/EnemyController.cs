@@ -59,10 +59,9 @@ public class EnemyController : MonoBehaviourPun
                 }
                 
                 if (dir.magnitude < 1 && !isHit) {
-                    Debug.Log("playing");
                     canMove = false;
                     if (canAttack) {
-                        Debug.Log("attack");
+                        // Debug.Log("attack");
                         Attack();
                         canAttack = false;
                         StartCoroutine(AttackOnInterval());
