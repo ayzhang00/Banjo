@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 5636516078754245027}
   - component: {fileID: 5330434486651327392}
   - component: {fileID: 1750692360180838221}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5034,7 +5034,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1060465643102722314}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DEF_FOOT.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5064,7 +5064,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 824619211576749069}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DEF_FOOT.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5094,7 +5094,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6412116612358766515}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DEF_HAND.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5126,7 +5126,7 @@ GameObject:
   - component: {fileID: 2623036578769822174}
   - component: {fileID: 9107124411017247746}
   - component: {fileID: 7846845951523858489}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5205,7 +5205,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2816486577415606542}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DEF_BAG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5237,7 +5237,7 @@ GameObject:
   - component: {fileID: 7651010041213098854}
   - component: {fileID: 4048983637661249509}
   - component: {fileID: 9186793186286154472}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5318,7 +5318,7 @@ GameObject:
   - component: {fileID: 1321453774203478217}
   - component: {fileID: 6243504947756162501}
   - component: {fileID: 462231918915457746}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5891,7 +5891,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4145973503877553944}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DEF_BODY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5922,7 +5922,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1026840664171250608}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DEF_HEAD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5952,7 +5952,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 842684548760752804}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MASTER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5989,7 +5989,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4608281003518278735}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DEF_HAND.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6126,7 +6126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6438130932080147490}
   - component: {fileID: 6929192453663519285}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Robo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6366,7 +6366,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9132611595052207452}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DEF_STICK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6506,7 +6506,7 @@ GameObject:
   - component: {fileID: 1263093791767846298}
   - component: {fileID: 4594006933101198385}
   - component: {fileID: 866534043021988972}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6585,7 +6585,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7165572169186220650}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Robo_Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
