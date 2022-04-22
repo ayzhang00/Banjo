@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+
 
 public class CharEnergy : MonoBehaviour
 {   
@@ -36,11 +38,16 @@ public class CharEnergy : MonoBehaviour
         if (canRecharge && Input.GetButtonDown("Recharge")) {
             recharging = true;
             c.chargeSound.Play();
+            StartChargeEffects(true);
         }
         if (Input.GetButtonUp("Recharge")) {
             timeRecharged = 0;
             recharging = false;
-            c.chargeSound.Stop();
+            if (energy != 4) {
+                c.chargeSound.Stop();
+            }
+            StartChargeEffects(false);
+            // c.chargeSound.Stop();
         }
 
         if (canRecharge && !recharging && energy < 4) {
@@ -76,6 +83,7 @@ public class CharEnergy : MonoBehaviour
         if (isRecharging) {
             // batteryImage.sprite = batterySprite[0];
             batteryImage.sprite = batterySprite[5];
+            StartChargeEffects(false);
         }
         else {
             // batteryImage.sprite = batterySprite[5];
@@ -112,6 +120,8 @@ public class CharEnergy : MonoBehaviour
             LoadingUI.SetActive(true);
             CalculateLoading();
             loading.sprite = LoadingSprites[currLoading];
+        } else {
+            loading.sprite = LoadingSprites[0];
         }
     }
     private void CalculateLoading() {
@@ -120,4 +130,10 @@ public class CharEnergy : MonoBehaviour
             currLoading++;
         }
     }
+
+    [PunRPC]
+    void StartChargeEffects(bool isActive) {
+        transform.Find("ReviveSparks").gameObject.SetActive(isActive);
+    }
+
 }
