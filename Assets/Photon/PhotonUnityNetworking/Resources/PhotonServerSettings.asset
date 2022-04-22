@@ -53,6 +53,8 @@ MonoBehaviour:
   - SetRevive
   - ActiveObject
   - Turn
+  - StartReviveEffects
+  - StartChargeEffects
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

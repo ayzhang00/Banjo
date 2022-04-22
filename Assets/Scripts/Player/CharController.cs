@@ -37,7 +37,7 @@ public class CharController : MonoBehaviourPun
     public bool isMoving = false;
     // attack
     public GameObject attack;
-    public GameObject flash;
+    public GameObject attackSparks;
     public GameObject deathEffect;
     public GameObject sphere;
     public float health = 5f;
@@ -242,7 +242,7 @@ public class CharController : MonoBehaviourPun
     }
 
     void Spark() {
-        pv.RPC("SwitchActiveObject", RpcTarget.All, "Flash", true);
+        pv.RPC("SwitchActiveObject", RpcTarget.All, "attackSparks", true);
     }
 
     void Obscure(bool isActive) {
@@ -294,8 +294,8 @@ public class CharController : MonoBehaviourPun
         if (obj == "Attack") {
             attack.SetActive(isActive);
         }
-        else if (obj == "Flash") {
-            flash.SetActive(isActive);
+        else if (obj == "attackSparks") {
+            attackSparks.SetActive(isActive);
         }
         else if (obj == "Solder") {
             s.solder.SetActive(isActive);

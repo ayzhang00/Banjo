@@ -14,7 +14,7 @@ public class DamageFlash : MonoBehaviour
     }
 
     IEnumerator Flash() {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         gameObject.SetActive(false);
 
     }
