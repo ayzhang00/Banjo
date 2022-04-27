@@ -23,6 +23,10 @@ public class CharController : MonoBehaviourPun
     public AudioSource swing;
     public AudioSource hit;
     public AudioSource walk;
+    public AudioClip walk1;
+    public AudioClip walk2;
+    public AudioClip walk3;
+    public AudioClip walk4;
     public AudioSource solderSound;
     public AudioSource chargeSound;
     public AudioSource bg;
@@ -193,7 +197,7 @@ public class CharController : MonoBehaviourPun
 
     // collisions and triggers
     void OnCollisionStay(Collision collision) {
-        if (collision.collider.tag == "Ground") {
+        if (collision.collider.tag == "Ground" || collision.collider.tag == "Switch") {
             canJump = true;
         }
     }
@@ -221,7 +225,7 @@ public class CharController : MonoBehaviourPun
     }
 
     void OnCollisionExit(Collision collision) {
-        if (collision.collider.tag == "Ground") {
+        if (collision.collider.tag == "Ground" || collision.collider.tag == "Switch") {
             canJump = false;
         }
     }
@@ -251,6 +255,21 @@ public class CharController : MonoBehaviourPun
 
     void PlayWalkSound() {
         if (canJump) {
+            int clip = Random.Range(0, 3);
+            switch (clip) {
+                case 0:
+                    walk.clip = walk1;
+                    break;
+                case 1:
+                    walk.clip = walk2;
+                    break;
+                case 2:
+                    walk.clip = walk3;
+                    break;
+                case 3:
+                    walk.clip = walk4;
+                    break;
+            }
             walk.Play();
         }
     }

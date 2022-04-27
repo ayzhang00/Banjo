@@ -42,7 +42,9 @@ public class CharSolder : MonoBehaviourPun
         if (Input.GetButtonUp("Solder")){
             currLoading = 0; 
             Solder(false);
-            c.solderSound.Stop();
+            if (!solderComplete) {
+                c.solderSound.Stop();
+            }
         }
         if (isSoldering) {
             timeSoldered += Time.deltaTime;

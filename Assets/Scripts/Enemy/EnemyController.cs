@@ -54,30 +54,31 @@ public class EnemyController : MonoBehaviourPun
             if (!player.GetComponent<CharController>().isDead) {
                 Vector3 dir = player.transform.position - transform.position;
                 Vector3 heading = Vector3.Normalize(dir);
-                if (canMove) {
-                    transform.forward = heading;
-                    transform.position += heading * moveSpeed * Time.deltaTime;
-                }
+                // if (canMove) {
+                    // transform.forward = heading;
+                    // transform.position += heading * moveSpeed * Time.deltaTime;
+                // }
                 
                 if (dir.magnitude < 1 && !isHit) {
-                    canMove = false;
+                    // canMove = false;
                     if (canAttack) {
                         // Debug.Log("attack");
                         Attack();
                         canAttack = false;
                         StartCoroutine(AttackOnInterval());
                     }
-                }
-                else {
-                    canMove = true;
+                } else {
+                    transform.forward = heading;
+                    transform.position += heading * moveSpeed * Time.deltaTime;
                 }
             }
         } else {
             // float wait = Random.Range(1.0f, 3.0f);
             // Turn();
             if (canTurn) {
-                float angle = Random.Range(45.0f, 360.0f);
-                transform.Rotate(0.0f, angle, 0.0f);
+                float angle = Random.Range(0.0f, 360.0f);
+                // transform.Rotate(0.0f, angle, 0.0f);
+                Turn(angle);
                 StartCoroutine(Pause());
             }
         }
@@ -169,8 +170,11 @@ public class EnemyController : MonoBehaviourPun
         }
     }
 
-    // [PunRPC]
-    // void Turn(float angle) {
-    //     transform.Rotate(0.0f, angle, 0.0f);
-    // }
+    [PunRPC]
+    void Turn(float angle) {
+        // while (transform.rotation.eulerAngles.y != angle) {
+        //     transform.Rotate(0.0f, 0.1f, 0.0f);
+        // }
+        transform.Rotate(0.0f, angle, 0.0f);
+    }
 }

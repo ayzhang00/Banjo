@@ -45,8 +45,11 @@ public class CharEnergy : MonoBehaviour
             recharging = false;
             if (energy != 4) {
                 c.chargeSound.Stop();
+                StartChargeEffects(false);
+            } else {
+                StartCoroutine(Discharge());
+                // StartChargeEffects(false);
             }
-            StartChargeEffects(false);
             // c.chargeSound.Stop();
         }
 
@@ -129,6 +132,11 @@ public class CharEnergy : MonoBehaviour
         if (timeRecharged >= ((currLoading + 1)*inc) && currLoading < 9) {
             currLoading++;
         }
+    }
+
+    IEnumerator Discharge() {
+        yield return new WaitForSeconds(2f);
+        StartChargeEffects(false);
     }
 
     [PunRPC]
