@@ -436,7 +436,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.7
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -531,6 +531,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walk: {fileID: 9075054716763810637}
+  walk1: {fileID: 8300000, guid: 3e3d4cf19b86e1547ac015b477e139f7, type: 3}
+  walk2: {fileID: 8300000, guid: 252c6b767600f0d4bb5ddca427dd344a, type: 3}
+  walk3: {fileID: 8300000, guid: 5eb5a53d8947cc14e919c01c2b8f8262, type: 3}
+  walk4: {fileID: 8300000, guid: cd4371c8868ef804b8f9e2851bb9d198, type: 3}
   rb: {fileID: 3106374919936670504}
   moveSpeed: 3
   points:

@@ -8,6 +8,8 @@ public class SpawnObjectAtClick : MonoBehaviourPun
 {
     public GameObject objectToSpawn;
     public GameObject Inventory;
+    public AudioSource CreatorSounds;
+    public AudioClip Click;
     public Camera cam;
     public bool playing = true;
     PhotonView pv; 
@@ -40,6 +42,7 @@ public class SpawnObjectAtClick : MonoBehaviourPun
                         // Instantiate(objectToSpawn, hit.point, Quaternion.identity);
                         PhotonNetwork.Instantiate(objectToSpawn.name, hit.point, Quaternion.identity, 0);
                         spawned++;
+                        CreatorSounds.PlayOneShot(Click);
                         Debug.Log("spawned");
                         // PhotonNetwork.Instantiate("Chest", new Vector3(24f, 2f, 20f), Quaternion.identity, 0);
                     }

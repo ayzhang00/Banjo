@@ -7,6 +7,10 @@ public class RoamerController : MonoBehaviour
 {
     // Start is called before the first frame update
     public AudioSource walk;
+    public AudioClip walk1;
+    public AudioClip walk2;
+    public AudioClip walk3;
+    public AudioClip walk4;
     public Rigidbody rb;
     public float moveSpeed = 3f;
     PhotonView pv;
@@ -62,16 +66,31 @@ public class RoamerController : MonoBehaviour
         pv.RPC("ActiveObject", RpcTarget.All, "Sphere", isActive);
     }
 
+    void PlayWalkSound() {
+        int clip = Random.Range(0, 3);
+        switch (clip) {
+            case 0:
+                walk.clip = walk1;
+                break;
+            case 1:
+                walk.clip = walk2;
+                break;
+            case 2:
+                walk.clip = walk3;
+                break;
+            case 3:
+                walk.clip = walk4;
+                break;
+        }
+        walk.Play();
+    }
+
     IEnumerator Pause()
     {
         canMove = false;
         float wait = Random.Range(0.5f, 2f);
         yield return new WaitForSeconds(wait);
         canMove = true;
-    }
-
-    void PlayWalkSound() {
-            walk.Play();
     }
 
     [PunRPC]

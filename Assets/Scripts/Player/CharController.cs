@@ -14,30 +14,14 @@ public class CharController : MonoBehaviourPun
     public bool playing = true;
     public bool isDead = false;
     public bool obscured = false;
-    bool allLEDsOff = false;
     GameObject[] LEDs;
     Vector3 camOffset = new Vector3(-15f, 12f, -15f);
     Vector3 forward, right;
     PhotonView pv;
-    // sounds
-    public AudioSource swing;
-    public AudioSource hit;
-    public AudioSource walk;
-    public AudioClip walk1;
-    public AudioClip walk2;
-    public AudioClip walk3;
-    public AudioClip walk4;
-    public AudioSource solderSound;
-    public AudioSource chargeSound;
-    public AudioSource bg;
-    public AudioClip bgtrack1;
-    public AudioClip bgtrack2;
-    public AudioClip coreTrack1;
-    public AudioClip coreTrack2;
     // movement
     public float moveSpeed = 3f;
     float jumpSpeed = 4f;
-    bool canJump = false;
+    public bool canJump = false;
     public bool isMoving = false;
     // attack
     public GameObject attack;
@@ -71,14 +55,14 @@ public class CharController : MonoBehaviourPun
     {
         forward = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.forward;
         right = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.right;
-        Camera.main.transform.position = transform.position + camOffset;
+        // Camera.main.transform.position = transform.position + camOffset;
 
         s = GetComponent<CharSolder>();
         e = GetComponent<CharEnergy>();
         pv = GetComponent<PhotonView>();
         ui = transform.Find("PlayerUI").gameObject;
         LEDs = GameObject.FindGameObjectsWithTag("LED");
-        StartCoroutine("PlayBackgroundMusic");
+        if (pv.IsMine) Camera.main.transform.position = transform.position + camOffset;
         maxHealth = health;
     }
 
@@ -94,12 +78,11 @@ public class CharController : MonoBehaviourPun
         if (!isDead && playing && pv.IsMine) {
             ui.SetActive(true);
             obscured = false;
-            allLEDsOff = true;
             healthBarFill.fillAmount = health / maxHealth;
 
             if (Input.GetButtonDown("Jump")){
                 s.Solder(false);
-                solderSound.Stop();
+                // solderSound.Stop();
                 Jump();
             } 
             // move
@@ -111,21 +94,6 @@ public class CharController : MonoBehaviourPun
             } else {
                 isMoving = false;
             }
-
-            // if (Input.GetButtonDown("Fire3")) {
-            //     if (!isPlayingCoreMusic) {
-            //         bg.Stop();
-            //         StopCoroutine("PlayBackgroundMusic");
-            //         StartCoroutine("PlayRunToTheCoreMusic");
-            //         isPlayingCoreMusic = true;
-            //     } else {
-            //         bg.Stop();
-            //         StopCoroutine("PlayRunToTheCoreMusic");
-            //         StartCoroutine("PlayBackgroundMusic");
-            //         isPlayingCoreMusic = false;
-
-            //     }
-            // }
 
             if (moveSpeed != 0) MoveCamera();
             
@@ -161,15 +129,6 @@ public class CharController : MonoBehaviourPun
                     !LED.activeSelf) {
                     obscured = true;
                 }
-                if (LED.activeSelf) {
-                    allLEDsOff = false;
-                }
-            }
-
-            if (allLEDsOff) {
-                bg.Stop();
-                StopCoroutine("PlayBackgroundMusic");
-                StartCoroutine("PlayRunToTheCoreMusic");
             }
 
             Obscure(obscured);
@@ -206,7 +165,7 @@ public class CharController : MonoBehaviourPun
         if (collider.tag == "Attack") {
             isHit = true;
             Spark();
-            hit.Play();
+            // hit.Play();
             health--;
             if (health <= 0) {
                 healthBarFill.fillAmount = 0;
@@ -253,50 +212,11 @@ public class CharController : MonoBehaviourPun
         pv.RPC("SwitchActiveObject", RpcTarget.All, "Sphere", isActive);
     }
 
-    void PlayWalkSound() {
-        if (canJump) {
-            int clip = Random.Range(0, 3);
-            switch (clip) {
-                case 0:
-                    walk.clip = walk1;
-                    break;
-                case 1:
-                    walk.clip = walk2;
-                    break;
-                case 2:
-                    walk.clip = walk3;
-                    break;
-                case 3:
-                    walk.clip = walk4;
-                    break;
-            }
-            walk.Play();
-        }
-    }
-
-    void PlaySwingSound() {
-        swing.Play();
-    }
 
     public void ContinuePressed() {
         playing = true;
     }
 
-    IEnumerator PlayBackgroundMusic() {
-        bg.clip = bgtrack1;
-        bg.Play();
-        yield return new WaitForSeconds(bg.clip.length);
-        bg.clip = bgtrack2;
-        bg.Play();
-    }
-
-    IEnumerator PlayRunToTheCoreMusic() {
-        bg.clip = coreTrack1;
-        bg.Play();
-        yield return new WaitForSeconds(bg.clip.length);
-        bg.clip = coreTrack2;
-        bg.Play();
-    }
 
     IEnumerator Death() {
         isDead = true;
