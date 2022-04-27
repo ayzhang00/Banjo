@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviourPun
     public GameObject player;
     bool isHit = false;
     bool canMove = true;
+    bool canTurn = true;
     // sounds
     public AudioSource swing;
     public AudioSource hit;
@@ -49,30 +50,36 @@ public class EnemyController : MonoBehaviourPun
 
     void Move()
     {
-        // if (roaming) {
-            
-        // } else if (player) {
         if (player) {
             if (!player.GetComponent<CharController>().isDead) {
                 Vector3 dir = player.transform.position - transform.position;
                 Vector3 heading = Vector3.Normalize(dir);
-                if (canMove) {
-                    transform.forward = heading;
-                    transform.position += heading * moveSpeed * Time.deltaTime;
-                }
+                // if (canMove) {
+                    // transform.forward = heading;
+                    // transform.position += heading * moveSpeed * Time.deltaTime;
+                // }
                 
                 if (dir.magnitude < 1 && !isHit) {
-                    canMove = false;
+                    // canMove = false;
                     if (canAttack) {
                         // Debug.Log("attack");
                         Attack();
                         canAttack = false;
                         StartCoroutine(AttackOnInterval());
                     }
+                } else {
+                    transform.forward = heading;
+                    transform.position += heading * moveSpeed * Time.deltaTime;
                 }
-                else {
-                    canMove = true;
-                }
+            }
+        } else {
+            // float wait = Random.Range(1.0f, 3.0f);
+            // Turn();
+            if (canTurn) {
+                float angle = Random.Range(0.0f, 360.0f);
+                // transform.Rotate(0.0f, angle, 0.0f);
+                Turn(angle);
+                StartCoroutine(Pause());
             }
         }
     }
@@ -136,6 +143,14 @@ public class EnemyController : MonoBehaviourPun
         canAttack = true;
     }
 
+    IEnumerator Pause() {
+        canTurn = false;
+        float wait = Random.Range(1.0f, 3.0f);
+        yield return new WaitForSeconds(wait);
+        canTurn = true;
+        // pv.RPC("Turn", RpcTarget.All, Random.Range(45.0f, 360.0f));
+    }
+
     IEnumerator Death() {
         // deathEffect.SetActive(true);
         yield return new WaitForSeconds(1f);
@@ -153,5 +168,13 @@ public class EnemyController : MonoBehaviourPun
         else if (obj == "Flash") {
             flash.SetActive(isActive);
         }
+    }
+
+    [PunRPC]
+    void Turn(float angle) {
+        // while (transform.rotation.eulerAngles.y != angle) {
+        //     transform.Rotate(0.0f, 0.1f, 0.0f);
+        // }
+        transform.Rotate(0.0f, angle, 0.0f);
     }
 }

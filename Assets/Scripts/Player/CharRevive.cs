@@ -19,6 +19,7 @@ public class CharRevive : MonoBehaviourPun
     CharController c;
     CharController cOther;
     CharEnergy e;
+    GameObject otherPlayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +35,7 @@ public class CharRevive : MonoBehaviourPun
         HandleUI();
         CanRevive();
         if (canRevive && Input.GetButtonDown("Revive")) {
+            // reviveSparks
             reviving = true;
         }
         if (Input.GetButtonUp("Revive")) {
@@ -47,6 +49,7 @@ public class CharRevive : MonoBehaviourPun
     private void OnTriggerStay(Collider other) {
         if (other.tag == "Revive") {
             cOther = other.GetComponentInParent<CharController>();
+            otherPlayer = other.gameObject;
             if (cOther.isDead && canRevivePre) {
                 canRevive = true;
             }
@@ -87,5 +90,10 @@ public class CharRevive : MonoBehaviourPun
         cOther.isDead = false;
         cOther.isHit = false;
         cOther.health = 20f;
+    }
+
+    [PunRPC]
+    void StartReviveEffects(bool isActive) {
+        otherPlayer.transform.Find("ReviveSparks").gameObject.SetActive(isActive);
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6958447467986359617}
   m_Layer: 0
   m_Name: Obj_000003
-  m_TagString: Untagged
+  m_TagString: Switch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 6958447467986359644}
   m_Layer: 0
   m_Name: Obj_000006
-  m_TagString: Untagged
+  m_TagString: Switch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 6958447467986359645}
   m_Layer: 0
   m_Name: Obj_000005
-  m_TagString: Untagged
+  m_TagString: Switch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 6958447467986359619}
   m_Layer: 0
   m_Name: Obj_000004
-  m_TagString: Untagged
+  m_TagString: Switch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -582,9 +582,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 5
+  MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -671,7 +671,7 @@ GameObject:
   - component: {fileID: 6958447467986359647}
   m_Layer: 0
   m_Name: Obj_000007
-  m_TagString: Untagged
+  m_TagString: Switch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -804,7 +804,7 @@ GameObject:
   - component: {fileID: 6958447467986359622}
   m_Layer: 0
   m_Name: Obj_000002
-  m_TagString: Untagged
+  m_TagString: Switch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
