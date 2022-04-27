@@ -102,6 +102,7 @@ public class CharEnergy : MonoBehaviour
             timeRecharged = 0;
             energy = 4;
             recharging = false;
+            currLoading = 0;
         }
         if (energy >= 4) {
             canRecharge = false;
