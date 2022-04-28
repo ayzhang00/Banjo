@@ -156,17 +156,25 @@ public class SpawnPlayers : MonoBehaviour
             cameraTop.SetActive(false);
             if (playerID == 0) {
             // if (PhotonNetwork.PlayerList.Length == 2) {
-                PhotonNetwork.Instantiate(playerPrefab.name, player1, Quaternion.identity);
+                GameObject p = PhotonNetwork.Instantiate(playerPrefab.name, player1, Quaternion.identity);
+                AudioListener al = p.GetComponent<AudioListener>();
+                al.enabled = true;
             }
             else if (playerID == 1) {
             // else if (PhotonNetwork.PlayerList.Length == 3) {
-                PhotonNetwork.Instantiate(playerPrefab.name, player2, Quaternion.identity);
+                GameObject p = PhotonNetwork.Instantiate(playerPrefab.name, player2, Quaternion.identity);
+                AudioListener al = p.GetComponent<AudioListener>();
+                al.enabled = true;
             }
             else if (playerID == 2) {
-                PhotonNetwork.Instantiate(playerPrefab.name, player3, Quaternion.identity);
+                GameObject p = PhotonNetwork.Instantiate(playerPrefab.name, player3, Quaternion.identity);
+                AudioListener al = p.GetComponent<AudioListener>();
+                al.enabled = true;
             }
             else {
-                PhotonNetwork.Instantiate(playerPrefab.name, player4, Quaternion.identity);
+                GameObject p = PhotonNetwork.Instantiate(playerPrefab.name, player4, Quaternion.identity);
+                AudioListener al = p.GetComponent<AudioListener>();
+                al.enabled = true;
             }
         }
         else if (isCreator) {
@@ -178,6 +186,8 @@ public class SpawnPlayers : MonoBehaviour
             GameObject creator = PhotonNetwork.Instantiate(creatorPrefab.name, new Vector3(0f, 0f, 0f), Quaternion.identity);
             creator.GetComponent<SpawnObjectAtClick>().Inventory = Inventory;
             creator.GetComponent<SpawnObjectAtClick>().cam = cameraTop.GetComponent<Camera>();
+            AudioListener al = creator.GetComponent<AudioListener>();
+            al.enabled = true;
         }
     }
 }

@@ -7,14 +7,16 @@ public class CreatorMusic : MonoBehaviour
     GameObject[] LEDs;
     bool allLEDsOff = false;
     public Camera cam;
-    AudioSource bgMusic;
-    public AudioClip coreTrack1;
-    public AudioClip coreTrack2;
+    public AudioSource bgMusic;
+    public AudioClip coreTrack;
+    public AudioClip explosion;
+    // public AudioClip coreTrack1;
+    // public AudioClip coreTrack2;
     // Start is called before the first frame update
     void Start()
     {
         LEDs = GameObject.FindGameObjectsWithTag("LED");
-        bgMusic = GameObject.Find("TopCamera").GetComponent<AudioSource>();
+        // bgMusic = GameObject.Find("TopCamera").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -29,15 +31,18 @@ public class CreatorMusic : MonoBehaviour
 
         if (allLEDsOff) {
             bgMusic.Stop();
-            StartCoroutine("PlayRunToTheCoreMusic");
+            // StartCoroutine("PlayRunToTheCoreMusic");
+            bgMusic.clip = coreTrack;
+            bgMusic.Play();
+            bgMusic.PlayOneShot(explosion);
         }
     }
 
-    IEnumerator PlayRunToTheCoreMusic() {
-        bgMusic.clip = coreTrack1;
-        bgMusic.Play();
-        yield return new WaitForSeconds(bgMusic.clip.length);
-        bgMusic.clip = coreTrack2;
-        bgMusic.Play();
-    }
+    // IEnumerator PlayRunToTheCoreMusic() {
+    //     bgMusic.clip = coreTrack1;
+    //     bgMusic.Play();
+    //     yield return new WaitForSeconds(bgMusic.clip.length);
+    //     bgMusic.clip = coreTrack2;
+    //     bgMusic.Play();
+    // }
 }

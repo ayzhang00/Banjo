@@ -5,6 +5,7 @@ using Photon.Pun;
 using UnityEngine.UI;
 public class CharRevive : MonoBehaviourPun
 {
+    public GameObject solder;
     public GameObject LoadingUI;
     public Sprite[] LoadingSprites;
     bool canRevive = false;
@@ -18,6 +19,7 @@ public class CharRevive : MonoBehaviourPun
     Image loading;
     CharController c;
     CharController cOther;
+    PlayerSounds ps;
     CharEnergy e;
     GameObject otherPlayer;
     // Start is called before the first frame update
@@ -25,6 +27,7 @@ public class CharRevive : MonoBehaviourPun
     {
         c = GetComponent<CharController>();
         e = GetComponent<CharEnergy>();
+        ps = GetComponent<PlayerSounds>();
         loading = LoadingUI.GetComponent<Image>();
         pv = GetComponent<PhotonView>();
     }
@@ -36,9 +39,17 @@ public class CharRevive : MonoBehaviourPun
         CanRevive();
         if (canRevive && Input.GetButtonDown("Revive")) {
             // reviveSparks
+            ps.reviveSound.Play();
+            StartReviveEffects(true);
             reviving = true;
         }
         if (Input.GetButtonUp("Revive")) {
+            if (reviving) {
+                ps.reviveSound.Stop();
+                StartReviveEffects(false);
+            } else {
+                StartCoroutine(FadeSparks());
+            }
             reviving = false;
         }
         if (reviving) {
@@ -84,6 +95,12 @@ public class CharRevive : MonoBehaviourPun
             canRevivePre = true;
         }
     }
+
+    IEnumerator FadeSparks() {
+        yield return new WaitForSeconds(2f);
+        StartReviveEffects(false);
+    }
+
     [PunRPC]
     public void SetRevive() {
         cOther.isRevived = true;
@@ -93,7 +110,11 @@ public class CharRevive : MonoBehaviourPun
     }
 
     [PunRPC]
-    void StartReviveEffects(bool isActive) {
-        otherPlayer.transform.Find("ReviveSparks").gameObject.SetActive(isActive);
+    public void StartReviveEffects(bool isActive) {
+        if (otherPlayer) {
+            otherPlayer.transform.Find("ReviveSparks").gameObject.SetActive(isActive);
+            // pv.RPC("SwitchActiveObject", RpcTarget.All, "Solder", isActive);
+            solder.SetActive(isActive);
+        }
     }
 }

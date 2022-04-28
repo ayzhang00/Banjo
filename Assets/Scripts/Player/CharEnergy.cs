@@ -18,7 +18,8 @@ public class CharEnergy : MonoBehaviour
     Image batteryImage;
     bool recharging = false;
     bool canRecharge = false;
-    CharController c;
+    // CharController c;
+    PlayerSounds ps;
     Image loading;
     
     public int loadingNum = 9;
@@ -26,7 +27,7 @@ public class CharEnergy : MonoBehaviour
 
     void Start(){
         batteryImage = batteryUI.GetComponent<Image>();
-        c = GetComponent<CharController>();
+        ps = GetComponent<PlayerSounds>();
         loading = LoadingUI.GetComponent<Image>();
     }
 
@@ -37,14 +38,14 @@ public class CharEnergy : MonoBehaviour
         }
         if (canRecharge && Input.GetButtonDown("Recharge")) {
             recharging = true;
-            c.chargeSound.Play();
+            ps.chargeSound.Play();
             StartChargeEffects(true);
         }
         if (Input.GetButtonUp("Recharge")) {
             timeRecharged = 0;
             recharging = false;
             if (energy != 4) {
-                c.chargeSound.Stop();
+                ps.chargeSound.Stop();
                 StartChargeEffects(false);
             } else {
                 StartCoroutine(Discharge());
@@ -141,7 +142,7 @@ public class CharEnergy : MonoBehaviour
     }
 
     [PunRPC]
-    void StartChargeEffects(bool isActive) {
+    public void StartChargeEffects(bool isActive) {
         transform.Find("ReviveSparks").gameObject.SetActive(isActive);
     }
 
