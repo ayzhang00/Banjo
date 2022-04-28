@@ -18,7 +18,7 @@ public class CharSolder : MonoBehaviourPun
     int solderCount = 0;
     float loadingNum = 9f;
     int currLoading = 0;
-    // CharController c;
+    CharController c;
     PlayerSounds ps;
     Image loading;
 
@@ -28,6 +28,7 @@ public class CharSolder : MonoBehaviourPun
     void Start()
     {
         e = GetComponent<CharEnergy>();
+        c = GetComponent<CharController>();
         pv = GetComponent<PhotonView>();
         ps = GetComponent<PlayerSounds>();
         loading = LoadingUI.GetComponent<Image>();
@@ -37,7 +38,7 @@ public class CharSolder : MonoBehaviourPun
         if (!c.isDead && c.playing && pv.IsMine && isSoldering) {
             if (Input.GetButtonDown("Jump") || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
                 GetComponent<CharSolder>().Solder(false);
-                solderSound.Stop();
+                ps.solderSound.Stop();
             } 
         }
         // F is solder

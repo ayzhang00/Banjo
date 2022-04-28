@@ -18,8 +18,9 @@ public class CharEnergy : MonoBehaviour
     Image batteryImage;
     bool recharging = false;
     bool canRecharge = false;
-    // CharController c;
+    CharController c;
     PlayerSounds ps;
+    PhotonView pv; 
     Image loading;
     
     public int loadingNum = 9;
@@ -27,7 +28,9 @@ public class CharEnergy : MonoBehaviour
 
     void Start(){
         batteryImage = batteryUI.GetComponent<Image>();
+        c = GetComponent<CharController>();
         ps = GetComponent<PlayerSounds>();
+        pv = GetComponent<PhotonView>();
         loading = LoadingUI.GetComponent<Image>();
     }
 
@@ -39,7 +42,7 @@ public class CharEnergy : MonoBehaviour
         if (!c.isDead && c.playing && pv.IsMine && recharging) {
             if (Input.GetButtonDown("Jump") || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
                 GetComponent<CharSolder>().Solder(false);
-                solderSound.Stop();
+                ps.solderSound.Stop();
             } 
         }
         if (canRecharge && Input.GetButtonDown("Recharge")) {

@@ -28,6 +28,7 @@ public class RoamerController : MonoBehaviour
         right = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.right;
         pv = GetComponent<PhotonView>();
         LEDs = GameObject.FindGameObjectsWithTag("LED");
+        points = GetComponentInParent<RoamerPoints>().points;
     }
 
     // Update is called once per frame
@@ -53,9 +54,9 @@ public class RoamerController : MonoBehaviour
             transform.position += heading * moveSpeed * Time.deltaTime;
             if (dir.magnitude < 0.2f) {
                 StartCoroutine(Pause());
-                curPoint++;
-                if (curPoint >= points.Length) {
-                    curPoint = 0;
+                // make sure the next point is not the same as the current point
+                while ((points[curPoint] - transform.position).magnitude < 0.2f) {
+                    curPoint = Random.Range(0, points.Length - 1);
                 }
             }
         }
