@@ -5,7 +5,7 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     float attackTime = 0f;
-    float totalTime = 1f;
+    float totalTime = 0.5f;
     
     void Start() {
     }

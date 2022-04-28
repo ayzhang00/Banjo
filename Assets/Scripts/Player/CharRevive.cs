@@ -13,12 +13,13 @@ public class CharRevive : MonoBehaviourPun
     float timeRevived = 0f;
     public float totalTime = 5f;
     public int loadingNum = 9;
-    bool reviving = false;
+    public bool reviving = false;
     int currLoading = 0;
     PhotonView pv;
     Image loading;
     CharController c;
     CharController cOther;
+    // PhotonView vOther;
     PlayerSounds ps;
     CharEnergy e;
     GameObject otherPlayer;
@@ -60,6 +61,7 @@ public class CharRevive : MonoBehaviourPun
     private void OnTriggerStay(Collider other) {
         if (other.tag == "Revive") {
             cOther = other.GetComponentInParent<CharController>();
+            // vOther = other.GetComponentInParent<PhotonView>();
             otherPlayer = other.gameObject;
             if (cOther.isDead && canRevivePre) {
                 canRevive = true;
@@ -106,7 +108,7 @@ public class CharRevive : MonoBehaviourPun
         cOther.isRevived = true;
         cOther.isDead = false;
         cOther.isHit = false;
-        cOther.health = 20f;
+        cOther.health = 15f;
     }
 
     [PunRPC]

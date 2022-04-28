@@ -87,12 +87,12 @@ public class CharController : MonoBehaviourPun
             } 
             // move
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
-                isMoving = true;
+                pv.RPC("SwitchActiveObject", RpcTarget.All, "Move", true);
                 Move();
                 s.Solder(false);
                 s.solderComplete = false;
             } else {
-                isMoving = false;
+                pv.RPC("SwitchActiveObject", RpcTarget.All, "Move", false);
             }
 
             if (moveSpeed != 0) MoveCamera();
@@ -101,7 +101,6 @@ public class CharController : MonoBehaviourPun
             if (e.energy > 0) {
                 // attack
                 if (!isAttacking && Input.GetButtonDown("Fire") && !isHit) {
-                    isAttacking = true;
                     Attack(true);
                     s.Solder(false);
                     s.solderComplete = false;
@@ -111,7 +110,6 @@ public class CharController : MonoBehaviourPun
                     timeAttacked += Time.deltaTime;
                     if (timeAttacked >= timeToAttack) {
                         Attack(false);
-                        isAttacking = false;
                         timeAttacked = 0f;
                         attackCount++;
                         if (attackCount == 5) {
@@ -163,7 +161,7 @@ public class CharController : MonoBehaviourPun
     
     void OnTriggerEnter(Collider collider) {
         if (collider.tag == "Attack") {
-            isHit = true;
+            pv.RPC("SwitchActiveObject", RpcTarget.All, "Hit", true);
             Spark();
             // hit.Play();
             health--;
@@ -179,7 +177,7 @@ public class CharController : MonoBehaviourPun
 
     void OnTriggerExit(Collider collider) {
         if (collider.tag == "Attack") {
-            isHit = false;
+            pv.RPC("SwitchActiveObject", RpcTarget.All, "Hit", false);
         }
     }
 
@@ -219,7 +217,7 @@ public class CharController : MonoBehaviourPun
 
 
     IEnumerator Death() {
-        isDead = true;
+        pv.RPC("SwitchActiveObject", RpcTarget.All, "Dead", true);
         deathEffect.SetActive(true);
         yield return new WaitForSeconds(1f);
         // gameObject.SetActive(false);
@@ -232,6 +230,7 @@ public class CharController : MonoBehaviourPun
     void SwitchActiveObject(string obj, bool isActive) {
         if (obj == "Attack") {
             attack.SetActive(isActive);
+            isAttacking = isActive;
         }
         else if (obj == "attackSparks") {
             attackSparks.SetActive(isActive);
@@ -245,6 +244,15 @@ public class CharController : MonoBehaviourPun
         }
         else if (obj == "Sphere") {
             sphere.SetActive(!isActive);
+        }
+        else if (obj == "Move") {
+            isMoving = isActive;
+        }
+        else if (obj == "Hit") {
+            isHit = isActive;
+        }
+        else if (obj == "Dead") {
+            isDead = isActive;
         }
     }
 }

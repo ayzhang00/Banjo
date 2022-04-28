@@ -16,7 +16,7 @@ public class RoamerController : MonoBehaviour
     PhotonView pv;
     public Vector3[] points;
     public int curPoint = 0;
-    bool canMove = true;
+    public bool canMove = true;
     bool obscured = false;
     Vector3 forward, right;
     GameObject[] LEDs;
