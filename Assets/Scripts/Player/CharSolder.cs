@@ -34,6 +34,12 @@ public class CharSolder : MonoBehaviourPun
     }
     
     public void StartSolder() {
+        if (!c.isDead && c.playing && pv.IsMine && isSoldering) {
+            if (Input.GetButtonDown("Jump") || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
+                GetComponent<CharSolder>().Solder(false);
+                solderSound.Stop();
+            } 
+        }
         // F is solder
         if (Input.GetButtonDown("Solder") && canSolder) {
             Solder(true);

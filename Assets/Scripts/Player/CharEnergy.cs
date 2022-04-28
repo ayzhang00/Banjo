@@ -36,6 +36,12 @@ public class CharEnergy : MonoBehaviour
         if (!recharging) {
             UpdateBattery(false);
         }
+        if (!c.isDead && c.playing && pv.IsMine && recharging) {
+            if (Input.GetButtonDown("Jump") || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
+                GetComponent<CharSolder>().Solder(false);
+                solderSound.Stop();
+            } 
+        }
         if (canRecharge && Input.GetButtonDown("Recharge")) {
             recharging = true;
             ps.chargeSound.Play();
