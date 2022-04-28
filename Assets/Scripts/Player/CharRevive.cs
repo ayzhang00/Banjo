@@ -37,6 +37,12 @@ public class CharRevive : MonoBehaviourPun
     {
         HandleUI();
         CanRevive();
+        if (!c.isDead && c.playing && pv.IsMine && reviving) {
+            if (Input.GetButtonDown("Jump") || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
+                GetComponent<CharSolder>().Solder(false);
+                solderSound.Stop();
+            } 
+        }
         if (canRevive && Input.GetButtonDown("Revive")) {
             // reviveSparks
             ps.reviveSound.Play();

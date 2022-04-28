@@ -51,16 +51,16 @@ public class PlayerSounds : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!c.isDead && c.playing && pv.IsMine) {
-            if (Input.GetButtonDown("Jump") || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
-                GetComponent<CharSolder>().Solder(false);
-                solderSound.Stop();
-                GetComponent<CharEnergy>().StartChargeEffects(false);
-                chargeSound.Stop();
-                GetComponent<CharRevive>().StartReviveEffects(false);
-                reviveSound.Stop();
-            } 
-        }
+        // if (!c.isDead && c.playing && pv.IsMine) {
+        //     if (Input.GetButtonDown("Jump") || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
+        //         GetComponent<CharSolder>().Solder(false);
+        //         solderSound.Stop();
+        //         GetComponent<CharEnergy>().StartChargeEffects(false);
+        //         chargeSound.Stop();
+        //         GetComponent<CharRevive>().StartReviveEffects(false);
+        //         reviveSound.Stop();
+        //     } 
+        // }
         allLEDsOff = true;
         foreach(GameObject LED in LEDs) {
             if (LED.activeSelf) {

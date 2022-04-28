@@ -10,6 +10,8 @@ public class CreatorMusic : MonoBehaviour
     public AudioSource bgMusic;
     public AudioClip coreTrack;
     public AudioClip explosion;
+    bool corePlaying = false;
+
     // public AudioClip coreTrack1;
     // public AudioClip coreTrack2;
     // Start is called before the first frame update
@@ -29,12 +31,13 @@ public class CreatorMusic : MonoBehaviour
             }
         }
 
-        if (allLEDsOff) {
+        if (allLEDsOff && !corePlaying) {
             bgMusic.Stop();
             // StartCoroutine("PlayRunToTheCoreMusic");
             bgMusic.clip = coreTrack;
             bgMusic.Play();
             bgMusic.PlayOneShot(explosion);
+            corePlaying = true;
         }
     }
 
