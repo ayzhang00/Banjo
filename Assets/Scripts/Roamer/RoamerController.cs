@@ -14,7 +14,8 @@ public class RoamerController : MonoBehaviour
     public Rigidbody rb;
     public float moveSpeed = 3f;
     PhotonView pv;
-    public Vector3[] points;
+    Vector3[] points;
+    // public Vector3[] points;
     public int curPoint = 0;
     public bool canMove = true;
     bool obscured = false;
@@ -52,6 +53,7 @@ public class RoamerController : MonoBehaviour
         if (canMove) {
             transform.forward = new Vector3(heading.x, 0.0f, heading.z);
             transform.position += heading * moveSpeed * Time.deltaTime;
+            // when close to point, move to next point
             if (dir.magnitude < 0.2f) {
                 StartCoroutine(Pause());
                 // make sure the next point is not the same as the current point
@@ -60,7 +62,6 @@ public class RoamerController : MonoBehaviour
                 }
             }
         }
-        // StartCoroutine("Travel");
     }
 
     void Obscure(bool isActive) {
