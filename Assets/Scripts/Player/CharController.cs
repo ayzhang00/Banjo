@@ -173,17 +173,22 @@ public class CharController : MonoBehaviourPun
     void Move()
     {
         if (pv.IsMine) {
-            Vector3 direction = new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey"));
+            Vector3 direction = Vector3.Normalize(new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey")));
+        
+            Vector3 rightMovement = right * moveSpeed * Time.fixedDeltaTime * direction.x;
+            Vector3 upMovement = forward * moveSpeed * Time.fixedDeltaTime * direction.z;
 
             // movement heading
-            Vector3 heading = Vector3.Normalize(direction);
+            Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
             transform.forward = heading;
-            transform.position += heading * moveSpeed * Time.fixedDeltaTime;
+            transform.position += rightMovement;
+            transform.position += upMovement;
         }
     }
 
     void Jump() {
-        if (canJump && pv.IsMine) {
+        // if (canJump && pv.IsMine) {
+        if (canJump) {
             rb.velocity = new Vector3(rb.velocity.x, jumpSpeed, rb.velocity.z);
         }
     }

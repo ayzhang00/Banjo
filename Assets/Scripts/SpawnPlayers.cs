@@ -165,22 +165,30 @@ public class SpawnPlayers : MonoBehaviour
                 GameObject p = PhotonNetwork.Instantiate(playerPrefab.name, player1, Quaternion.identity);
                 AudioListener al = p.GetComponent<AudioListener>();
                 al.enabled = true;
+                // p.transform.Find("NameUI").gameObject.transform.Find("Text").gameObject.GetComponent<Text>().text = 
+                //     PhotonNetwork.LocalPlayer.NickName;
             }
             else if (playerID == 1) {
             // else if (PhotonNetwork.PlayerList.Length == 3) {
                 GameObject p = PhotonNetwork.Instantiate(playerPrefab.name, player2, Quaternion.identity);
                 AudioListener al = p.GetComponent<AudioListener>();
                 al.enabled = true;
+                // p.transform.Find("NameUI").gameObject.transform.Find("Text").gameObject.GetComponent<Text>().text = 
+                //     PhotonNetwork.LocalPlayer.NickName;
             }
             else if (playerID == 2) {
                 GameObject p = PhotonNetwork.Instantiate(playerPrefab.name, player3, Quaternion.identity);
                 AudioListener al = p.GetComponent<AudioListener>();
                 al.enabled = true;
+                // p.transform.Find("NameUI").gameObject.transform.Find("Text").gameObject.GetComponent<Text>().text = 
+                //     PhotonNetwork.LocalPlayer.NickName;
             }
             else {
                 GameObject p = PhotonNetwork.Instantiate(playerPrefab.name, player4, Quaternion.identity);
                 AudioListener al = p.GetComponent<AudioListener>();
                 al.enabled = true;
+                // p.transform.Find("NameUI").gameObject.transform.Find("Text").gameObject.GetComponent<Text>().text = 
+                //     PhotonNetwork.LocalPlayer.NickName;
             }
         }
         else if (isCreator) {
