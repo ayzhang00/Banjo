@@ -48,20 +48,24 @@ public class CharEnergy : MonoBehaviour
             if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire")
                     || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
                 StartChargeEffects(false);
-                ps.chargeSound.Stop();
+                // ps.chargeSound.Stop();
+                ps.generalSFX.Stop();
                 recharging = false;
                 currLoading = 0;
             } 
         }
         if (canRecharge && Input.GetButtonDown("Recharge")) {
             recharging = true;
-            ps.chargeSound.Play();
+            // ps.chargeSound.Play();
+            ps.generalSFX.clip = ps.reviveSound;
+            ps.generalSFX.Play();
             StartChargeEffects(true);
         }
         if (Input.GetButtonUp("Recharge")) {
             timeRecharged = 0;
             if (energy != 4) {
-                ps.chargeSound.Stop();
+                // ps.chargeSound.Stop();
+                ps.generalSFX.Stop();
                 StartChargeEffects(false);
                 // recharging = false;
             } else {
@@ -124,21 +128,25 @@ public class CharEnergy : MonoBehaviour
         RechargeNotif.SetActive(r);
     }
 
-    private void Recharge() {
-        Debug.Log(energy);
-        if (energy == 0) UpdateBattery(true);
-        else UpdateBattery(false);
-        timeRecharged += Time.deltaTime;
-        if (timeRecharged >= 5.0f && energy < 4) {
-            timeRecharged = 0;
+    public void Recharge() {
+        if (ps.corePlaying) {
             energy = 4;
-            recharging = false;
-            currLoading = 0;
-        }
-        if (energy >= 4) {
-            canRecharge = false;
+        } else {
+            if (energy == 0) UpdateBattery(true);
+            else UpdateBattery(false);
+            timeRecharged += Time.deltaTime;
+            if (timeRecharged >= 5.0f && energy < 4) {
+                timeRecharged = 0;
+                energy = 4;
+                recharging = false;
+                currLoading = 0;
+            }
+            if (energy >= 4) {
+                canRecharge = false;
+            }
         }
     }
+
     private void HandleUI() {
         if (recharging) {
             LoadingUI.SetActive(true);

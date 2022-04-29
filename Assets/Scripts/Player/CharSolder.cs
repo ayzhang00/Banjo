@@ -41,7 +41,8 @@ public class CharSolder : MonoBehaviourPun
             if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire")
                     || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
                 Solder(false);
-                ps.solderSound.Stop();
+                // ps.solderSound.Stop();
+                ps.generalSFX.Stop();
                 currLoading = 0;
                 // solderComplete = false;
             } 
@@ -50,13 +51,16 @@ public class CharSolder : MonoBehaviourPun
         if (Input.GetButtonDown("Solder") && canSolder) {
             Solder(true);
             solderComplete = false;
-            ps.solderSound.Play();
+            // ps.solderSound.Play();
+            ps.generalSFX.clip = ps.solderSound;
+            ps.generalSFX.Play();
         }
         if (Input.GetButtonUp("Solder")){
             currLoading = 0; 
             Solder(false);
             if (!solderComplete) {
-                ps.solderSound.Stop();
+                // ps.solderSound.Stop();
+                ps.generalSFX.Stop();
             }
             solderComplete = false;
         }
@@ -67,7 +71,7 @@ public class CharSolder : MonoBehaviourPun
                 solderComplete = true;
                 Solder(false);
                 solderCount++;
-                if (solderCount == 2) {
+                if (solderCount == 2 && !ps.corePlaying) {
                     e.DecEnergy();
                     solderCount = 0;
                 }
