@@ -62,9 +62,12 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     void Update()
     {
         if(!CreatorSounds) {
-            GameObject creator = GameObject.FindGameObjectsWithTag("Creator")[0];
-            CreatorSounds = creator.GetComponent<AudioSource>();
-            Spawner = creator.GetComponent<SpawnObjectAtClick>();
+            GameObject[] creators = GameObject.FindGameObjectsWithTag("Creator");
+            if (creators.Length > 0) {
+                GameObject creator = GameObject.FindGameObjectsWithTag("Creator")[0];
+                CreatorSounds = creator.GetComponent<AudioSource>();
+                Spawner = creator.GetComponent<SpawnObjectAtClick>();
+            }
         } else if (Spawner.playing) {
             if (!pickedUp) {
                 DraggedClone.SetActive(false);
