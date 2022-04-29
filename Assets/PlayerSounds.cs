@@ -95,13 +95,13 @@ public class PlayerSounds : MonoBehaviour
             c.StartCoroutine("CoreCutscenePause");
         }
 
-        if (onGrass) {
-            treesAmbience.volume = Mathf.Lerp(treesAmbience.volume, 0.6f, Time.deltaTime * 2);
-            creaksAmbience.volume = Mathf.Lerp(creaksAmbience.volume, 0.6f, Time.deltaTime * 2);
-        } else {
-            creaksAmbience.volume = Mathf.Lerp(creaksAmbience.volume, 0f, Time.deltaTime * 2);
-            treesAmbience.volume = Mathf.Lerp(treesAmbience.volume, 0f, Time.deltaTime * 2);
-        }
+        // if (onGrass) {
+        //     treesAmbience.volume = Mathf.Lerp(treesAmbience.volume, 0.6f, Time.deltaTime * 2);
+        //     creaksAmbience.volume = Mathf.Lerp(creaksAmbience.volume, 0.6f, Time.deltaTime * 2);
+        // } else {
+        //     creaksAmbience.volume = Mathf.Lerp(creaksAmbience.volume, 0f, Time.deltaTime * 2);
+        //     treesAmbience.volume = Mathf.Lerp(treesAmbience.volume, 0f, Time.deltaTime * 2);
+        // }
     }
 
     void OnTriggerEnter(Collider collider) {
