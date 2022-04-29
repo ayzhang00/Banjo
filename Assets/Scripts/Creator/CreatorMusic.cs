@@ -49,22 +49,22 @@ public class CreatorMusic : MonoBehaviour
             corePlaying = true;
         }
 
-        playerSoldering = false;
-        playerCharging = false;
-        foreach(GameObject player in players) {
-            if(player.transform.Find("Solder").gameObject.activeSelf) {
-                playerSoldering = true;
-            }
-            if (player.GetComponent<CharEnergy>().recharging) {
-                playerCharging = true;
-            }
-        }
-        if (!playerSoldering) {
-            solderSound.Stop();
-        }
-        if (!playerCharging) {
-            chargeSound.Stop();
-        }
+        // playerSoldering = false;
+        // playerCharging = false;
+        // foreach(GameObject player in players) {
+        //     if(player.transform.Find("Solder").gameObject.activeSelf) {
+        //         playerSoldering = true;
+        //     }
+        //     if (player.GetComponent<CharEnergy>().recharging) {
+        //         playerCharging = true;
+        //     }
+        // }
+        // if (!playerSoldering) {
+        //     solderSound.Stop();
+        // }
+        // if (!playerCharging) {
+        //     chargeSound.Stop();
+        // }
 
     }
 
