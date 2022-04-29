@@ -22,6 +22,7 @@ public class CharSolder : MonoBehaviourPun
     PlayerSounds ps;
     Image loading;
 
+    // CreatorMusic cm;
     CharEnergy e;
     CharRevive r;
     PhotonView pv; 
@@ -33,6 +34,7 @@ public class CharSolder : MonoBehaviourPun
         c = GetComponent<CharController>();
         pv = GetComponent<PhotonView>();
         ps = GetComponent<PlayerSounds>();
+        // cm = GameObject.FindGameObjectsWithTag("Creator")[0].GetComponent<CreatorMusic>();
         loading = LoadingUI.GetComponent<Image>();
     }
     
@@ -54,6 +56,8 @@ public class CharSolder : MonoBehaviourPun
             // ps.solderSound.Play();
             ps.generalSFX.clip = ps.solderSound;
             ps.generalSFX.Play();
+            // cm.solderSound.Stop();
+            // cm.solderSound.Play();
         }
         if (Input.GetButtonUp("Solder")){
             currLoading = 0; 

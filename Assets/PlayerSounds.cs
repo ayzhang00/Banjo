@@ -52,11 +52,6 @@ public class PlayerSounds : MonoBehaviour
     void Start()
     {
         LEDs = GameObject.FindGameObjectsWithTag("LED");
-        Debug.Log("LEDs: " + LEDs.Length);
-        foreach(GameObject LED in LEDs) {
-            Debug.Log("LED: " + LED.transform.parent.transform.position + " " + LED.transform.parent.name);
-        }
-
 
         c = GetComponent<CharController>();
         e = GetComponent<CharEnergy>();
@@ -93,7 +88,10 @@ public class PlayerSounds : MonoBehaviour
             // explosion.Play();
             generalSFX.PlayOneShot(explosion, 1.0f);
             corePlaying = true;
+            transform.position = c.originalPos;
             e.Recharge();
+            c.playing = false;
+            c.StartCoroutine("CoreCutscenePause");
         }
 
         if (onGrass) {

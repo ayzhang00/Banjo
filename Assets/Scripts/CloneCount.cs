@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private Camera cam;
     public Vector3 offset;
     public int clonesPlaced = 0;
+    public int maxSpawned = 6;
     public Sprite[] cloneArray;
     public GameObject DraggedClone;
     public bool pickedUp = false;
@@ -17,11 +19,22 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     
     public AudioClip click;
     public AudioSource CreatorSounds;
+    
+    SpawnObjectAtClick Spawner;
+    float coreTimer = 0f;
+
+    GameObject[] LEDs;
+    bool allLEDsOff = false;
+    GameObject[] players;
+    bool coreSetupDone = false;
+    bool allPlayersDead = false;
+
 
     void Start()
     {
         sourceImage = GetComponent<Image>();
         dragTransform = DraggedClone.GetComponent<RectTransform>();
+        LEDs = GameObject.FindGameObjectsWithTag("LED");
         // GameObject creator = GameObject.FindGameObjectsWithTag("Creator")[0];
         // CreatorSounds = creator.GetComponent<AudioSource>();
     }
@@ -38,7 +51,7 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     }
     public void OnPointerUp(PointerEventData eventData) {
-        if (clonesPlaced < 6 && !pickedUp) {
+        if (clonesPlaced < maxSpawned && !pickedUp) {
             DraggedClone.SetActive(true);
             pickedUp = true;
         }
@@ -48,17 +61,75 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // Update is called once per frame
     void Update()
     {
-        while(!CreatorSounds) {
-            GameObject creator = GameObject.FindGameObjectsWithTag("Creator")[0];
-            CreatorSounds = creator.GetComponent<AudioSource>();
+        if(!CreatorSounds) {
+            GameObject[] creators = GameObject.FindGameObjectsWithTag("Creator");
+            if (creators.Length > 0) {
+                GameObject creator = GameObject.FindGameObjectsWithTag("Creator")[0];
+                CreatorSounds = creator.GetComponent<AudioSource>();
+                Spawner = creator.GetComponent<SpawnObjectAtClick>();
+            }
+        } else if (Spawner.playing) {
+            if (!pickedUp) {
+                DraggedClone.SetActive(false);
+            }
+            if (DraggedClone.activeSelf) {
+                MoveClone();
+            }
+            SwitchSprite();
+
+            players = GameObject.FindGameObjectsWithTag("Player");
+            if (players.Length != 0) {
+                allPlayersDead = true;
+                foreach (GameObject player in players) {
+                    if (!player.GetComponent<CharController>().isDead) {
+                        allPlayersDead = false;
+                    }
+                }
+            }
+
+            if (allPlayersDead) {
+                Spawner.playing = false;
+                Debug.Log("creator WIIIIINNNNN");
+            } else if (coreSetupDone && coreTimer >= 196f){
+                Spawner.playing = false;
+                Debug.Log("creator LOOOOOOOSSSSSEEEEE");
+            }
+            if (coreSetupDone) {
+                coreTimer += Time.deltaTime;
+            }
+
+            allLEDsOff = true;
+            // if (!allLEDsOff) {
+            foreach(GameObject LED in LEDs) {
+                if (LED.activeSelf) {
+                    allLEDsOff = false;
+                }
+            }
+            // }
+
+            if (allLEDsOff && !coreSetupDone) {
+                maxSpawned = 12;
+                clonesPlaced = 0;
+                SwitchSprite();
+
+                GameObject[] roamers = GameObject.FindGameObjectsWithTag("Roamer");
+                foreach(GameObject roamer in roamers) {
+                    PhotonView pv = roamer.GetComponent<PhotonView>();
+                    if (pv.IsMine) {
+                        PhotonNetwork.Destroy(pv);
+                    }
+                }
+                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                foreach(GameObject enemy in enemies) {
+                    Debug.Log(enemy.name);
+                    PhotonView pv = enemy.GetComponent<PhotonView>();
+                    if (pv.IsMine) {
+                        PhotonNetwork.Destroy(pv);
+                    }
+                }
+                coreSetupDone = true;
+            }
         }
-        if (!pickedUp) {
-            DraggedClone.SetActive(false);
-        }
-        if (DraggedClone.activeSelf) {
-            MoveClone();
-        }
-        SwitchSprite();
     }
 
     void MoveClone() {

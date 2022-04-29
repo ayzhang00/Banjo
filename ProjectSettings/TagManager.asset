@@ -22,6 +22,9 @@ TagManager:
   - Revive
   - Resistor
   - Grass
+  - Roamer
+  - PlayerSolder
+  - Core
   layers:
   - Default
   - TransparentFX
