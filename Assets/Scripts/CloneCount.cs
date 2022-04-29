@@ -22,8 +22,8 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         sourceImage = GetComponent<Image>();
         dragTransform = DraggedClone.GetComponent<RectTransform>();
-        GameObject creator = GameObject.FindGameObjectsWithTag("Creator")[0];
-        CreatorSounds = creator.GetComponent<AudioSource>();
+        // GameObject creator = GameObject.FindGameObjectsWithTag("Creator")[0];
+        // CreatorSounds = creator.GetComponent<AudioSource>();
     }
 
     public void OnPointerDown(PointerEventData eventData) {
@@ -48,6 +48,10 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // Update is called once per frame
     void Update()
     {
+        while(!CreatorSounds) {
+            GameObject creator = GameObject.FindGameObjectsWithTag("Creator")[0];
+            CreatorSounds = creator.GetComponent<AudioSource>();
+        }
         if (!pickedUp) {
             DraggedClone.SetActive(false);
         }

@@ -85,7 +85,7 @@ public class PlayerSounds : MonoBehaviour
             // StartCoroutine("PlayRunToTheCoreMusic");
             PlayRunToTheCoreMusic();
             // explosion.Play();
-            generalSFX.PlayOneShot(explosion);
+            generalSFX.PlayOneShot(explosion, 0.5f);
             corePlaying = true;
         }
 
