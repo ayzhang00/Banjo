@@ -80,7 +80,7 @@ public class PlayerSounds : MonoBehaviour
         }
         // Debug.Log(allLEDsOff);
 
-        if (allLEDsOff && !corePlaying) {
+        if (allLEDsOff && !corePlaying && pv.IsMine) {
             bg.Stop();
             StopCoroutine("PlayBackgroundMusic");
             // StartCoroutine("PlayRunToTheCoreMusic");

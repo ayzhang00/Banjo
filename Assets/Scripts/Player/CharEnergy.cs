@@ -62,7 +62,7 @@ public class CharEnergy : MonoBehaviour
             if (canRecharge && Input.GetButtonDown("Recharge")) {
                 recharging = true;
                 // ps.chargeSound.Play();
-                ps.generalSFX.clip = ps.reviveSound;
+                ps.generalSFX.clip = ps.chargeSound;
                 ps.generalSFX.Play();
                 StartChargeEffects(true);
                 // cm.chargeSound.Stop();

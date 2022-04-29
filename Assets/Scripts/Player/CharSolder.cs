@@ -90,23 +90,26 @@ public class CharSolder : MonoBehaviourPun
     }
 
     public void HandleSolderUI() {
-        if (canSolder && !solderComplete) {
-            if (isSoldering) {
-                SolderUI.SetActive(false);
-                LoadingUI.SetActive(true);
-                CalculateLoading();
-                loading.sprite = LoadingSprites[currLoading];
+        if (pv.IsMine) {
+            if (canSolder && !solderComplete) {
+                if (isSoldering) {
+                    SolderUI.SetActive(false);
+                    LoadingUI.SetActive(true);
+                    CalculateLoading();
+                    loading.sprite = LoadingSprites[currLoading];
+                }
+                else {
+                    LoadingUI.SetActive(false);
+                    SolderUI.SetActive(true);
+                }
             }
             else {
                 LoadingUI.SetActive(false);
-                SolderUI.SetActive(true);
+                SolderUI.SetActive(false);
             }
         }
-        else {
-            LoadingUI.SetActive(false);
-            SolderUI.SetActive(false);
-        }
     }
+
     private void CalculateLoading() {
         float inc = timeToCompleteSolder / loadingNum;
         if (timeSoldered >= ((currLoading + 1)*inc) && currLoading < 9) {

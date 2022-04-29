@@ -60,9 +60,6 @@ public class CharController : MonoBehaviourPun
     {
         forward = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.forward;
         right = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.right;
-        transform.Find("NameUI").gameObject.transform.Find("Text").gameObject.GetComponent<Text>().text = 
-            PhotonNetwork.LocalPlayer.NickName;
-        originalPos = transform.position;
         // Camera.main.transform.position = transform.position + camOffset;
 
         s = GetComponent<CharSolder>();
@@ -71,9 +68,14 @@ public class CharController : MonoBehaviourPun
         ps = GetComponent<PlayerSounds>();
         pv = GetComponent<PhotonView>();
         ui = transform.Find("PlayerUI").gameObject;
+        transform.Find("NameUI").gameObject.transform.Find("Text").gameObject.GetComponent<Text>().text = 
+            PhotonNetwork.LocalPlayer.NickName;
+        if (pv.IsMine) {
+            Camera.main.transform.position = transform.position + camOffset;
+            originalPos = transform.position;
+        }
         LEDs = GameObject.FindGameObjectsWithTag("LED");
         players = GameObject.FindGameObjectsWithTag("Player");
-        if (pv.IsMine) Camera.main.transform.position = transform.position + camOffset;
         maxHealth = health;
         creator = GameObject.Find("Creator");
     }
@@ -91,9 +93,6 @@ public class CharController : MonoBehaviourPun
             obscured = false;
             healthBarFill.fillAmount = health / maxHealth;
 
-            if (Input.GetButtonDown("Jump")){
-                Jump();
-            } 
             // can only attack and solder when have energy
             if (e.energy > 0) {
                 // attack
@@ -164,82 +163,95 @@ public class CharController : MonoBehaviourPun
             }
 
             if (moveSpeed != 0) MoveCamera();
+
+            if (Input.GetButtonDown("Jump")){
+                Jump();
+            } 
         }
     }
 
     void Move()
     {
-        Vector3 direction = Vector3.Normalize(new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey")));
-        Vector3 rightMovement = right * moveSpeed * Time.fixedDeltaTime * direction.x;
-        Vector3 upMovement = forward * moveSpeed * Time.fixedDeltaTime * direction.z;
+        if (pv.IsMine) {
+            Vector3 direction = new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey"));
 
-        // movement heading
-        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
-        transform.forward = heading;
-        transform.position += rightMovement;
-        transform.position += upMovement;
+            // movement heading
+            Vector3 heading = Vector3.Normalize(direction);
+            transform.forward = heading;
+            transform.position += heading * moveSpeed * Time.fixedDeltaTime;
+        }
     }
 
     void Jump() {
-        if (canJump) {
+        if (canJump && pv.IsMine) {
             rb.velocity = new Vector3(rb.velocity.x, jumpSpeed, rb.velocity.z);
         }
     }
 
     // collisions and triggers
     void OnCollisionStay(Collision collision) {
-        if (collision.collider.tag == "Ground" || collision.collider.tag == "Switch" || 
-                collision.collider.tag == "Wire" || collision.collider.tag == "Grass") {
-            canJump = true;
-        }
-        if (collision.collider.tag == "Core") {
-            coreTouched = true;
+        if (pv.IsMine) {
+            if (collision.collider.tag == "Ground" || collision.collider.tag == "Switch" || 
+                    collision.collider.tag == "Wire" || collision.collider.tag == "Grass") {
+                canJump = true;
+            }
+            if (collision.collider.tag == "Core") {
+                coreTouched = true;
+            }
         }
     }
     
     void OnTriggerEnter(Collider collider) {
-        if (collider.tag == "Attack") {
-            pv.RPC("healthDec", RpcTarget.AllViaServer);
-            // health--;
-            Spark();
-            // hit.Play();\
-            Debug.Log(health);
-            pv.RPC("SwitchActiveObject", RpcTarget.All, "Hit", true);
-            if (health <= 0) {
-                healthBarFill.fillAmount = 0;
-                pv.RPC("SwitchActiveObject", RpcTarget.All, "Hit", false);
-                pv.RPC("SwitchActiveObject", RpcTarget.All, "Dead", true);
-                if (isRevived) {
-                    StartCoroutine(Death());
+        if (pv.IsMine) {
+            if (collider.tag == "Attack") {
+                pv.RPC("healthDec", RpcTarget.AllViaServer);
+                // health--;
+                Spark();
+                // hit.Play();\
+                Debug.Log(health);
+                pv.RPC("SwitchActiveObject", RpcTarget.All, "Hit", true);
+                if (health <= 0) {
+                    healthBarFill.fillAmount = 0;
+                    pv.RPC("SwitchActiveObject", RpcTarget.All, "Hit", false);
+                    pv.RPC("SwitchActiveObject", RpcTarget.All, "Dead", true);
+                    if (isRevived) {
+                        StartCoroutine(Death());
+                    }
                 }
             }
         }
     }
 
     void OnTriggerExit(Collider collider) {
-        if (collider.tag == "Attack") {
-            Debug.Log("left");
-            Debug.Log(health);
-            pv.RPC("SwitchActiveObject", RpcTarget.All, "Hit", false);
+        if (pv.IsMine) {
+            if (collider.tag == "Attack") {
+                Debug.Log("left");
+                Debug.Log(health);
+                pv.RPC("SwitchActiveObject", RpcTarget.All, "Hit", false);
+            }
         }
     }
 
     void OnCollisionExit(Collision collision) {
-        if (collision.collider.tag == "Ground" || collision.collider.tag == "Switch" || 
-                collision.collider.tag == "Wire" || collision.collider.tag == "Grass") {
-            canJump = false;
+        if (pv.IsMine) {
+            if (collision.collider.tag == "Ground" || collision.collider.tag == "Switch" || 
+                    collision.collider.tag == "Wire" || collision.collider.tag == "Grass") {
+                canJump = false;
+            }
         }
     }
 
     void MoveCamera() {
-        Vector3 start = Camera.main.transform.position;
-        Vector3 dest = transform.position + camOffset;
-        Vector3 dir = start - dest;
+        if (pv.IsMine) {
+            Vector3 start = Camera.main.transform.position;
+            Vector3 dest = transform.position + camOffset;
+            Vector3 dir = start - dest;
 
-        float dist = dir.magnitude;
-        float step = (dist / maxCamDist) * camSpeed;
+            float dist = dir.magnitude;
+            float step = (dist / maxCamDist) * camSpeed;
 
-        Camera.main.transform.position -= dir.normalized * step * Time.fixedDeltaTime;
+            Camera.main.transform.position -= dir.normalized * step * Time.fixedDeltaTime;
+        }
     }
     
     void Attack(bool isActive) {
@@ -265,11 +277,11 @@ public class CharController : MonoBehaviourPun
     }
 
     IEnumerator Death() {
-        pv.RPC("SwitchActiveObject", RpcTarget.All, "Dead", true);
-        deathEffect.SetActive(true);
-        yield return new WaitForSeconds(1f);
-        // gameObject.SetActive(false);
         if (pv.IsMine) {
+            pv.RPC("SwitchActiveObject", RpcTarget.All, "Dead", true);
+            deathEffect.SetActive(true);
+            yield return new WaitForSeconds(1f);
+            // gameObject.SetActive(false);
             PhotonNetwork.Destroy(pv);
         }
     }
