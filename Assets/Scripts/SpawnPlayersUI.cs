@@ -9,6 +9,7 @@ public class SpawnPlayersUI : MonoBehaviour
     public GameObject readyButton;
     public GameObject vButton;
     public GameObject cButton;
+    public GameObject lobbyName;
 
     // player interface
     public GameObject[] p;
@@ -25,6 +26,7 @@ public class SpawnPlayersUI : MonoBehaviour
     {
         c = cButton.GetComponent<Image>();
         v = vButton.GetComponent<Image>();
+        lobbyName.GetComponent<Text>().text = PhotonNetwork.CurrentRoom.Name;
     }
 
     // Update is called once per frame
