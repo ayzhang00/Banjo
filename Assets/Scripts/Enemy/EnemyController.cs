@@ -159,7 +159,7 @@ public class EnemyController : MonoBehaviourPun
         yield return new WaitForSeconds(wait);
         // canTurn = true;
         canMove = true;
-        nextPoint = transform.forward * Random.Range(10.0f, 30.0f) - transform.position;
+        nextPoint = transform.forward * Random.Range(10.0f, 20.0f) - transform.position;
         // pv.RPC("Turn", RpcTarget.All, Random.Range(45.0f, 360.0f));
     }
 
