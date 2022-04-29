@@ -194,5 +194,6 @@ public class SpawnPlayers : MonoBehaviour
             AudioListener al = creator.GetComponent<AudioListener>();
             al.enabled = true;
         }
+        PhotonNetwork.RemoveRPCs(pv);
     }
 }
