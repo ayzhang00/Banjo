@@ -10,10 +10,14 @@ public class CharController : MonoBehaviourPun
     // basic set up
     float camSpeed = 3f;
     float maxCamDist = 1f;
+    float timeRunningToCore = 0f;
     public Rigidbody rb;
     public bool playing = true;
     public bool isDead = false;
     public bool obscured = false;
+    public bool coreTouched = false;
+    bool allPlayersAtCore = false;
+    public Vector3 originalPos;
     GameObject[] LEDs;
     Vector3 camOffset = new Vector3(-15f, 12f, -15f);
     Vector3 forward, right;
@@ -45,6 +49,7 @@ public class CharController : MonoBehaviourPun
     GameObject ui;
     PlayerSounds ps;
     GameObject creator;
+    GameObject[] players;
     public bool isRevived = false;
     public Image healthBarFill;
     
@@ -54,6 +59,7 @@ public class CharController : MonoBehaviourPun
     {
         forward = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.forward;
         right = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.right;
+        originalPos = transform.position;
         // Camera.main.transform.position = transform.position + camOffset;
 
         s = GetComponent<CharSolder>();
@@ -63,6 +69,7 @@ public class CharController : MonoBehaviourPun
         pv = GetComponent<PhotonView>();
         ui = transform.Find("PlayerUI").gameObject;
         LEDs = GameObject.FindGameObjectsWithTag("LED");
+        players = GameObject.FindGameObjectsWithTag("Player");
         if (pv.IsMine) Camera.main.transform.position = transform.position + camOffset;
         maxHealth = health;
         creator = GameObject.Find("Creator");
@@ -71,7 +78,7 @@ public class CharController : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) playing = !playing;
+        if (Input.GetKeyDown(KeyCode.Escape) && !ps.corePlaying) playing = !playing;
         // if (!r.reviving && !e.recharging && s.canSolder) s.HandleSolderUI();
         s.HandleSolderUI();
 
@@ -120,13 +127,35 @@ public class CharController : MonoBehaviourPun
             
             foreach(GameObject LED in LEDs) {
                 // if (Vector3.Distance(transform.position, LED.transform.position) < 20) {
+                // if (LEDZone == LED.tag && 
                 if (Vector3.Distance(transform.position, LED.transform.position) < 20 && 
                     !LED.activeSelf) {
                     obscured = true;
                 }
             }
+            if (!ps.corePlaying) { 
+                Obscure(obscured);
+            } else {
+                if (timeRunningToCore >= 196f) {
+                    playing = false;
+                    Debug.Log("player LOOOOOSSSEEEEE");
+                }
+                timeRunningToCore += Time.deltaTime;
+            }
 
-            Obscure(obscured);
+            allPlayersAtCore = true;
+            // if (coreTouched) {
+            players = GameObject.FindGameObjectsWithTag("Player");
+            foreach(GameObject player in players) {
+                if (!player.GetComponent<CharController>().coreTouched) {
+                    allPlayersAtCore = false;
+                }
+            }
+            // }
+            if (allPlayersAtCore) {
+                playing = false;
+                Debug.Log("player WIIIIIIINNNNNNN");
+            }
         }
     }
 
@@ -154,6 +183,9 @@ public class CharController : MonoBehaviourPun
         if (collision.collider.tag == "Ground" || collision.collider.tag == "Switch" || 
                 collision.collider.tag == "Wire" || collision.collider.tag == "Grass") {
             canJump = true;
+        }
+        if (collision.collider.tag == "Core") {
+            coreTouched = true;
         }
     }
     
@@ -214,6 +246,10 @@ public class CharController : MonoBehaviourPun
         playing = true;
     }
 
+    public IEnumerator CoreCutscenePause() {
+        yield return new WaitForSeconds(16f);
+        playing = true;
+    }
 
     IEnumerator Death() {
         pv.RPC("SwitchActiveObject", RpcTarget.All, "Dead", true);

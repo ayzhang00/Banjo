@@ -17,11 +17,13 @@ public class CharEnergy : MonoBehaviour
     float timeRecharged = 0f;
     Image batteryImage;
     public bool recharging = false;
+    public bool doneDischarging = false;
     bool canRecharge = false;
     CharController c;
     CharSolder s;
     CharRevive r;
     PlayerSounds ps;
+    // CreatorMusic cm;
     PhotonView pv; 
     Image loading;
     
@@ -34,6 +36,7 @@ public class CharEnergy : MonoBehaviour
         s = GetComponent<CharSolder>();
         r = GetComponent<CharRevive>();
         ps = GetComponent<PlayerSounds>();
+        // cm = GameObject.FindGameObjectsWithTag("Creator")[0].GetComponent<CreatorMusic>();
         pv = GetComponent<PhotonView>();
         loading = LoadingUI.GetComponent<Image>();
     }
@@ -60,6 +63,8 @@ public class CharEnergy : MonoBehaviour
             ps.generalSFX.clip = ps.reviveSound;
             ps.generalSFX.Play();
             StartChargeEffects(true);
+            // cm.chargeSound.Stop();
+            // cm.chargeSound.Play();
         }
         if (Input.GetButtonUp("Recharge")) {
             timeRecharged = 0;

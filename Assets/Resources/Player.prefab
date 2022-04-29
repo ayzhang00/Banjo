@@ -24770,6 +24770,8 @@ MonoBehaviour:
   playing: 1
   isDead: 0
   obscured: 0
+  coreTouched: 0
+  originalPos: {x: 0, y: 0, z: 0}
   moveSpeed: 3
   canJump: 0
   isMoving: 0
@@ -25777,7 +25779,7 @@ GameObject:
   - component: {fileID: 4510331463206439995}
   m_Layer: 6
   m_Name: Solder
-  m_TagString: Untagged
+  m_TagString: PlayerSolder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

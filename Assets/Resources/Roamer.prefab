@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 150310398}
   m_Layer: 6
   m_Name: Roamer
-  m_TagString: Player
+  m_TagString: Roamer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

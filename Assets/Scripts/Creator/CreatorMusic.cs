@@ -5,11 +5,18 @@ using UnityEngine;
 public class CreatorMusic : MonoBehaviour
 {
     GameObject[] LEDs;
+    GameObject[] players;
     bool allLEDsOff = false;
     public Camera cam;
     public AudioSource bgMusic;
+    public AudioSource solderSound;
+    public AudioSource chargeSound;
     public AudioClip coreTrack;
     public AudioClip explosion;
+
+    bool playerSoldering = false;
+    bool playerCharging = false;
+
     bool corePlaying = false;
 
     // public AudioClip coreTrack1;
@@ -18,6 +25,7 @@ public class CreatorMusic : MonoBehaviour
     void Start()
     {
         LEDs = GameObject.FindGameObjectsWithTag("LED");
+        players = GameObject.FindGameObjectsWithTag("Player");
         // bgMusic = GameObject.Find("TopCamera").GetComponent<AudioSource>();
     }
 
@@ -39,6 +47,24 @@ public class CreatorMusic : MonoBehaviour
             bgMusic.PlayOneShot(explosion);
             corePlaying = true;
         }
+
+        playerSoldering = false;
+        playerCharging = false;
+        foreach(GameObject player in players) {
+            if(player.transform.Find("Solder").gameObject.activeSelf) {
+                playerSoldering = true;
+            }
+            if (player.GetComponent<CharEnergy>().recharging) {
+                playerCharging = true;
+            }
+        }
+        if (!playerSoldering) {
+            solderSound.Stop();
+        }
+        if (!playerCharging) {
+            chargeSound.Stop();
+        }
+
     }
 
     // IEnumerator PlayRunToTheCoreMusic() {
