@@ -14,7 +14,6 @@ public class SpawnPlayers : MonoBehaviour
     public GameObject cameraIso;
     public GameObject cameraTop;
     public GameObject errorMsg;
-    public GameObject readyButton;
     public GameObject startButton;
     public GameObject Inventory;
     public GameObject playerText;
@@ -81,14 +80,15 @@ public class SpawnPlayers : MonoBehaviour
         errorMsg.SetActive(false);
         // if cant be creator and click player
         if (!isPlayer) {
+            spu.NonRPCUI(true);
             pv.RPC("PlayerUI", RpcTarget.AllBufferedViaServer, currPlayer, true);
             playerID = playerCount;
             isPlayer = true;
-            pv.RPC("IncPlayers", RpcTarget.All, true);
+            pv.RPC("IncPlayers", RpcTarget.AllBufferedViaServer, true);
             // if was creator, remove
             if (isCreator) {
                 isCreator = false;
-                pv.RPC("IncCreator", RpcTarget.All, false);
+                pv.RPC("IncCreator", RpcTarget.AllBufferedViaServer, false);
             }
         }
         
@@ -96,12 +96,13 @@ public class SpawnPlayers : MonoBehaviour
 
     public void CreateCreator() {
         if (creatorCount == 0 && !isCreator) {
-            pv.RPC("PlayerUI", RpcTarget.All, currPlayer, false);
-            pv.RPC("IncCreator", RpcTarget.All, true);
+            spu.NonRPCUI(false);
+            pv.RPC("PlayerUI", RpcTarget.AllBufferedViaServer, currPlayer, false);
+            pv.RPC("IncCreator", RpcTarget.AllBufferedViaServer, true);
             isCreator = true;
             if (isPlayer) {
                 isPlayer = false;
-                pv.RPC("IncPlayers", RpcTarget.All, false);
+                pv.RPC("IncPlayers", RpcTarget.AllBufferedViaServer, false);
             }
         }
         else if (creatorCount > 0) {

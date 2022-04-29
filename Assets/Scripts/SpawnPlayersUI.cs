@@ -28,27 +28,26 @@ public class SpawnPlayersUI : MonoBehaviour
         v = vButton.GetComponent<Image>();
         lobbyName.GetComponent<Text>().text = PhotonNetwork.CurrentRoom.Name;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    [PunRPC]
-    public void PlayerUI(int currPlayer, bool isVariant) {
+    public void NonRPCUI(bool isVariant) {
         if (isVariant) {
             v.sprite = vSprite[1];
             c.sprite = cSprite[0];
-            p[currPlayer].transform.Find("TitlePlayer").gameObject.SetActive(true);
-            p[currPlayer].transform.Find("Enemy").gameObject.SetActive(false);
-            readyButton.SetActive(true);
         }
         else {
             v.sprite = vSprite[0];
             c.sprite = cSprite[1];
+        }
+        readyButton.SetActive(true);
+    }
+    [PunRPC]
+    public void PlayerUI(int currPlayer, bool isVariant) {
+        if (isVariant) {
+            p[currPlayer].transform.Find("TitlePlayer").gameObject.SetActive(true);
+            p[currPlayer].transform.Find("Enemy").gameObject.SetActive(false);
+        }
+        else {
             p[currPlayer].transform.Find("TitlePlayer").gameObject.SetActive(false);
             p[currPlayer].transform.Find("Enemy").gameObject.SetActive(true);
-            readyButton.SetActive(true);
         }
     }
 
@@ -56,9 +55,5 @@ public class SpawnPlayersUI : MonoBehaviour
     void startPlayer(int currPlayer, string username) {
         p[currPlayer].SetActive(true);
         p[currPlayer].transform.Find("PlayerUser").gameObject.GetComponent<Text>().text = username;
-        // if (PhotonNetwork.IsMasterClient) {
-        //     properties["P"] = p;
-        //     PhotonNetwork.SetPlayerCustomProperties(properties);
-        // }
     }
 }
