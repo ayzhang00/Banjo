@@ -45,7 +45,6 @@ public class SpawnPlayers : MonoBehaviour
     void Start() {
         currPlayer = PhotonNetwork.CurrentRoom.PlayerCount - 1;
         lobbyRoom.SetActive(true);
-        // mainRoom.SetActive(true);
         mainRoom.SetActive(false);
         playerCount = 0;
         creatorCount = 0;
