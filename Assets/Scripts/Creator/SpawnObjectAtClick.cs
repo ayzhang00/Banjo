@@ -24,10 +24,7 @@ public class SpawnObjectAtClick : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            playing = !playing;
-        }
+        playing = !GetComponent<PauseMenu>().isPaused;
         if (playing) {
             if (Input.GetMouseButtonDown(0)) {
                 RaycastHit hit;

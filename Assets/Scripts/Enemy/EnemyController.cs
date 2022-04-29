@@ -18,8 +18,10 @@ public class EnemyController : MonoBehaviourPun
     float attackInterval = 1.5f;
     bool canAttack = true;
     public GameObject player;
-    bool isHit = false;
-    bool canMove = false;
+    public bool isHit = false;
+    public bool isMove = false;
+    public bool isAttacking = false;
+    bool canMove = true;
     bool canTurn = true;
     // sounds
     public AudioSource swing;
@@ -52,6 +54,7 @@ public class EnemyController : MonoBehaviourPun
     {
         if (player) {
             if (!player.GetComponent<CharController>().isDead) {
+                pv.RPC("SwitchActiveObject", RpcTarget.All, "Move", true);
                 Vector3 dir = player.transform.position - transform.position;
                 Vector3 heading = Vector3.Normalize(dir);
                 // if (canMove) {
@@ -76,6 +79,7 @@ public class EnemyController : MonoBehaviourPun
             // float wait = Random.Range(1.0f, 3.0f);
             // Turn();
             if (canTurn) {
+                pv.RPC("SwitchActiveObject", RpcTarget.All, "Move", false);
                 float angle = Random.Range(0.0f, 360.0f);
                 // transform.Rotate(0.0f, angle, 0.0f);
                 Turn(angle);
@@ -117,7 +121,7 @@ public class EnemyController : MonoBehaviourPun
             Spark();
             hit.Play();
             health--;
-            isHit = true;
+            pv.RPC("SwitchActiveObject", RpcTarget.All, "Hit", true);
             if (health <= 0) {
                 playing = false;
                 StartCoroutine(Death());
@@ -127,7 +131,7 @@ public class EnemyController : MonoBehaviourPun
 
     void OnTriggerExit(Collider collider) {
         if (collider.tag == "PlayerAttack") {
-            isHit = false;
+            pv.RPC("SwitchActiveObject", RpcTarget.All, "Hit", false);
         }
     }
 
@@ -176,9 +180,16 @@ public class EnemyController : MonoBehaviourPun
     void SwitchActiveObject(string obj, bool isActive) {
         if (obj == "Attack") {
             attack.SetActive(isActive);
+            isAttacking = isActive;
         }
         else if (obj == "Flash") {
             flash.SetActive(isActive);
+        }
+        else if (obj == "Move") {
+            isMove = isActive;
+        }
+        else if (obj == "Hit") {
+            isHit = isActive;
         }
     }
 
