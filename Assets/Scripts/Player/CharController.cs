@@ -35,6 +35,7 @@ public class CharController : MonoBehaviourPun
     float timeToAttack = 0.3f;
     float timeAttacked = 0f;
     int attackCount = 0;
+    GameObject attacked;
     // solder
     CharSolder s;
     // energy
@@ -73,10 +74,9 @@ public class CharController : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) playing = !playing;
+        playing = !GetComponent<PauseMenu>().isPaused;
         // if (!r.reviving && !e.recharging && s.canSolder) s.HandleSolderUI();
         s.HandleSolderUI();
-
         // isMoving = false;
         if (!isDead && playing && pv.IsMine) {
             ui.SetActive(true);
@@ -95,7 +95,6 @@ public class CharController : MonoBehaviourPun
             }
 
             if (moveSpeed != 0) MoveCamera();
-            
             // can only attack and solder when have energy
             if (e.energy > 0) {
                 // attack
@@ -161,13 +160,16 @@ public class CharController : MonoBehaviourPun
     
     void OnTriggerEnter(Collider collider) {
         if (collider.tag == "Attack") {
-            pv.RPC("SwitchActiveObject", RpcTarget.All, "Hit", true);
+            pv.RPC("healthDec", RpcTarget.AllViaServer);
+            // health--;
             Spark();
-            // hit.Play();
-            health--;
+            // hit.Play();\
+            Debug.Log(health);
+            pv.RPC("SwitchActiveObject", RpcTarget.All, "Hit", true);
             if (health <= 0) {
                 healthBarFill.fillAmount = 0;
-                isDead = true;
+                pv.RPC("SwitchActiveObject", RpcTarget.All, "Hit", false);
+                pv.RPC("SwitchActiveObject", RpcTarget.All, "Dead", true);
                 if (isRevived) {
                     StartCoroutine(Death());
                 }
@@ -177,6 +179,8 @@ public class CharController : MonoBehaviourPun
 
     void OnTriggerExit(Collider collider) {
         if (collider.tag == "Attack") {
+            Debug.Log("left");
+            Debug.Log(health);
             pv.RPC("SwitchActiveObject", RpcTarget.All, "Hit", false);
         }
     }
@@ -227,6 +231,10 @@ public class CharController : MonoBehaviourPun
         }
     }
 
+    [PunRPC]
+    void healthDec() {
+        health--;
+    }
     [PunRPC]
     void SwitchActiveObject(string obj, bool isActive) {
         if (obj == "Attack") {

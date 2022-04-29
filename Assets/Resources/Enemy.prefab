@@ -10344,11 +10344,11 @@ GameObject:
   - component: {fileID: 4826701416145779457}
   - component: {fileID: 4826701416145779458}
   - component: {fileID: 5887904340630761524}
-  - component: {fileID: 5887904340630761525}
   - component: {fileID: 5555547025395356997}
   - component: {fileID: 6782960696994329119}
   - component: {fileID: 1138838486667700524}
   - component: {fileID: 4513893834402282527}
+  - component: {fileID: 4034495693598287907}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
@@ -10502,18 +10502,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5887904340630761525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5636970220027594314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 473514b7294388440b78ecb51c8b6bdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5555547025395356997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10531,9 +10519,12 @@ MonoBehaviour:
   attack: {fileID: 8249959222946031673}
   flash: {fileID: 2239789002706403223}
   deathEffect: {fileID: 3900420258997780872}
-  health: 5
+  health: 10
   playing: 1
   player: {fileID: 0}
+  isHit: 0
+  isMove: 0
+  isAttacking: 0
   swing: {fileID: 4513893834402282527}
   hit: {fileID: 6782960696994329119}
   walk: {fileID: 1138838486667700524}
@@ -10825,6 +10816,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4034495693598287907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5636970220027594314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ac127ff12a12d745a71ac6ca869f23d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5721581782993113956
 GameObject:
   m_ObjectHideFlags: 0
@@ -16110,8 +16113,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 0.8139312}
+  m_Center: {x: 0, y: 0, z: -0.09303427}
 --- !u!114 &8249959222946031654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16163,6 +16166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 102218b16b84caf488fdd075b27b3523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  og: {x: -1.165, y: 3.282, z: 2.238}
 --- !u!1 &8392757910290931422
 GameObject:
   m_ObjectHideFlags: 0
