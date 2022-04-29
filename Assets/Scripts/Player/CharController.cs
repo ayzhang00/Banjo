@@ -172,7 +172,7 @@ public class CharController : MonoBehaviourPun
 
     void Move()
     {
-        if (pv.IsMine) {
+        // if (pv.IsMine) {
             Vector3 direction = Vector3.Normalize(new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey")));
         
             Vector3 rightMovement = right * moveSpeed * Time.fixedDeltaTime * direction.x;
@@ -183,7 +183,7 @@ public class CharController : MonoBehaviourPun
             transform.forward = heading;
             transform.position += rightMovement;
             transform.position += upMovement;
-        }
+        // }
     }
 
     void Jump() {
@@ -195,7 +195,7 @@ public class CharController : MonoBehaviourPun
 
     // collisions and triggers
     void OnCollisionStay(Collision collision) {
-        if (pv.IsMine) {
+        // if (pv.IsMine) {
             if (collision.collider.tag == "Ground" || collision.collider.tag == "Switch" || 
                     collision.collider.tag == "Wire" || collision.collider.tag == "Grass") {
                 canJump = true;
@@ -203,11 +203,11 @@ public class CharController : MonoBehaviourPun
             if (collision.collider.tag == "Core") {
                 coreTouched = true;
             }
-        }
+        // }
     }
     
     void OnTriggerEnter(Collider collider) {
-        if (pv.IsMine) {
+        // if (pv.IsMine) {
             if (collider.tag == "Attack") {
                 pv.RPC("healthDec", RpcTarget.AllViaServer);
                 // health--;
@@ -224,30 +224,30 @@ public class CharController : MonoBehaviourPun
                     }
                 }
             }
-        }
+        // }
     }
 
     void OnTriggerExit(Collider collider) {
-        if (pv.IsMine) {
+        // if (pv.IsMine) {
             if (collider.tag == "Attack") {
                 Debug.Log("left");
                 Debug.Log(health);
                 pv.RPC("SwitchActiveObject", RpcTarget.All, "Hit", false);
             }
-        }
+        // }
     }
 
     void OnCollisionExit(Collision collision) {
-        if (pv.IsMine) {
+        // if (pv.IsMine) {
             if (collision.collider.tag == "Ground" || collision.collider.tag == "Switch" || 
                     collision.collider.tag == "Wire" || collision.collider.tag == "Grass") {
                 canJump = false;
             }
-        }
+        // }
     }
 
     void MoveCamera() {
-        if (pv.IsMine) {
+        // if (pv.IsMine) {
             Vector3 start = Camera.main.transform.position;
             Vector3 dest = transform.position + camOffset;
             Vector3 dir = start - dest;
@@ -256,7 +256,7 @@ public class CharController : MonoBehaviourPun
             float step = (dist / maxCamDist) * camSpeed;
 
             Camera.main.transform.position -= dir.normalized * step * Time.fixedDeltaTime;
-        }
+        // }
     }
     
     void Attack(bool isActive) {
