@@ -19,7 +19,7 @@ public class CharController : MonoBehaviourPun
     bool allPlayersAtCore = false;
     public Vector3 originalPos;
     GameObject[] LEDs;
-    Vector3 camOffset = new Vector3(-15f, 12f, -15f);
+    public Vector3 camOffset = new Vector3(-15f, 12f, -15f);
     Vector3 forward, right;
     PhotonView pv;
     // movement
@@ -152,8 +152,9 @@ public class CharController : MonoBehaviourPun
                 }
             }
             // }
-            if (allPlayersAtCore) {
+            if (allPlayersAtCore && ps.corePlaying) {
                 playing = false;
+                isMoving = false;
                 Debug.Log("player WIIIIIIINNNNNNN");
             }
         }

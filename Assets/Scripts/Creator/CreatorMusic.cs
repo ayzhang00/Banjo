@@ -42,8 +42,9 @@ public class CreatorMusic : MonoBehaviour
         if (allLEDsOff && !corePlaying) {
             bgMusic.Stop();
             // StartCoroutine("PlayRunToTheCoreMusic");
-            bgMusic.clip = coreTrack;
-            bgMusic.Play();
+            // bgMusic.clip = coreTrack;
+            // bgMusic.Play();
+            bgMusic.PlayOneShot(coreTrack);
             bgMusic.PlayOneShot(explosion);
             corePlaying = true;
         }

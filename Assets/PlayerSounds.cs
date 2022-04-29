@@ -89,6 +89,7 @@ public class PlayerSounds : MonoBehaviour
             generalSFX.PlayOneShot(explosion, 1.0f);
             corePlaying = true;
             transform.position = c.originalPos;
+            Camera.main.transform.position = c.originalPos + c.camOffset;
             e.Recharge();
             c.playing = false;
             c.StartCoroutine("CoreCutscenePause");
@@ -200,7 +201,8 @@ public class PlayerSounds : MonoBehaviour
     }
 
     void PlayRunToTheCoreMusic() {
-        bg.clip = coreTrack;
-        bg.Play();
+        // bg.clip = coreTrack;
+        // bg.Play();
+        bg.PlayOneShot(coreTrack);
     }
 }// 
