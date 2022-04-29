@@ -55,6 +55,10 @@ MonoBehaviour:
   - Turn
   - StartReviveEffects
   - StartChargeEffects
+  - CreatorUI
+  - getPlayer
+  - PlayerUI
+  - startPlayer
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

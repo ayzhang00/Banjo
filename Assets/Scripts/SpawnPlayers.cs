@@ -14,13 +14,10 @@ public class SpawnPlayers : MonoBehaviour
     public GameObject cameraIso;
     public GameObject cameraTop;
     public GameObject errorMsg;
-    public GameObject errorButton;
     public GameObject readyButton;
     public GameObject startButton;
     public GameObject Inventory;
     public GameObject playerText;
-    public GameObject p;
-    public GameObject c;
     // count each player as they come in, inc in rpc
     public int playerCount = 0;
     public int creatorCount = 0;
@@ -34,15 +31,20 @@ public class SpawnPlayers : MonoBehaviour
     // keep track of which player selected id
     int playerID = 0;
     // which type of player
-    bool isPlayer = false;
-    bool isCreator = false;
+    int currPlayer;
+    public bool isPlayer = false;
+    public bool isCreator = false;
     bool started = false;
     bool loaded = false;
     bool isReady = false;
     Text players;
     PhotonView pv;
+    
+
+    SpawnPlayersUI spu;
 
     void Start() {
+        currPlayer = PhotonNetwork.CurrentRoom.PlayerCount - 1;
         lobbyRoom.SetActive(true);
         // mainRoom.SetActive(true);
         mainRoom.SetActive(false);
@@ -50,6 +52,12 @@ public class SpawnPlayers : MonoBehaviour
         creatorCount = 0;
         pv = GetComponent<PhotonView>();
         players = playerText.GetComponent<Text>();
+        spu = GetComponent<SpawnPlayersUI>();
+        if (PhotonNetwork.IsMasterClient) {
+            
+            // Hashtable properties = PhotonNetwork.SetPlayerCustomProperties();
+        }
+        pv.RPC("startPlayer", RpcTarget.AllBufferedViaServer, currPlayer, PhotonNetwork.LocalPlayer.NickName);
     }
 
     void Update() {
@@ -70,40 +78,36 @@ public class SpawnPlayers : MonoBehaviour
     }
 
     public void CreatePlayer() {
-        playerID = playerCount;
-        isPlayer = true;
-        pv.RPC("IncPlayers", RpcTarget.All, true);
-        // if was creator, remove
-        if (isCreator) {
-            isCreator = false;
-            pv.RPC("IncCreator", RpcTarget.All, false);
+        errorMsg.SetActive(false);
+        // if cant be creator and click player
+        if (!isPlayer) {
+            pv.RPC("PlayerUI", RpcTarget.AllBufferedViaServer, currPlayer, true);
+            playerID = playerCount;
+            isPlayer = true;
+            pv.RPC("IncPlayers", RpcTarget.All, true);
+            // if was creator, remove
+            if (isCreator) {
+                isCreator = false;
+                pv.RPC("IncCreator", RpcTarget.All, false);
+            }
         }
-        p.SetActive(true);
-        c.SetActive(false);
-        readyButton.SetActive(true);
+        
     }
 
     public void CreateCreator() {
-        if (creatorCount == 0) {
+        if (creatorCount == 0 && !isCreator) {
+            pv.RPC("PlayerUI", RpcTarget.All, currPlayer, false);
             pv.RPC("IncCreator", RpcTarget.All, true);
             isCreator = true;
             if (isPlayer) {
                 isPlayer = false;
                 pv.RPC("IncPlayers", RpcTarget.All, false);
             }
-            p.SetActive(false);
-            c.SetActive(true);
-            readyButton.SetActive(true);
         }
-        else{
+        else if (creatorCount > 0) {
             errorMsg.SetActive(true);
-            errorButton.SetActive(true);
         }
         
-    }
-    public void ClearError(){
-        errorMsg.SetActive(false);
-        errorButton.SetActive(false);
     }
     public void Started() {
         pv.RPC("setStart", RpcTarget.All);
@@ -112,11 +116,11 @@ public class SpawnPlayers : MonoBehaviour
     public void ClickReady() {
         if (isReady) {
             isReady = false;
-            pv.RPC("IncReady", RpcTarget.All, false);
+            pv.RPC("IncReady", RpcTarget.AllBufferedViaServer, false);
         }
         else {
             isReady = true;
-            pv.RPC("IncReady", RpcTarget.All, true);
+            pv.RPC("IncReady", RpcTarget.AllBufferedViaServer, true);
         }
     }
 

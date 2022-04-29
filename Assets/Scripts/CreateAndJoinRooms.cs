@@ -8,7 +8,11 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 {
     public InputField createInput;
     public InputField joinInput;
+    public Text username;
     // Start is called before the first frame update
+    void Start() {
+        username.text = PhotonNetwork.LocalPlayer.NickName;
+    }
     public void CreateRoom()
     {
         if (createInput.text.Length >= 1) {
