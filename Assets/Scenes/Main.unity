@@ -18918,6 +18918,7 @@ MonoBehaviour:
   readyButton: {fileID: 1489881248}
   vButton: {fileID: 658275874}
   cButton: {fileID: 1206491243}
+  lobbyName: {fileID: 187507265}
   p:
   - {fileID: 3743630116403135506}
   - {fileID: 1255641029}
