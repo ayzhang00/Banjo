@@ -115,10 +115,12 @@ public class SpawnPlayers : MonoBehaviour
 
     public void ClickReady() {
         if (isReady) {
+            spu.SetReady(false);
             isReady = false;
             pv.RPC("IncReady", RpcTarget.AllBufferedViaServer, false);
         }
         else {
+            spu.SetReady(true);
             isReady = true;
             pv.RPC("IncReady", RpcTarget.AllBufferedViaServer, true);
         }

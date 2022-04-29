@@ -9,23 +9,27 @@ public class SpawnPlayersUI : MonoBehaviour
     public GameObject readyButton;
     public GameObject vButton;
     public GameObject cButton;
+    public GameObject rButton;
     public GameObject lobbyName;
 
     // player interface
     public GameObject[] p;
     public Sprite[] cSprite;
     public Sprite[] vSprite;
+    public Sprite[] rSprite;
     // whole player object
     Text players;
 
     Image c;
     Image v;
+    Image r;
     
     // Start is called before the first frame update
     void Start()
     {
         c = cButton.GetComponent<Image>();
         v = vButton.GetComponent<Image>();
+        r = rButton.GetComponent<Image>();
         lobbyName.GetComponent<Text>().text = PhotonNetwork.CurrentRoom.Name;
     }
     public void NonRPCUI(bool isVariant) {
@@ -38,6 +42,14 @@ public class SpawnPlayersUI : MonoBehaviour
             c.sprite = cSprite[1];
         }
         readyButton.SetActive(true);
+    }
+    public void SetReady(bool isReady) {
+        if (isReady) {
+            r.sprite = rSprite[1];
+        }
+        else {
+            r.sprite = rSprite[0];
+        }
     }
     [PunRPC]
     public void PlayerUI(int currPlayer, bool isVariant) {
