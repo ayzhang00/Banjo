@@ -38,7 +38,6 @@ public class RoamerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
         foreach(GameObject LED in LEDs) {
             // if (Vector3.Distance(transform.position, LED.transform.position) < 20) {
             if (Vector3.Distance(transform.position, LED.transform.position) < 20 && 
@@ -53,26 +52,32 @@ public class RoamerController : MonoBehaviour
             timer = 0f;
         }
     }
+    void FixedUpdate()
+    {
+        if (canMove && pv.IsMine) {
+            Move();
+        }
+    }
 
     void Move()
     {
         Vector3 dir = points[curPoint] - transform.position;
         Vector3 heading = Vector3.Normalize(dir);
-        if (canMove) {
-            transform.forward = new Vector3(heading.x, 0.0f, heading.z);
-            transform.position += heading * moveSpeed * Time.deltaTime;
-            // when close to point, move to next point
-            if (dir.magnitude < 0.2f) {
-                reachedDestination = true;
-                StartCoroutine(Pause());
-                // make sure the next point is not the same as the current point
-                while ((points[curPoint] - transform.position).magnitude < 0.2f) {
-                    curPoint = Random.Range(0, points.Length - 1);
-                }
-                reachedDestination = false;
-                timer = 0f;
+        // if (canMove) {
+        transform.forward = new Vector3(heading.x, 0.0f, heading.z);
+        transform.position += heading * moveSpeed * Time.fixedDeltaTime;
+        // when close to point, move to next point
+        if (dir.magnitude < 0.2f) {
+            reachedDestination = true;
+            StartCoroutine(Pause());
+            // make sure the next point is not the same as the current point
+            while ((points[curPoint] - transform.position).magnitude < 0.2f) {
+                curPoint = Random.Range(0, points.Length - 1);
             }
+            reachedDestination = false;
+            timer = 0f;
         }
+        // }
     }
 
     void Obscure(bool isActive) {

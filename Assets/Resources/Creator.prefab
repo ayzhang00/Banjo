@@ -2079,10 +2079,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 7533722982174213325, guid: 68eb84d742e66bd41a476e191b3115a7, type: 3}
   bgMusic: {fileID: 7905365521985474731}
-  coreTrack: {fileID: 8300000, guid: 1feb191fce2474544b9ec414a787c322, type: 3}
-  explosion: {fileID: 8300000, guid: 06fe80c4890a53149b571b0749caa577, type: 3}
   solderSound: {fileID: 5744543672305571420}
   chargeSound: {fileID: 2323551452648021114}
+  coreTrack: {fileID: 8300000, guid: 1feb191fce2474544b9ec414a787c322, type: 3}
+  explosion: {fileID: 8300000, guid: 06fe80c4890a53149b571b0749caa577, type: 3}
 --- !u!114 &-2591046531521724836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2204,7 +2204,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2145540920585457229}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 31e959339c123c044a21fcc42cbd7d57, type: 3}
@@ -2300,7 +2300,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2145540920585457229}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4b03bca89b31b13499d0c6b8e570ccb8, type: 3}

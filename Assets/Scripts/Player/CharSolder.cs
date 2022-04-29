@@ -49,35 +49,37 @@ public class CharSolder : MonoBehaviourPun
                 // solderComplete = false;
             } 
         }
-        // F is solder
-        if (Input.GetButtonDown("Solder") && canSolder) {
-            Solder(true);
-            solderComplete = false;
-            // ps.solderSound.Play();
-            ps.generalSFX.clip = ps.solderSound;
-            ps.generalSFX.Play();
-            // cm.solderSound.Stop();
-            // cm.solderSound.Play();
-        }
-        if (Input.GetButtonUp("Solder")){
-            currLoading = 0; 
-            Solder(false);
-            if (!solderComplete) {
-                // ps.solderSound.Stop();
-                ps.generalSFX.Stop();
+        if (c.playing && pv.IsMine) {
+            // F is solder
+            if (Input.GetButtonDown("Solder") && canSolder) {
+                Solder(true);
+                solderComplete = false;
+                // ps.solderSound.Play();
+                ps.generalSFX.clip = ps.solderSound;
+                ps.generalSFX.Play();
+                // cm.solderSound.Stop();
+                // cm.solderSound.Play();
             }
-            solderComplete = false;
-        }
-        if (isSoldering) {
-            timeSoldered += Time.deltaTime;
-            if (timeSoldered >= timeToCompleteSolder) {
-                currLoading = 0;
-                solderComplete = true;
+            if (Input.GetButtonUp("Solder")){
+                currLoading = 0; 
                 Solder(false);
-                solderCount++;
-                if (solderCount == 2 && !ps.corePlaying) {
-                    e.DecEnergy();
-                    solderCount = 0;
+                if (!solderComplete) {
+                    // ps.solderSound.Stop();
+                    ps.generalSFX.Stop();
+                }
+                solderComplete = false;
+            }
+            if (isSoldering) {
+                timeSoldered += Time.deltaTime;
+                if (timeSoldered >= timeToCompleteSolder) {
+                    currLoading = 0;
+                    solderComplete = true;
+                    Solder(false);
+                    solderCount++;
+                    if (solderCount == 2 && !ps.corePlaying) {
+                        e.DecEnergy();
+                        solderCount = 0;
+                    }
                 }
             }
         }

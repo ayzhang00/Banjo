@@ -43,10 +43,6 @@ public class CharEnergy : MonoBehaviour
 
     void Update() {
         // if (!s.isSoldering && !r.reviving && canRecharge) HandleUI();
-        HandleUI();
-        if (!recharging) {
-            UpdateBattery(false);
-        }
         if (!c.isDead && c.playing && pv.IsMine && recharging) {
             if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire")
                     || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
@@ -57,43 +53,51 @@ public class CharEnergy : MonoBehaviour
                 currLoading = 0;
             } 
         }
-        if (canRecharge && Input.GetButtonDown("Recharge")) {
-            recharging = true;
-            // ps.chargeSound.Play();
-            ps.generalSFX.clip = ps.reviveSound;
-            ps.generalSFX.Play();
-            StartChargeEffects(true);
-            // cm.chargeSound.Stop();
-            // cm.chargeSound.Play();
-        }
-        if (Input.GetButtonUp("Recharge")) {
-            timeRecharged = 0;
-            if (energy != 4) {
-                // ps.chargeSound.Stop();
-                ps.generalSFX.Stop();
-                StartChargeEffects(false);
-                // recharging = false;
-            } else {
-                StartCoroutine(Discharge());
-                // StartChargeEffects(false);
+
+        if (c.playing && pv.IsMine) {
+            HandleUI();
+            if (!recharging) {
+                UpdateBattery(false);
             }
-            recharging = false;
-            currLoading = 0;
-            // c.chargeSound.Stop();
-        }
+            if (canRecharge && Input.GetButtonDown("Recharge")) {
+                recharging = true;
+                // ps.chargeSound.Play();
+                ps.generalSFX.clip = ps.reviveSound;
+                ps.generalSFX.Play();
+                StartChargeEffects(true);
+                // cm.chargeSound.Stop();
+                // cm.chargeSound.Play();
+            }
+            if (Input.GetButtonUp("Recharge")) {
+                timeRecharged = 0;
+                if (energy != 4) {
+                    // ps.chargeSound.Stop();
+                    ps.generalSFX.Stop();
+                    StartChargeEffects(false);
+                    // recharging = false;
+                } else {
+                    StartCoroutine(Discharge());
+                    // StartChargeEffects(false);
+                }
+                recharging = false;
+                currLoading = 0;
+                // c.chargeSound.Stop();
+            }
 
-        if (canRecharge && !recharging && energy < 4) {
-            DisplayRecharge(true);
-        }
-        else {
-            DisplayRecharge(false);
-        }
+            if (canRecharge && !recharging && energy < 4) {
+                DisplayRecharge(true);
+            }
+            else {
+                DisplayRecharge(false);
+            }
 
-        if (recharging) {
-            Recharge();
-            // c.chargeSound.Play();
-        } else {
-            // c.chargeSound.Stop();
+            if (recharging) {
+                Recharge();
+                // c.chargeSound.Play();
+            } else {
+                // c.chargeSound.Stop();
+            }
+
         }
     }
 

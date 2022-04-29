@@ -81,11 +81,12 @@ public class CharController : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        playing = !GetComponent<PauseMenu>().isPaused;
         // if (!r.reviving && !e.recharging && s.canSolder) s.HandleSolderUI();
-        s.HandleSolderUI();
         // isMoving = false;
         if (!isDead && playing && pv.IsMine) {
+            s.HandleSolderUI();
+            playing = !GetComponent<PauseMenu>().isPaused;
+
             ui.SetActive(true);
             obscured = false;
             healthBarFill.fillAmount = health / maxHealth;
@@ -93,15 +94,6 @@ public class CharController : MonoBehaviourPun
             if (Input.GetButtonDown("Jump")){
                 Jump();
             } 
-            // move
-            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
-                pv.RPC("SwitchActiveObject", RpcTarget.All, "Move", true);
-                Move();
-            } else {
-                pv.RPC("SwitchActiveObject", RpcTarget.All, "Move", false);
-            }
-
-            if (moveSpeed != 0) MoveCamera();
             // can only attack and solder when have energy
             if (e.energy > 0) {
                 // attack
@@ -161,11 +153,25 @@ public class CharController : MonoBehaviourPun
         }
     }
 
+    private void FixedUpdate() {
+        if (!isDead && playing && pv.IsMine) {
+            // move
+            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
+                pv.RPC("SwitchActiveObject", RpcTarget.All, "Move", true);
+                Move();
+            } else {
+                pv.RPC("SwitchActiveObject", RpcTarget.All, "Move", false);
+            }
+
+            if (moveSpeed != 0) MoveCamera();
+        }
+    }
+
     void Move()
     {
         Vector3 direction = Vector3.Normalize(new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey")));
-        Vector3 rightMovement = right * moveSpeed * Time.deltaTime * direction.x;
-        Vector3 upMovement = forward * moveSpeed * Time.deltaTime * direction.z;
+        Vector3 rightMovement = right * moveSpeed * Time.fixedDeltaTime * direction.x;
+        Vector3 upMovement = forward * moveSpeed * Time.fixedDeltaTime * direction.z;
 
         // movement heading
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
@@ -233,7 +239,7 @@ public class CharController : MonoBehaviourPun
         float dist = dir.magnitude;
         float step = (dist / maxCamDist) * camSpeed;
 
-        Camera.main.transform.position -= dir.normalized * step * Time.deltaTime;
+        Camera.main.transform.position -= dir.normalized * step * Time.fixedDeltaTime;
     }
     
     void Attack(bool isActive) {

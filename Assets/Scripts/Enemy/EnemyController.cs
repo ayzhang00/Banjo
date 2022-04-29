@@ -43,7 +43,14 @@ public class EnemyController : MonoBehaviourPun
     }
 
     // Update is called once per frame
-    void Update()
+    // void Update()
+    // {
+    //     if (playing && pv.IsMine) {
+    //         Move();
+    //     }
+    // }
+
+    void FixedUpdate()
     {
         if (playing && pv.IsMine) {
             Move();
@@ -72,7 +79,7 @@ public class EnemyController : MonoBehaviourPun
                     }
                 } else {
                     transform.forward = heading;
-                    transform.position += heading * moveSpeed * Time.deltaTime;
+                    transform.position += heading * moveSpeed * Time.fixedDeltaTime;
                 }
             }
         } else {
@@ -88,7 +95,7 @@ public class EnemyController : MonoBehaviourPun
                 Vector3 dir = nextPoint - transform.position;
                 Vector3 heading = Vector3.Normalize(dir);
                 transform.forward = heading;
-                transform.position += heading * moveSpeed * Time.deltaTime;
+                transform.position += heading * moveSpeed * Time.fixedDeltaTime;
                 if (dir.magnitude < 0.2f) {
                     canTurn = true;
                     canMove = false;

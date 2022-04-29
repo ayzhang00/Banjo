@@ -38,9 +38,6 @@ public class CharRevive : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        CanRevive();
-        // if (!s.isSoldering && !e.recharging && canRevive) HandleUI();
-        HandleUI();
         if (!c.isDead && c.playing && pv.IsMine && reviving) {
             if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire")
                     || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
@@ -51,27 +48,33 @@ public class CharRevive : MonoBehaviourPun
                 currLoading = 0;
             } 
         }
-        if (canRevive && Input.GetButtonDown("Revive")) {
-            // reviveSparks
-            // ps.reviveSound.Play();
-            ps.generalSFX.clip = ps.reviveSound;
-            ps.generalSFX.Play();
-            StartReviveEffects(true);
-            reviving = true;
-        }
-        if (Input.GetButtonUp("Revive")) {
-            if (reviving) {
-                // ps.reviveSound.Stop();
-                ps.generalSFX.Stop();
-                StartReviveEffects(false);
-            } else {
-                StartCoroutine(FadeSparks());
+
+        if (c.playing && pv.IsMine) {
+            CanRevive();
+            // if (!s.isSoldering && !e.recharging && canRevive) HandleUI();
+            HandleUI();
+            if (canRevive && Input.GetButtonDown("Revive")) {
+                // reviveSparks
+                // ps.reviveSound.Play();
+                ps.generalSFX.clip = ps.reviveSound;
+                ps.generalSFX.Play();
+                StartReviveEffects(true);
+                reviving = true;
             }
-            reviving = false;
-            currLoading = 0;
-        }
-        if (reviving) {
-            Revive();
+            if (Input.GetButtonUp("Revive")) {
+                if (reviving) {
+                    // ps.reviveSound.Stop();
+                    ps.generalSFX.Stop();
+                    StartReviveEffects(false);
+                } else {
+                    StartCoroutine(FadeSparks());
+                }
+                reviving = false;
+                currLoading = 0;
+            }
+            if (reviving) {
+                Revive();
+            }
         }
     }
 

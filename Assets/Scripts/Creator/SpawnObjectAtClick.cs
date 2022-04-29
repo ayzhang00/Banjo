@@ -25,7 +25,7 @@ public class SpawnObjectAtClick : MonoBehaviourPun
     void Update()
     {
         playing = !GetComponent<PauseMenu>().isPaused;
-        if (playing) {
+        if (playing && pv.IsMine) {
             if (Input.GetMouseButtonDown(0)) {
                 RaycastHit hit;
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
