@@ -45,20 +45,24 @@ public class CharRevive : MonoBehaviourPun
             if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire")
                     || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
                 StartReviveEffects(false);
-                ps.reviveSound.Stop();
+                // ps.reviveSound.Stop();
+                ps.generalSFX.Stop();
                 reviving = false;
                 currLoading = 0;
             } 
         }
         if (canRevive && Input.GetButtonDown("Revive")) {
             // reviveSparks
-            ps.reviveSound.Play();
+            // ps.reviveSound.Play();
+            ps.generalSFX.clip = ps.reviveSound;
+            ps.generalSFX.Play();
             StartReviveEffects(true);
             reviving = true;
         }
         if (Input.GetButtonUp("Revive")) {
             if (reviving) {
-                ps.reviveSound.Stop();
+                // ps.reviveSound.Stop();
+                ps.generalSFX.Stop();
                 StartReviveEffects(false);
             } else {
                 StartCoroutine(FadeSparks());
@@ -88,8 +92,10 @@ public class CharRevive : MonoBehaviourPun
         if (timeRevived >= totalTime) {
             reviving = false;
             pv.RPC("SetRevive", RpcTarget.All);
-            e.DecEnergy();
-            e.DecEnergy();
+            if (!ps.corePlaying) {
+                e.DecEnergy();
+                e.DecEnergy();
+            }
         }
     }
     private void HandleUI() {

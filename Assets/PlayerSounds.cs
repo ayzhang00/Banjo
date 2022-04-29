@@ -10,12 +10,16 @@ public class PlayerSounds : MonoBehaviour
     // public AudioSource solderSound;
     // public AudioSource chargeSound;
     public AudioSource bg;
-    public AudioSource generalSFX;
     public AudioSource treesAmbience;
     public AudioSource creaksAmbience;
-    public AudioSource solderSound;
-    public AudioSource chargeSound;
-    public AudioSource reviveSound;
+    public AudioSource generalSFX;
+    // public AudioSource solderSound;
+    // public AudioSource chargeSound;
+    // public AudioSource reviveSound;
+
+    public AudioClip solderSound;
+    public AudioClip chargeSound;
+    public AudioClip reviveSound;
 
     public AudioClip swing;
     public AudioClip hit;
@@ -33,7 +37,7 @@ public class PlayerSounds : MonoBehaviour
 
     public AudioClip explosion;
     public AudioClip coreTrack;
-    bool corePlaying = false;
+    public bool corePlaying = false;
 
     GameObject[] LEDs;
     bool allLEDsOff = false;
@@ -41,6 +45,7 @@ public class PlayerSounds : MonoBehaviour
     bool onGrass = false;
     
     CharController c;
+    CharEnergy e;
     PhotonView pv;
 
     // Start is called before the first frame update
@@ -54,6 +59,7 @@ public class PlayerSounds : MonoBehaviour
 
 
         c = GetComponent<CharController>();
+        e = GetComponent<CharEnergy>();
         pv = GetComponent<PhotonView>();
         StartCoroutine("PlayBackgroundMusic");
     }
@@ -85,13 +91,14 @@ public class PlayerSounds : MonoBehaviour
             // StartCoroutine("PlayRunToTheCoreMusic");
             PlayRunToTheCoreMusic();
             // explosion.Play();
-            generalSFX.PlayOneShot(explosion, 0.5f);
+            generalSFX.PlayOneShot(explosion, 1.0f);
             corePlaying = true;
+            e.Recharge();
         }
 
         if (onGrass) {
-            treesAmbience.volume = Mathf.Lerp(treesAmbience.volume, 0.5f, Time.deltaTime * 2);
-            creaksAmbience.volume = Mathf.Lerp(creaksAmbience.volume, 0.5f, Time.deltaTime * 2);
+            treesAmbience.volume = Mathf.Lerp(treesAmbience.volume, 0.6f, Time.deltaTime * 2);
+            creaksAmbience.volume = Mathf.Lerp(creaksAmbience.volume, 0.6f, Time.deltaTime * 2);
         } else {
             creaksAmbience.volume = Mathf.Lerp(creaksAmbience.volume, 0f, Time.deltaTime * 2);
             treesAmbience.volume = Mathf.Lerp(treesAmbience.volume, 0f, Time.deltaTime * 2);
@@ -128,13 +135,13 @@ public class PlayerSounds : MonoBehaviour
         // }
     }
 
-    void OnCollisionExit(Collision collision) {
-        if (collision.gameObject.tag == "Grass") {
-            // StartCoroutine(FadeInTreeAmbience(false));
-            StopCoroutine("FadeInTreeAmbience");
-            StartCoroutine("FadeInTreeAmbience", false);
-        }
-    }
+    // void OnCollisionExit(Collision collision) {
+    //     if (collision.gameObject.tag == "Grass") {
+    //         // StartCoroutine(FadeInTreeAmbience(false));
+    //         StopCoroutine("FadeInTreeAmbience");
+    //         StartCoroutine("FadeInTreeAmbience", false);
+    //     }
+    // }
 
     void PlaySwingSound() {
         // swing.Play();

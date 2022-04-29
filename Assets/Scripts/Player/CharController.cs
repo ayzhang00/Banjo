@@ -44,14 +44,11 @@ public class CharController : MonoBehaviourPun
     CharRevive r;
     // ui
     GameObject ui;
+    PlayerSounds ps;
     GameObject creator;
     public bool isRevived = false;
     public Image healthBarFill;
     
-
-    // public bool runToTheCoreMusic = false;
-    bool isPlayingCoreMusic = false;
-
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +60,7 @@ public class CharController : MonoBehaviourPun
         s = GetComponent<CharSolder>();
         e = GetComponent<CharEnergy>();
         r = GetComponent<CharRevive>();
+        ps = GetComponent<PlayerSounds>();
         pv = GetComponent<PhotonView>();
         ui = transform.Find("PlayerUI").gameObject;
         LEDs = GameObject.FindGameObjectsWithTag("LED");
@@ -110,7 +108,7 @@ public class CharController : MonoBehaviourPun
                         Attack(false);
                         timeAttacked = 0f;
                         attackCount++;
-                        if (attackCount == 5) {
+                        if (attackCount == 5 && !ps.corePlaying) {
                             e.DecEnergy();
                             attackCount = 0;
                         }
