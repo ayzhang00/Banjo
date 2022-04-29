@@ -93,6 +93,10 @@ public class CharController : MonoBehaviourPun
             obscured = false;
             healthBarFill.fillAmount = health / maxHealth;
 
+            if (Input.GetButtonDown("Jump")){
+                Jump();
+            } 
+
             // can only attack and solder when have energy
             if (e.energy > 0) {
                 // attack
@@ -164,9 +168,6 @@ public class CharController : MonoBehaviourPun
 
             if (moveSpeed != 0) MoveCamera();
 
-            if (Input.GetButtonDown("Jump")){
-                Jump();
-            } 
         }
     }
 
