@@ -89,18 +89,19 @@ public class PlayerSounds : MonoBehaviour
             generalSFX.PlayOneShot(explosion, 1.0f);
             corePlaying = true;
             transform.position = c.originalPos;
+            Camera.main.transform.position = c.originalPos + c.camOffset;
             e.Recharge();
             c.playing = false;
             c.StartCoroutine("CoreCutscenePause");
         }
 
-        if (onGrass) {
-            treesAmbience.volume = Mathf.Lerp(treesAmbience.volume, 0.6f, Time.deltaTime * 2);
-            creaksAmbience.volume = Mathf.Lerp(creaksAmbience.volume, 0.6f, Time.deltaTime * 2);
-        } else {
-            creaksAmbience.volume = Mathf.Lerp(creaksAmbience.volume, 0f, Time.deltaTime * 2);
-            treesAmbience.volume = Mathf.Lerp(treesAmbience.volume, 0f, Time.deltaTime * 2);
-        }
+        // if (onGrass) {
+        //     treesAmbience.volume = Mathf.Lerp(treesAmbience.volume, 0.6f, Time.deltaTime * 2);
+        //     creaksAmbience.volume = Mathf.Lerp(creaksAmbience.volume, 0.6f, Time.deltaTime * 2);
+        // } else {
+        //     creaksAmbience.volume = Mathf.Lerp(creaksAmbience.volume, 0f, Time.deltaTime * 2);
+        //     treesAmbience.volume = Mathf.Lerp(treesAmbience.volume, 0f, Time.deltaTime * 2);
+        // }
     }
 
     void OnTriggerEnter(Collider collider) {
@@ -200,7 +201,8 @@ public class PlayerSounds : MonoBehaviour
     }
 
     void PlayRunToTheCoreMusic() {
-        bg.clip = coreTrack;
-        bg.Play();
+        // bg.clip = coreTrack;
+        // bg.Play();
+        bg.PlayOneShot(coreTrack);
     }
 }// 

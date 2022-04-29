@@ -21,14 +21,14 @@ public class EnemyController : MonoBehaviourPun
     public bool isHit = false;
     public bool isMove = false;
     public bool isAttacking = false;
-    bool canMove = true;
+    bool canMove = false;
     bool canTurn = true;
     // sounds
     public AudioSource swing;
     public AudioSource hit;
     public AudioSource walk;
 
-    Vector3 forward, right;
+    Vector3 forward, right, nextPoint;
 
     PhotonView pv;
     // Start is called before the first frame update
@@ -84,6 +84,16 @@ public class EnemyController : MonoBehaviourPun
                 // transform.Rotate(0.0f, angle, 0.0f);
                 Turn(angle);
                 StartCoroutine(Pause());
+            } else if (canMove) {
+                Vector3 dir = nextPoint - transform.position;
+                Vector3 heading = Vector3.Normalize(dir);
+                transform.forward = heading;
+                transform.position += heading * moveSpeed * Time.deltaTime;
+                if (dir.magnitude < 0.2f) {
+                    canTurn = true;
+                    canMove = false;
+                    // StartCoroutine(Pause());
+                }
             }
         }
     }
@@ -151,7 +161,9 @@ public class EnemyController : MonoBehaviourPun
         canTurn = false;
         float wait = Random.Range(1.0f, 3.0f);
         yield return new WaitForSeconds(wait);
-        canTurn = true;
+        // canTurn = true;
+        canMove = true;
+        nextPoint = transform.forward * Random.Range(10.0f, 20.0f) - transform.position;
         // pv.RPC("Turn", RpcTarget.All, Random.Range(45.0f, 360.0f));
     }
 

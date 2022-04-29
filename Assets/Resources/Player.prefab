@@ -25165,6 +25165,7 @@ MonoBehaviour:
   obscured: 0
   coreTouched: 0
   originalPos: {x: 0, y: 0, z: 0}
+  camOffset: {x: -15, y: 12, z: -15}
   moveSpeed: 3
   canJump: 0
   isMoving: 0
@@ -25860,7 +25861,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2f03b845e7ceeb64ca37787caadbda00, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -25956,7 +25957,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 57fb37b52794691488ac15e6ec53c80e, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0
