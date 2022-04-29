@@ -60,8 +60,6 @@ public class CharController : MonoBehaviourPun
     {
         forward = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.forward;
         right = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.right;
-        transform.Find("NameUI").gameObject.transform.Find("Text").gameObject.GetComponent<Text>().text = 
-            PhotonNetwork.LocalPlayer.NickName;
         originalPos = transform.position;
         // Camera.main.transform.position = transform.position + camOffset;
 
@@ -76,8 +74,12 @@ public class CharController : MonoBehaviourPun
         if (pv.IsMine) Camera.main.transform.position = transform.position + camOffset;
         maxHealth = health;
         creator = GameObject.Find("Creator");
+        if (pv.IsMine) pv.RPC("playerName", RpcTarget.All, PhotonNetwork.LocalPlayer.NickName);
     }
-
+    [PunRPC]
+    void playerName(string name) {
+        transform.Find("NameUI").gameObject.transform.Find("Text").gameObject.GetComponent<Text>().text = name;
+    }
     // Update is called once per frame
     void Update()
     {
