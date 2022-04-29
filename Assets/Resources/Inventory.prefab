@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 613682901028984315}
   - component: {fileID: 613682901028984312}
   - component: {fileID: 613682901028984313}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -798.9998, y: -438.99994}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -784.73395, y: -437.9971}
+  m_SizeDelta: {x: 112.962, y: 139.076}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &613682901028984315
 CanvasRenderer:
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4601166020570974904, guid: df01c74424c7c664986f384b9156e60e, type: 3}
+  m_Sprite: {fileID: -4601166020570974904, guid: 8592e04b99cd4de4598235d6483f1231, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -92,12 +92,14 @@ MonoBehaviour:
   offset: {x: -25, y: -50, z: 0}
   clonesPlaced: 0
   cloneArray:
-  - {fileID: -4601166020570974904, guid: df01c74424c7c664986f384b9156e60e, type: 3}
-  - {fileID: 6186627163035635000, guid: df01c74424c7c664986f384b9156e60e, type: 3}
-  - {fileID: 3774560579659625722, guid: df01c74424c7c664986f384b9156e60e, type: 3}
-  - {fileID: -5716038814401675909, guid: df01c74424c7c664986f384b9156e60e, type: 3}
-  - {fileID: 7208888934504903765, guid: df01c74424c7c664986f384b9156e60e, type: 3}
-  - {fileID: -8766327379931938444, guid: df01c74424c7c664986f384b9156e60e, type: 3}
-  - {fileID: -1356829697090860096, guid: df01c74424c7c664986f384b9156e60e, type: 3}
-  DraggedClone: {fileID: 5636970220027594314, guid: 26b52ff2c20bfa44583fcd0480dafdc1, type: 3}
+  - {fileID: -4601166020570974904, guid: 8592e04b99cd4de4598235d6483f1231, type: 3}
+  - {fileID: -8766327379931938444, guid: 8592e04b99cd4de4598235d6483f1231, type: 3}
+  - {fileID: 7208888934504903765, guid: 8592e04b99cd4de4598235d6483f1231, type: 3}
+  - {fileID: -5716038814401675909, guid: 8592e04b99cd4de4598235d6483f1231, type: 3}
+  - {fileID: 3774560579659625722, guid: 8592e04b99cd4de4598235d6483f1231, type: 3}
+  - {fileID: 6186627163035635000, guid: 8592e04b99cd4de4598235d6483f1231, type: 3}
+  - {fileID: 2754742882033104300, guid: 8592e04b99cd4de4598235d6483f1231, type: 3}
+  DraggedClone: {fileID: 0}
   pickedUp: 0
+  click: {fileID: 8300000, guid: e373a91346d282840b618dc5128ac636, type: 3}
+  CreatorSounds: {fileID: 0}

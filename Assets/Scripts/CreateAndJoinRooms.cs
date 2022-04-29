@@ -10,6 +10,7 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     public InputField joinInput;
     public Text username;
     public AudioSource click;
+    
     // Start is called before the first frame update
     void Start() {
         username.text = PhotonNetwork.LocalPlayer.NickName;
