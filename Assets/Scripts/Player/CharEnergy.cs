@@ -16,9 +16,11 @@ public class CharEnergy : MonoBehaviour
     public float totalTime = 5f;
     float timeRecharged = 0f;
     Image batteryImage;
-    bool recharging = false;
+    public bool recharging = false;
     bool canRecharge = false;
     CharController c;
+    CharSolder s;
+    CharRevive r;
     PlayerSounds ps;
     PhotonView pv; 
     Image loading;
@@ -29,20 +31,26 @@ public class CharEnergy : MonoBehaviour
     void Start(){
         batteryImage = batteryUI.GetComponent<Image>();
         c = GetComponent<CharController>();
+        s = GetComponent<CharSolder>();
+        r = GetComponent<CharRevive>();
         ps = GetComponent<PlayerSounds>();
         pv = GetComponent<PhotonView>();
         loading = LoadingUI.GetComponent<Image>();
     }
 
     void Update() {
+        // if (!s.isSoldering && !r.reviving && canRecharge) HandleUI();
         HandleUI();
         if (!recharging) {
             UpdateBattery(false);
         }
         if (!c.isDead && c.playing && pv.IsMine && recharging) {
-            if (Input.GetButtonDown("Jump") || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
-                GetComponent<CharSolder>().Solder(false);
-                ps.solderSound.Stop();
+            if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire")
+                    || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
+                StartChargeEffects(false);
+                ps.chargeSound.Stop();
+                recharging = false;
+                currLoading = 0;
             } 
         }
         if (canRecharge && Input.GetButtonDown("Recharge")) {
@@ -52,14 +60,16 @@ public class CharEnergy : MonoBehaviour
         }
         if (Input.GetButtonUp("Recharge")) {
             timeRecharged = 0;
-            recharging = false;
             if (energy != 4) {
                 ps.chargeSound.Stop();
                 StartChargeEffects(false);
+                // recharging = false;
             } else {
                 StartCoroutine(Discharge());
                 // StartChargeEffects(false);
             }
+            recharging = false;
+            currLoading = 0;
             // c.chargeSound.Stop();
         }
 
@@ -96,7 +106,7 @@ public class CharEnergy : MonoBehaviour
         if (isRecharging) {
             // batteryImage.sprite = batterySprite[0];
             batteryImage.sprite = batterySprite[5];
-            StartChargeEffects(false);
+            // StartChargeEffects(false);
         }
         else {
             // batteryImage.sprite = batterySprite[5];
@@ -134,8 +144,8 @@ public class CharEnergy : MonoBehaviour
             LoadingUI.SetActive(true);
             CalculateLoading();
             loading.sprite = LoadingSprites[currLoading];
-        } else {
-            loading.sprite = LoadingSprites[0];
+        // } else {
+        //     loading.sprite = LoadingSprites[0];
         }
     }
     private void CalculateLoading() {
@@ -148,6 +158,7 @@ public class CharEnergy : MonoBehaviour
     IEnumerator Discharge() {
         yield return new WaitForSeconds(2f);
         StartChargeEffects(false);
+        recharging = false;
     }
 
     [PunRPC]

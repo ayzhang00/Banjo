@@ -22,12 +22,14 @@ public class CharRevive : MonoBehaviourPun
     // PhotonView vOther;
     PlayerSounds ps;
     CharEnergy e;
+    CharSolder s;
     GameObject otherPlayer;
     // Start is called before the first frame update
     void Start()
     {
         c = GetComponent<CharController>();
         e = GetComponent<CharEnergy>();
+        s = GetComponent<CharSolder>();
         ps = GetComponent<PlayerSounds>();
         loading = LoadingUI.GetComponent<Image>();
         pv = GetComponent<PhotonView>();
@@ -36,12 +38,16 @@ public class CharRevive : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        HandleUI();
         CanRevive();
+        // if (!s.isSoldering && !e.recharging && canRevive) HandleUI();
+        HandleUI();
         if (!c.isDead && c.playing && pv.IsMine && reviving) {
-            if (Input.GetButtonDown("Jump") || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
-                GetComponent<CharSolder>().Solder(false);
-                ps.solderSound.Stop();
+            if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire")
+                    || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
+                StartReviveEffects(false);
+                ps.reviveSound.Stop();
+                reviving = false;
+                currLoading = 0;
             } 
         }
         if (canRevive && Input.GetButtonDown("Revive")) {
@@ -58,6 +64,7 @@ public class CharRevive : MonoBehaviourPun
                 StartCoroutine(FadeSparks());
             }
             reviving = false;
+            currLoading = 0;
         }
         if (reviving) {
             Revive();

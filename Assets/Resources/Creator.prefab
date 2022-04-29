@@ -569,6 +569,8 @@ MonoBehaviour:
   - {fileID: -1356829697090860096, guid: df01c74424c7c664986f384b9156e60e, type: 3}
   DraggedClone: {fileID: 586226910976800053}
   pickedUp: 0
+  click: {fileID: 8300000, guid: e373a91346d282840b618dc5128ac636, type: 3}
+  CreatorSounds: {fileID: 7905365521985474731}
 --- !u!1001 &5451809138038046980
 PrefabInstance:
   m_ObjectHideFlags: 0

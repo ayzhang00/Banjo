@@ -8,6 +8,7 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 {
     public InputField createInput;
     public InputField joinInput;
+    public AudioSource click;
     // Start is called before the first frame update
     public void CreateRoom()
     {
@@ -25,5 +26,9 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         PhotonNetwork.LoadLevel("Main");
+    }
+
+    public void ClickSound() {
+        click.PlayOneShot(click.clip);
     }
 }

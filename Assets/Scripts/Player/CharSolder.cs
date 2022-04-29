@@ -23,11 +23,13 @@ public class CharSolder : MonoBehaviourPun
     Image loading;
 
     CharEnergy e;
+    CharRevive r;
     PhotonView pv; 
     // Start is called before the first frame update
     void Start()
     {
         e = GetComponent<CharEnergy>();
+        r = GetComponent<CharRevive>();
         c = GetComponent<CharController>();
         pv = GetComponent<PhotonView>();
         ps = GetComponent<PlayerSounds>();
@@ -36,9 +38,12 @@ public class CharSolder : MonoBehaviourPun
     
     public void StartSolder() {
         if (!c.isDead && c.playing && pv.IsMine && isSoldering) {
-            if (Input.GetButtonDown("Jump") || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
-                GetComponent<CharSolder>().Solder(false);
+            if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire")
+                    || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
+                Solder(false);
                 ps.solderSound.Stop();
+                currLoading = 0;
+                // solderComplete = false;
             } 
         }
         // F is solder
@@ -53,6 +58,7 @@ public class CharSolder : MonoBehaviourPun
             if (!solderComplete) {
                 ps.solderSound.Stop();
             }
+            solderComplete = false;
         }
         if (isSoldering) {
             timeSoldered += Time.deltaTime;

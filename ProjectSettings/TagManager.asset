@@ -21,6 +21,7 @@ TagManager:
   - PlayerAttack
   - Revive
   - Resistor
+  - Grass
   layers:
   - Default
   - TransparentFX

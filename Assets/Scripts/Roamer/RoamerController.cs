@@ -22,6 +22,8 @@ public class RoamerController : MonoBehaviour
     Vector3 forward, right;
     GameObject[] LEDs;
     public GameObject sphere;
+    float timer = 0f;
+    bool reachedDestination = false;
 
     void Start()
     {
@@ -30,6 +32,7 @@ public class RoamerController : MonoBehaviour
         pv = GetComponent<PhotonView>();
         LEDs = GameObject.FindGameObjectsWithTag("LED");
         points = GetComponentInParent<RoamerPoints>().points;
+        curPoint = Random.Range(0, points.Length - 1);
     }
 
     // Update is called once per frame
@@ -44,6 +47,11 @@ public class RoamerController : MonoBehaviour
             }
         }
         Obscure(obscured);
+        timer += Time.deltaTime;
+        if (!reachedDestination && timer >= 20.0f) {
+            curPoint = Random.Range(0, points.Length - 1);
+            timer = 0f;
+        }
     }
 
     void Move()
@@ -55,11 +63,14 @@ public class RoamerController : MonoBehaviour
             transform.position += heading * moveSpeed * Time.deltaTime;
             // when close to point, move to next point
             if (dir.magnitude < 0.2f) {
+                reachedDestination = true;
                 StartCoroutine(Pause());
                 // make sure the next point is not the same as the current point
                 while ((points[curPoint] - transform.position).magnitude < 0.2f) {
                     curPoint = Random.Range(0, points.Length - 1);
                 }
+                reachedDestination = false;
+                timer = 0f;
             }
         }
     }

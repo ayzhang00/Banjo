@@ -25,10 +25,10 @@ public class SpawnPlayers : MonoBehaviour
     public int playerCount = 0;
     public int creatorCount = 0;
     // player spawn positions
-    private Vector3 player1 =  new Vector3(39f, 6f, 40f);
-    private Vector3 player2 =  new Vector3(-35f, 6f, 40f);
-    private Vector3 player3 =  new Vector3(43f, 6f, -9f);
-    private Vector3 player4 =  new Vector3(43f, 6f, -9f);
+    private Vector3 player1 =  new Vector3(39f, 4f, 40f);
+    private Vector3 player2 =  new Vector3(-35f, 4f, 40f);
+    private Vector3 player3 =  new Vector3(43f, 4f, -9f);
+    private Vector3 player4 =  new Vector3(-35f, 4f, -9f);
     // how many people ahve pressed the ready button, have to prevent later
     int readyCount = 0;
     // keep track of which player selected id
