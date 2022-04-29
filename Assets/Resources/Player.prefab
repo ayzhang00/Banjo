@@ -24879,6 +24879,7 @@ MonoBehaviour:
   - {fileID: 5856981904466133357, guid: b289cc64a16d36a4cb66edb9a062138b, type: 3}
   totalTime: 5
   recharging: 0
+  doneDischarging: 0
   loadingNum: 9
 --- !u!114 &2748828710846511967
 MonoBehaviour:
