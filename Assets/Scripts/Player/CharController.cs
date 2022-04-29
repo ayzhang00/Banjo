@@ -68,8 +68,6 @@ public class CharController : MonoBehaviourPun
         ps = GetComponent<PlayerSounds>();
         pv = GetComponent<PhotonView>();
         ui = transform.Find("PlayerUI").gameObject;
-        transform.Find("NameUI").gameObject.transform.Find("Text").gameObject.GetComponent<Text>().text = 
-            PhotonNetwork.LocalPlayer.NickName;
         if (pv.IsMine) {
             Camera.main.transform.position = transform.position + camOffset;
             originalPos = transform.position;
@@ -78,6 +76,11 @@ public class CharController : MonoBehaviourPun
         players = GameObject.FindGameObjectsWithTag("Player");
         maxHealth = health;
         creator = GameObject.Find("Creator");
+        if (pv.IsMine) pv.RPC("playerName", RpcTarget.All, PhotonNetwork.LocalPlayer.NickName);
+    }
+    [PunRPC]
+    void playerName(string name) {
+        transform.Find("NameUI").gameObject.transform.Find("Text").gameObject.GetComponent<Text>().text = name;
     }
 
     // Update is called once per frame
