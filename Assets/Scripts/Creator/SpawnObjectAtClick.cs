@@ -38,7 +38,7 @@ public class SpawnObjectAtClick : MonoBehaviourPun
                     Transform objectHit = hit.transform;
 
                     Debug.Log(objectHit.tag);
-                    if (objectHit.tag == "Ground" && Inventory.GetComponent<CloneCount>().pickedUp) {
+                    if ((objectHit.tag == "Ground" || objectHit.tag == "Grass") && Inventory.GetComponent<CloneCount>().pickedUp) {
                         // Instantiate(objectToSpawn, hit.point, Quaternion.identity);
                         PhotonNetwork.Instantiate(objectToSpawn.name, hit.point, Quaternion.identity, 0);
                         spawned++;

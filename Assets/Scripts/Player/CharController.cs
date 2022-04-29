@@ -39,9 +39,11 @@ public class CharController : MonoBehaviourPun
     CharSolder s;
     // energy
     CharEnergy e;
+    // revive
+    CharRevive r;
     // ui
     GameObject ui;
-    // revive
+    GameObject creator;
     public bool isRevived = false;
     public Image healthBarFill;
     
@@ -59,21 +61,22 @@ public class CharController : MonoBehaviourPun
 
         s = GetComponent<CharSolder>();
         e = GetComponent<CharEnergy>();
+        r = GetComponent<CharRevive>();
         pv = GetComponent<PhotonView>();
         ui = transform.Find("PlayerUI").gameObject;
         LEDs = GameObject.FindGameObjectsWithTag("LED");
         if (pv.IsMine) Camera.main.transform.position = transform.position + camOffset;
         maxHealth = health;
+        creator = GameObject.Find("Creator");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            playing = !playing;
-        }
+        if (Input.GetKeyDown(KeyCode.Escape)) playing = !playing;
+        // if (!r.reviving && !e.recharging && s.canSolder) s.HandleSolderUI();
         s.HandleSolderUI();
+
         // isMoving = false;
         if (!isDead && playing && pv.IsMine) {
             ui.SetActive(true);
@@ -81,16 +84,12 @@ public class CharController : MonoBehaviourPun
             healthBarFill.fillAmount = health / maxHealth;
 
             if (Input.GetButtonDown("Jump")){
-                s.Solder(false);
-                // solderSound.Stop();
                 Jump();
             } 
             // move
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
                 pv.RPC("SwitchActiveObject", RpcTarget.All, "Move", true);
                 Move();
-                s.Solder(false);
-                s.solderComplete = false;
             } else {
                 pv.RPC("SwitchActiveObject", RpcTarget.All, "Move", false);
             }
@@ -102,8 +101,8 @@ public class CharController : MonoBehaviourPun
                 // attack
                 if (!isAttacking && Input.GetButtonDown("Fire") && !isHit) {
                     Attack(true);
-                    s.Solder(false);
-                    s.solderComplete = false;
+                    // s.Solder(false);
+                    // s.solderComplete = false;
                 }
                 // stop attacking after some time
                 if (isAttacking) {
@@ -154,7 +153,8 @@ public class CharController : MonoBehaviourPun
 
     // collisions and triggers
     void OnCollisionStay(Collision collision) {
-        if (collision.collider.tag == "Ground" || collision.collider.tag == "Switch") {
+        if (collision.collider.tag == "Ground" || collision.collider.tag == "Switch" || 
+                collision.collider.tag == "Wire" || collision.collider.tag == "Grass") {
             canJump = true;
         }
     }
@@ -182,7 +182,8 @@ public class CharController : MonoBehaviourPun
     }
 
     void OnCollisionExit(Collision collision) {
-        if (collision.collider.tag == "Ground" || collision.collider.tag == "Switch") {
+        if (collision.collider.tag == "Ground" || collision.collider.tag == "Switch" || 
+                collision.collider.tag == "Wire" || collision.collider.tag == "Grass") {
             canJump = false;
         }
     }

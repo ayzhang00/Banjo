@@ -11,6 +11,8 @@ public class PlayerSounds : MonoBehaviour
     // public AudioSource chargeSound;
     public AudioSource bg;
     public AudioSource generalSFX;
+    public AudioSource treesAmbience;
+    public AudioSource creaksAmbience;
     public AudioSource solderSound;
     public AudioSource chargeSound;
     public AudioSource reviveSound;
@@ -35,6 +37,8 @@ public class PlayerSounds : MonoBehaviour
 
     GameObject[] LEDs;
     bool allLEDsOff = false;
+
+    bool onGrass = false;
     
     CharController c;
     PhotonView pv;
@@ -43,6 +47,12 @@ public class PlayerSounds : MonoBehaviour
     void Start()
     {
         LEDs = GameObject.FindGameObjectsWithTag("LED");
+        Debug.Log("LEDs: " + LEDs.Length);
+        foreach(GameObject LED in LEDs) {
+            Debug.Log("LED: " + LED.transform.parent.transform.position + " " + LED.transform.parent.name);
+        }
+
+
         c = GetComponent<CharController>();
         pv = GetComponent<PhotonView>();
         StartCoroutine("PlayBackgroundMusic");
@@ -51,22 +61,23 @@ public class PlayerSounds : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!c.isDead && c.playing && pv.IsMine) {
-            if (Input.GetButtonDown("Jump") || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
-                GetComponent<CharSolder>().Solder(false);
-                solderSound.Stop();
-                GetComponent<CharEnergy>().StartChargeEffects(false);
-                chargeSound.Stop();
-                GetComponent<CharRevive>().StartReviveEffects(false);
-                reviveSound.Stop();
-            } 
-        }
+        // if (!c.isDead && c.playing && pv.IsMine) {
+        //     if (Input.GetButtonDown("Jump") || Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
+        //         GetComponent<CharSolder>().Solder(false);
+        //         solderSound.Stop();
+        //         GetComponent<CharEnergy>().StartChargeEffects(false);
+        //         chargeSound.Stop();
+        //         GetComponent<CharRevive>().StartReviveEffects(false);
+        //         reviveSound.Stop();
+        //     } 
+        // }
         allLEDsOff = true;
         foreach(GameObject LED in LEDs) {
             if (LED.activeSelf) {
                 allLEDsOff = false;
             }
         }
+        // Debug.Log(allLEDsOff);
 
         if (allLEDsOff && !corePlaying) {
             bg.Stop();
@@ -74,8 +85,16 @@ public class PlayerSounds : MonoBehaviour
             // StartCoroutine("PlayRunToTheCoreMusic");
             PlayRunToTheCoreMusic();
             // explosion.Play();
-            generalSFX.PlayOneShot(explosion);
+            generalSFX.PlayOneShot(explosion, 0.5f);
             corePlaying = true;
+        }
+
+        if (onGrass) {
+            treesAmbience.volume = Mathf.Lerp(treesAmbience.volume, 0.5f, Time.deltaTime * 2);
+            creaksAmbience.volume = Mathf.Lerp(creaksAmbience.volume, 0.5f, Time.deltaTime * 2);
+        } else {
+            creaksAmbience.volume = Mathf.Lerp(creaksAmbience.volume, 0f, Time.deltaTime * 2);
+            treesAmbience.volume = Mathf.Lerp(treesAmbience.volume, 0f, Time.deltaTime * 2);
         }
     }
 
@@ -83,6 +102,37 @@ public class PlayerSounds : MonoBehaviour
         if (collider.tag == "Attack") {
             // hit.Play();
             generalSFX.PlayOneShot(hit);
+        }
+    }
+
+    void OnCollisionStay(Collision collision) {
+        if (collision.gameObject.tag == "Ground") {
+            onGrass = false;
+        } else if (collision.gameObject.tag == "Grass") {
+            onGrass = true;
+        }
+
+
+        // if (collision.gameObject.tag == "Ground" && onGrass) {
+        //     // StartCoroutine(FadeInTreeAmbience(false));
+        //     onGrass = false;
+        //     StopCoroutine("FadeInTreeAmbience");
+        //     StartCoroutine("FadeInTreeAmbience", false);
+        // } else if (collision.gameObject.tag == "Grass" && !onGrass) {
+        //     // StartCoroutine(FadeInTreeAmbience(true));
+        //     onGrass = true;
+        //     StopCoroutine("FadeInTreeAmbience");
+        //     StartCoroutine("FadeInTreeAmbience", true);
+        // // } else if (collision.gameObject.tag == "Ground") {
+        // //     StartCoroutine(FadeInTreeAmbience(false));
+        // }
+    }
+
+    void OnCollisionExit(Collision collision) {
+        if (collision.gameObject.tag == "Grass") {
+            // StartCoroutine(FadeInTreeAmbience(false));
+            StopCoroutine("FadeInTreeAmbience");
+            StartCoroutine("FadeInTreeAmbience", false);
         }
     }
 
@@ -97,19 +147,19 @@ public class PlayerSounds : MonoBehaviour
             switch (clip) {
                 case 0:
                     // walk.clip = walk1;
-                    generalSFX.PlayOneShot(walk1, 0.7f);
+                    generalSFX.PlayOneShot(walk1, 0.6f);
                     break;
                 case 1:
                     // walk.clip = walk2;
-                    generalSFX.PlayOneShot(walk2, 0.7f);
+                    generalSFX.PlayOneShot(walk2, 0.6f);
                     break;
                 case 2:
                     // walk.clip = walk3;
-                    generalSFX.PlayOneShot(walk3, 0.7f);
+                    generalSFX.PlayOneShot(walk3, 0.6f);
                     break;
                 case 3:
                     // walk.clip = walk4;
-                    generalSFX.PlayOneShot(walk4, 0.7f);
+                    generalSFX.PlayOneShot(walk4, 0.6f);
                     break;
             }
             // walk.Play();
@@ -124,8 +174,28 @@ public class PlayerSounds : MonoBehaviour
         bg.Play();
     }
 
+    IEnumerator FadeInTreeAmbience(bool fadeIn) {
+        if (fadeIn) {
+            // treesAmbience.volume = 0;
+            // creaksAmbience.volume = 0;
+            // treesAmbience.Play();
+            while (treesAmbience.volume < 0.5f) {
+                treesAmbience.volume += 0.01f;
+                creaksAmbience.volume += 0.01f;
+                yield return new WaitForSeconds(0.01f);
+            }
+        } else {
+            while (treesAmbience.volume > 0f) {
+                treesAmbience.volume -= 0.01f;
+                creaksAmbience.volume -= 0.01f;
+                yield return new WaitForSeconds(0.01f);
+            }
+            // treesAmbience.Stop();
+        }
+    }
+
     void PlayRunToTheCoreMusic() {
         bg.clip = coreTrack;
         bg.Play();
     }
-}
+}// 

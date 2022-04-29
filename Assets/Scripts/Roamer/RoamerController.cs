@@ -14,13 +14,16 @@ public class RoamerController : MonoBehaviour
     public Rigidbody rb;
     public float moveSpeed = 3f;
     PhotonView pv;
-    public Vector3[] points;
+    Vector3[] points;
+    // public Vector3[] points;
     public int curPoint = 0;
     public bool canMove = true;
     bool obscured = false;
     Vector3 forward, right;
     GameObject[] LEDs;
     public GameObject sphere;
+    float timer = 0f;
+    bool reachedDestination = false;
 
     void Start()
     {
@@ -28,6 +31,8 @@ public class RoamerController : MonoBehaviour
         right = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.right;
         pv = GetComponent<PhotonView>();
         LEDs = GameObject.FindGameObjectsWithTag("LED");
+        points = GetComponentInParent<RoamerPoints>().points;
+        curPoint = Random.Range(0, points.Length - 1);
     }
 
     // Update is called once per frame
@@ -42,6 +47,11 @@ public class RoamerController : MonoBehaviour
             }
         }
         Obscure(obscured);
+        timer += Time.deltaTime;
+        if (!reachedDestination && timer >= 20.0f) {
+            curPoint = Random.Range(0, points.Length - 1);
+            timer = 0f;
+        }
     }
 
     void Move()
@@ -51,15 +61,18 @@ public class RoamerController : MonoBehaviour
         if (canMove) {
             transform.forward = new Vector3(heading.x, 0.0f, heading.z);
             transform.position += heading * moveSpeed * Time.deltaTime;
+            // when close to point, move to next point
             if (dir.magnitude < 0.2f) {
+                reachedDestination = true;
                 StartCoroutine(Pause());
-                curPoint++;
-                if (curPoint >= points.Length) {
-                    curPoint = 0;
+                // make sure the next point is not the same as the current point
+                while ((points[curPoint] - transform.position).magnitude < 0.2f) {
+                    curPoint = Random.Range(0, points.Length - 1);
                 }
+                reachedDestination = false;
+                timer = 0f;
             }
         }
-        // StartCoroutine("Travel");
     }
 
     void Obscure(bool isActive) {

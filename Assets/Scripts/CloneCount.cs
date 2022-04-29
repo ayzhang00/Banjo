@@ -14,15 +14,21 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public bool pickedUp = false;
     Image sourceImage;
     private RectTransform dragTransform;
+    
+    public AudioClip click;
+    public AudioSource CreatorSounds;
 
     void Start()
     {
         sourceImage = GetComponent<Image>();
         dragTransform = DraggedClone.GetComponent<RectTransform>();
+        // GameObject creator = GameObject.FindGameObjectsWithTag("Creator")[0];
+        // CreatorSounds = creator.GetComponent<AudioSource>();
     }
 
     public void OnPointerDown(PointerEventData eventData) {
         Debug.Log("Clicked");
+        CreatorSounds.PlayOneShot(click);
         // make sure clones placed <= 5
         // if (clonesPlaced < 6 && !pickedUp) {
         //     DraggedClone.SetActive(true);
@@ -42,6 +48,10 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // Update is called once per frame
     void Update()
     {
+        while(!CreatorSounds) {
+            GameObject creator = GameObject.FindGameObjectsWithTag("Creator")[0];
+            CreatorSounds = creator.GetComponent<AudioSource>();
+        }
         if (!pickedUp) {
             DraggedClone.SetActive(false);
         }

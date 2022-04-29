@@ -267,11 +267,11 @@ GameObject:
   - component: {fileID: 3106374919936670504}
   - component: {fileID: 3106374919936670507}
   - component: {fileID: 3106374919936670518}
+  - component: {fileID: 1255433963609152627}
   - component: {fileID: 4058276630999166978}
   - component: {fileID: 3106374919936670519}
   - component: {fileID: 3106374919936670516}
   - component: {fileID: 9075054716763810637}
-  - component: {fileID: 1255433963609152627}
   - component: {fileID: 150310398}
   m_Layer: 6
   m_Name: Roamer
@@ -348,6 +348,28 @@ CapsuleCollider:
   m_Height: 4.44462
   m_Direction: 1
   m_Center: {x: 0, y: 2.1596246, z: 0.061268866}
+--- !u!114 &1255433963609152627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2872564673764181628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf67bb31ce1587c4ab92a5da950e0a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walk: {fileID: 9075054716763810637}
+  walk1: {fileID: 8300000, guid: 3e3d4cf19b86e1547ac015b477e139f7, type: 3}
+  walk2: {fileID: 8300000, guid: 252c6b767600f0d4bb5ddca427dd344a, type: 3}
+  walk3: {fileID: 8300000, guid: 5eb5a53d8947cc14e919c01c2b8f8262, type: 3}
+  walk4: {fileID: 8300000, guid: cd4371c8868ef804b8f9e2851bb9d198, type: 3}
+  rb: {fileID: 3106374919936670504}
+  moveSpeed: 3
+  curPoint: 0
+  canMove: 1
+  sphere: {fileID: 5488736879973930117}
 --- !u!95 &4058276630999166978
 Animator:
   serializedVersion: 3
@@ -519,29 +541,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1255433963609152627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2872564673764181628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf67bb31ce1587c4ab92a5da950e0a50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walk: {fileID: 9075054716763810637}
-  walk1: {fileID: 8300000, guid: 3e3d4cf19b86e1547ac015b477e139f7, type: 3}
-  walk2: {fileID: 8300000, guid: 252c6b767600f0d4bb5ddca427dd344a, type: 3}
-  walk3: {fileID: 8300000, guid: 5eb5a53d8947cc14e919c01c2b8f8262, type: 3}
-  walk4: {fileID: 8300000, guid: cd4371c8868ef804b8f9e2851bb9d198, type: 3}
-  rb: {fileID: 3106374919936670504}
-  moveSpeed: 3
-  points: []
-  curPoint: 0
-  canMove: 1
-  sphere: {fileID: 5488736879973930117}
 --- !u!114 &150310398
 MonoBehaviour:
   m_ObjectHideFlags: 0
