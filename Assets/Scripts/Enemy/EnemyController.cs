@@ -21,7 +21,7 @@ public class EnemyController : MonoBehaviourPun
     public bool isHit = false;
     public bool isMove = false;
     public bool isAttacking = false;
-    bool canMove = true;
+    bool canMove = false;
     bool canTurn = true;
     // sounds
     public AudioSource swing;

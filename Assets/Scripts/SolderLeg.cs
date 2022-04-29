@@ -11,7 +11,7 @@ public class SolderLeg : MonoBehaviour
     public AudioSource currentSound;
     bool playingSound = false;
 
-    PhotonView pv;
+    public PhotonView pv;
     // Start is called before the first frame update
     void Start()
     {

@@ -50,6 +50,15 @@ public class SwitchChangeColors : MonoBehaviour
             pv.RPC("SwitchChanged", RpcTarget.All, false);
         }
     }
+
+    public void ResetLED() {
+        Debug.Log("here");
+        isOn = true;
+        pv.RPC("SwitchColors", RpcTarget.All);
+        pv.RPC("SwitchChanged", RpcTarget.All, false);
+        r1.pv.RPC("SwitchSolder", RpcTarget.All, false);
+        r2.pv.RPC("SwitchSolder", RpcTarget.All, false);
+    }
     
     [PunRPC]
     void SwitchColors() {
