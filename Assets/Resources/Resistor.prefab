@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSoldered: 0
-  currentSound: {fileID: 1931361427639328317}
+  currentSound: {fileID: 2148002360200312273}
   pv: {fileID: 1611962263380293292}
 --- !u!114 &1611962263380293292
 MonoBehaviour:
