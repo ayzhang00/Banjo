@@ -16,6 +16,7 @@ public class SwitchChangeColors : MonoBehaviour
     // public GameObject ColoredCircle;
     public GameObject led;
 
+    public GameObject tasklist;
     public bool isOn = false;
     bool changed = false;
     SolderLeg r1;
@@ -66,13 +67,13 @@ public class SwitchChangeColors : MonoBehaviour
             GetComponent<MeshRenderer>().material = On;
             led.SetActive(false);
             isOn = true;
-            GetComponent<TaskList>().UpdateNum(false);
+            tasklist.GetComponent<TaskList>().UpdateNum(false);
         }
         else {
             GetComponent<MeshRenderer>().material = Off;
             led.SetActive(true);
             isOn = false;
-            GetComponent<TaskList>().UpdateNum(true);
+            tasklist.GetComponent<TaskList>().UpdateNum(true);
         }        
     }
     [PunRPC]

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TaskList : MonoBehaviour
 {
-    public GameObject num;
+    public Text num;
     int LEDnum = 5;
 
     // Update is called once per frame
@@ -16,6 +16,6 @@ public class TaskList : MonoBehaviour
     public void UpdateNum(bool on) {
         if (on) LEDnum++;
         else LEDnum--;
-        num.GetComponent<Text>().text = LEDnum.ToString();
+        num.text = LEDnum.ToString();
     }
 }

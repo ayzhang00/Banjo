@@ -39,7 +39,11 @@ public class SpawnPlayers : MonoBehaviour
     bool isReady = false;
     Text players;
     PhotonView pv;
-    
+
+    // player set
+    public GameObject overlay;
+    public GameObject task;
+    public GameObject taskNum;
 
     SpawnPlayersUI spu;
 
@@ -166,6 +170,9 @@ public class SpawnPlayers : MonoBehaviour
                 GameObject p = PhotonNetwork.Instantiate(playerPrefab.name, player1, Quaternion.identity);
                 AudioListener al = p.GetComponent<AudioListener>();
                 al.enabled = true;
+                p.GetComponent<CharController>().overlay = overlay;
+                p.GetComponent<CharController>().task = task;
+                p.GetComponent<CharController>().taskNum = taskNum;
                 // p.transform.Find("NameUI").gameObject.transform.Find("Text").gameObject.GetComponent<Text>().text = 
                 //     PhotonNetwork.LocalPlayer.NickName;
             }
@@ -174,6 +181,9 @@ public class SpawnPlayers : MonoBehaviour
                 GameObject p = PhotonNetwork.Instantiate(playerPrefab.name, player2, Quaternion.identity);
                 AudioListener al = p.GetComponent<AudioListener>();
                 al.enabled = true;
+                p.GetComponent<CharController>().overlay = overlay;
+                p.GetComponent<CharController>().task = task;
+                p.GetComponent<CharController>().taskNum = taskNum;
                 // p.transform.Find("NameUI").gameObject.transform.Find("Text").gameObject.GetComponent<Text>().text = 
                 //     PhotonNetwork.LocalPlayer.NickName;
             }
@@ -181,6 +191,9 @@ public class SpawnPlayers : MonoBehaviour
                 GameObject p = PhotonNetwork.Instantiate(playerPrefab.name, player3, Quaternion.identity);
                 AudioListener al = p.GetComponent<AudioListener>();
                 al.enabled = true;
+                p.GetComponent<CharController>().overlay = overlay;
+                p.GetComponent<CharController>().task = task;
+                p.GetComponent<CharController>().taskNum = taskNum;
                 // p.transform.Find("NameUI").gameObject.transform.Find("Text").gameObject.GetComponent<Text>().text = 
                 //     PhotonNetwork.LocalPlayer.NickName;
             }
@@ -188,9 +201,13 @@ public class SpawnPlayers : MonoBehaviour
                 GameObject p = PhotonNetwork.Instantiate(playerPrefab.name, player4, Quaternion.identity);
                 AudioListener al = p.GetComponent<AudioListener>();
                 al.enabled = true;
+                p.GetComponent<CharController>().overlay = overlay;
+                p.GetComponent<CharController>().task = task;
+                p.GetComponent<CharController>().taskNum = taskNum;
                 // p.transform.Find("NameUI").gameObject.transform.Find("Text").gameObject.GetComponent<Text>().text = 
                 //     PhotonNetwork.LocalPlayer.NickName;
             }
+            
         }
         else if (isCreator) {
             loaded = true;

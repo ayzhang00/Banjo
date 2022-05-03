@@ -53,8 +53,10 @@ public class CharController : MonoBehaviourPun
     GameObject[] players;
     public bool isRevived = false;
     public Image healthBarFill;
-    
-
+    // core cutscene
+    public GameObject overlay;
+    public GameObject task;
+    public GameObject taskNum;
     // Start is called before the first frame update
     void Start()
     {
@@ -281,7 +283,11 @@ public class CharController : MonoBehaviourPun
     }
 
     public IEnumerator CoreCutscenePause() {
+        overlay.SetActive(true);
         yield return new WaitForSeconds(16f);
+        overlay.SetActive(false);
+        task.GetComponent<Text>().text = "Get to the core";
+        taskNum.SetActive(false);
         playing = true;
     }
 
