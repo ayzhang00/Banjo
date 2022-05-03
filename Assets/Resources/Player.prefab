@@ -25199,7 +25199,7 @@ MonoBehaviour:
   coreTouched: 0
   originalPos: {x: 0, y: 0, z: 0}
   camOffset: {x: -15, y: 12, z: -15}
-  moveSpeed: 3
+  moveSpeed: 5
   canJump: 0
   isMoving: 0
   attack: {fileID: 1988993335499974671}
