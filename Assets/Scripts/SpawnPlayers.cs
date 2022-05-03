@@ -17,6 +17,7 @@ public class SpawnPlayers : MonoBehaviour
     public GameObject startButton;
     public GameObject Inventory;
     public GameObject playerText;
+    public GameObject taskListUI;
     // count each player as they come in, inc in rpc
     public int playerCount = 0;
     public int creatorCount = 0;
@@ -197,6 +198,7 @@ public class SpawnPlayers : MonoBehaviour
             mainRoom.SetActive(true);
             cameraIso.SetActive(false);
             cameraTop.SetActive(true);
+            taskListUI.SetActive(false);
             GameObject creator = PhotonNetwork.Instantiate(creatorPrefab.name, new Vector3(0f, 50f, 0f), Quaternion.identity);
             creator.GetComponent<SpawnObjectAtClick>().Inventory = Inventory;
             creator.GetComponent<SpawnObjectAtClick>().cam = cameraTop.GetComponent<Camera>();
