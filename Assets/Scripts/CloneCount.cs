@@ -12,6 +12,7 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public int clonesPlaced = 0;
     public int maxSpawned = 6;
     public Sprite[] cloneArray;
+    public Sprite[] cloneArrayHover;
     public GameObject DraggedClone;
     public bool pickedUp = false;
     Image sourceImage;
@@ -149,9 +150,17 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     void SwitchSprite() {
         if (coreSetupDone) {
-            sourceImage.sprite = cloneArray[clonesPlaced];
+            if (DraggedClone.activeSelf) {
+                sourceImage.sprite = cloneArrayHover[clonesPlaced];
+            } else {
+                sourceImage.sprite = cloneArray[clonesPlaced];
+            }
         } else {
-            sourceImage.sprite = cloneArray[clonesPlaced + 6];
+            if (DraggedClone.activeSelf) {
+                sourceImage.sprite = cloneArrayHover[clonesPlaced + 6];
+            } else {
+                sourceImage.sprite = cloneArray[clonesPlaced + 6];
+            }
         }
     }
 
