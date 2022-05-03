@@ -88,7 +88,7 @@ public class CharController : MonoBehaviourPun
     {
         // if (!r.reviving && !e.recharging && s.canSolder) s.HandleSolderUI();
         // isMoving = false;
-        if (!isDead && playing && pv.IsMine) {
+        if (!isDead && playing && !GetComponent<PauseMenu>().isPaused && pv.IsMine) {
             s.HandleSolderUI();
             playing = !GetComponent<PauseMenu>().isPaused;
 

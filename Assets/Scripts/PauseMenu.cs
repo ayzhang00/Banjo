@@ -28,7 +28,7 @@ public class PauseMenu : MonoBehaviourPun
     void Update()
     {
         // Debug.Log(isPaused);
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && pv.IsMine)
         {
             isPaused = !isPaused;
             PauseUI.SetActive(isPaused);
