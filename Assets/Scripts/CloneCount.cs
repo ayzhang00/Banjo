@@ -127,6 +127,14 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                         PhotonNetwork.Destroy(pv);
                     }
                 }
+                GameObject[] gates = GameObject.FindGameObjectsWithTag("Gate");
+                foreach(GameObject gate in gates) {
+                    Destroy(gate);
+                    // PhotonView pv = gate.GetComponent<PhotonView>();
+                    // if (pv.IsMine) {
+                    //     PhotonNetwork.Destroy(pv);
+                    // }
+                }
                 coreSetupDone = true;
             }
         }
@@ -140,7 +148,11 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     }
 
     void SwitchSprite() {
-        sourceImage.sprite = cloneArray[clonesPlaced];
+        if (coreSetupDone) {
+            sourceImage.sprite = cloneArray[clonesPlaced];
+        } else {
+            sourceImage.sprite = cloneArray[clonesPlaced + 6];
+        }
     }
 
 

@@ -93,6 +93,10 @@ public class PlayerSounds : MonoBehaviour
             e.Recharge();
             c.playing = false;
             c.StartCoroutine("CoreCutscenePause");
+            GameObject[] gates = GameObject.FindGameObjectsWithTag("Gate");
+            foreach(GameObject gate in gates) {
+                Destroy(gate);
+            }
         }
 
         // if (onGrass) {
