@@ -33,7 +33,7 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel("Main");
     }
 
-    public void ClickSound() {
-        click.PlayOneShot(click.clip);
-    }
+    // public void ClickSound() {
+    //     click.PlayOneShot(click.clip);
+    // }
 }

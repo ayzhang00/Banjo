@@ -25,6 +25,7 @@ TagManager:
   - Roamer
   - PlayerSolder
   - Core
+  - Gate
   layers:
   - Default
   - TransparentFX

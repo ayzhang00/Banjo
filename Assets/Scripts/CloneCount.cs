@@ -12,6 +12,7 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public int clonesPlaced = 0;
     public int maxSpawned = 6;
     public Sprite[] cloneArray;
+    public Sprite[] cloneArrayHover;
     public GameObject DraggedClone;
     public bool pickedUp = false;
     Image sourceImage;
@@ -127,6 +128,14 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                         PhotonNetwork.Destroy(pv);
                     }
                 }
+                GameObject[] gates = GameObject.FindGameObjectsWithTag("Gate");
+                foreach(GameObject gate in gates) {
+                    Destroy(gate);
+                    // PhotonView pv = gate.GetComponent<PhotonView>();
+                    // if (pv.IsMine) {
+                    //     PhotonNetwork.Destroy(pv);
+                    // }
+                }
                 coreSetupDone = true;
             }
         }
@@ -140,7 +149,19 @@ public class CloneCount : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     }
 
     void SwitchSprite() {
-        sourceImage.sprite = cloneArray[clonesPlaced];
+        if (coreSetupDone) {
+            if (DraggedClone.activeSelf) {
+                sourceImage.sprite = cloneArrayHover[clonesPlaced];
+            } else {
+                sourceImage.sprite = cloneArray[clonesPlaced];
+            }
+        } else {
+            if (DraggedClone.activeSelf) {
+                sourceImage.sprite = cloneArrayHover[clonesPlaced + 6];
+            } else {
+                sourceImage.sprite = cloneArray[clonesPlaced + 6];
+            }
+        }
     }
 
 
