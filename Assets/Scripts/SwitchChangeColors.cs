@@ -66,11 +66,13 @@ public class SwitchChangeColors : MonoBehaviour
             GetComponent<MeshRenderer>().material = On;
             led.SetActive(false);
             isOn = true;
+            GetComponent<TaskList>().UpdateNum(false);
         }
         else {
             GetComponent<MeshRenderer>().material = Off;
             led.SetActive(true);
             isOn = false;
+            GetComponent<TaskList>().UpdateNum(true);
         }        
     }
     [PunRPC]
